@@ -13,3 +13,9 @@
 ## Protocol
 
 ## Setup
+
+## Documentation
+
+* [Project documentation](/documentation/documentation.pdf)
+* [Initial project presentation](/presentation/presentation-initial.pptx)
+* [Final project documentation](/presentation/presentation-final.pptx)

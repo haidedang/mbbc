@@ -1,0 +1,532 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "petstore.swagger.io",
+  "basePath": "/v2",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about user",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "Sign-up for the messaging application.",
+        "operationId": "registerUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Sign-up for the messaging application",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserSchema"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    
+    "/User/{userId}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Find user by UserId",
+        "description": "Returns a single UserProfile",
+        "operationId": "getUserById",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "UserId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserSchema"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+    },  
+    
+    "/User/{userId}/getAllContacts": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get All UserConatct",
+        "description": "Returns a list of User contacts",
+        "operationId": "getAllContacts",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "UserId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserSchema"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+    },
+    
+     
+    "/user/sendMessage": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Post a new message ",
+        "description": "Send a message",
+        "operationId": "sendMessage",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Sign-up for the messaging application",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MessageSchema"
+          }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MessageSchema"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+    },
+    
+     "/User/{userId}/addNewContact": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get All UserConatct",
+        "description": "Returns a list of User contacts",
+        "operationId": "getAllContacts",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "UserId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/UserSchema"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+    },
+    
+    "/user/{userId}/updateInfo": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update Information",
+        "description": "",
+        "operationId": "updateInfo",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "UserId",
+            "in": "path",
+            "description": "ID of User that needs to be updated",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "displayName",
+            "in": "formData",
+            "description": "Updated name of the User",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lastName",
+            "in": "formData",
+            "description": "Updated name of the User",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "firstName",
+            "in": "formData",
+            "description": "Updated name of the User",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "city",
+            "in": "formData",
+            "description": "Updated city of the User",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "formData",
+            "description": "Updated status of the User",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "additionalMetadata",
+            "in": "formData",
+            "description": "Additional data to pass to server",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "photo",
+            "in": "formData",
+            "description": "Profile Image file to upload",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/login": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "The email for login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "ConversationSchema": {
+      "type": "object",
+      "properties": {
+        "ConversationID": {
+          "type": "String"
+         
+        },
+        "participants": {
+          "type": "array",
+           items:
+           {
+            "UserID": {
+            "type": "String",
+          }
+             
+        }
+        },
+     },
+      "xml": {
+        "name": "ConversationSchema"
+      }
+    },
+    "MessageSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "MessageSchema"
+      }
+    },
+     "NotificationSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sentTo": {
+          "type": "string"
+        },
+        "Tweet": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "NotificationSchema"
+      }
+    },
+    "UserSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        
+        "messageList" :{
+        type:"array",
+         items:{
+          "messageId": {
+            "type": "object",
+            
+          }
+         }
+        },
+        "contactList": {
+          type:"array",
+          items:{
+          "UserId": {
+            "type": "object"
+          }
+          }
+        },
+        "profile": {
+          "displayName": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "format": "int32",
+            "description": "User Status"
+          }
+        }
+      },
+      "xml": {
+        "name": "UserSchema"
+      }
+    },
+  }
+}

@@ -4,25 +4,6 @@ App = {
 
   init: function() {
 
-    // Load pets.
-    $.getJSON('../pets.json', function(data) {
-      var petsRow = $('#petsRow');
-      var petTemplate = $('#petTemplate');
-
-      for (i = 0; i < data.length; i ++) {
-        petTemplate.find('.panel-title').text(data[i].name);
-        petTemplate.find('img').attr('src', data[i].picture);
-        petTemplate.find('.pet-breed').text(data[i].breed);
-        petTemplate.find('.pet-age').text(data[i].age);
-        petTemplate.find('.pet-location').text(data[i].location);
-        petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
-        petTemplate.find('.input-price').attr('id', 'input-price-' + data[i].id);
-        petTemplate.find('.last-price').attr('id', 'last-price-' + data[i].id);
-
-        petsRow.append(petTemplate.html());
-      }
-    });
-
     return App.initWeb3();
   },
 
@@ -40,19 +21,19 @@ App = {
   },
 
   initContract: function() {
-      $.getJSON('Adoption.json', function(data) {
-      // Get the necessary contract artifact file and instantiate it with truffle-contract
-      var AdoptionArtifact = data;
-      App.contracts.Adoption = TruffleContract(AdoptionArtifact);
+    //   $.getJSON('Adoption.json', function(data) {
+    //   // Get the necessary contract artifact file and instantiate it with truffle-contract
+    //   var AdoptionArtifact = data;
+    //   App.contracts.Adoption = TruffleContract(AdoptionArtifact);
 
-      // Set the provider for our contract
-      App.contracts.Adoption.setProvider(App.web3Provider);
+    //   // Set the provider for our contract
+    //   App.contracts.Adoption.setProvider(App.web3Provider);
 
-      // Use our contract to retrieve and mark the adopted pets
-      App.showLastPrices();
-      App.showTotalAmount();
-      return App.markAdopted();
-    });
+    //   // Use our contract to retrieve and mark the adopted pets
+    //   App.showLastPrices();
+    //   App.showTotalAmount();
+    //   return App.markAdopted();
+    // });
 
     $.getJSON('Registry.json', function(data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract
@@ -63,13 +44,32 @@ App = {
       App.contracts.Registry.setProvider(App.web3Provider);
     });
 
+    $.getJSON('FIFSRegistrar.json', function(data) {
+      // Get the necessary contract artifact file and instantiate it with truffle-contract
+      var FIFSRegistrarArtifact = data;
+      App.contracts.FIFSRegistrar = TruffleContract(FIFSRegistrarArtifact);
+
+      // Set the provider for our contract
+      App.contracts.FIFSRegistrar.setProvider(App.web3Provider);
+    });
+
+    $.getJSON('ENSRegistry.json', function(data) {
+      var ENSRegistry = data; 
+      App.contracts.ENSRegistry  = TruffleContract(ENSRegistry); 
+      App.contracts.ENSRegistry.setProvider(App.web3Provider); 
+
+    })
+
+    
     return App.bindEvents();
   },
 
   bindEvents: function() {
     $(document).on('click', '.btn-adopt', App.handleAdopt);
-    $(document).on('click', '.btn-register', App.handleRegister);
+    $(document).on('click', '.btn-register', App.registerDomain);
     $(document).on('click', '.show', App.showUsers);
+    $(document).on('click', '.showRegister', App.showRegister); 
+    $(document).on('click', '.handleRegister', App.handleRegister); 
   },
 
   markAdopted: function(adopters, account) {
@@ -92,6 +92,19 @@ App = {
       console.log(err.message);
     });
   },
+
+  namehash: function(name) {
+    var node = '0x0000000000000000000000000000000000000000000000000000000000000000';
+    if (name != '') {
+        var labels = name.split(".");
+        for(var i = labels.length - 1; i >= 0; i--) {
+            node = web3.sha3(node + web3.sha3(labels[i]).slice(2), {encoding: 'hex'});
+        }
+    }
+    return node.toString();
+  },
+   
+
 
   convertToEth: function(wei) {
     return wei / 1000000000000000000;
@@ -185,7 +198,11 @@ App = {
          console.log('url: ' + url);
         
         // Execute adopt as a transaction by sending account
-        return registryInstance._register(url);
+        // return registryInstance._register('0xe5745f42a2d6cf19b5baef841c0c36747ef6b382', 
+        // App.namehash('haidedang.eth'), url);
+
+        return registryInstance._registerProto(url);
+        
       }).then(function(result) {
         console.log(App.convertToEth(result)); 
       }).catch(function(err) {
@@ -194,7 +211,68 @@ App = {
     }); 
   }
    ,
+  
+  registerDomain: function (event){
+    event.preventDefault();
+    
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+      console.log(accounts);
+       
 
+       account = accounts[0];
+      console.log("this account: " + account);
+
+      App.contracts.FIFSRegistrar.deployed().then(function(instance) {
+        registryInstance = instance;
+        var url = document.getElementById('username').value;
+        console.log('strange');
+        console.log(instance.address); 
+         
+        return registryInstance.register(web3.sha3(url), account, {from: account}); 
+      }).then(function(result){ 
+        console.log("done"); 
+      }).catch(function(err){
+        console.log("Fail"); 
+      }); 
+      
+      })
+    } 
+  ,
+
+  //registering works now... but name is registered on .eth while via console it is not . 
+  showRegister: function(event) {
+    event.preventDefault();
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+      console.log(accounts);
+      
+       account = accounts[0];
+      console.log("this account: " + account);
+     //  console.log(web3.sha3('haidedang'));
+
+      App.contracts.ENSRegistry.deployed().then(function(instance) {
+        ENSInstance = instance;
+        console.log(App.namehash('facebook'));
+        console.log(ENSInstance.address); 
+        
+         
+        return ENSInstance.owner.call((App.namehash('john.eth'))); 
+      }).then(function(result){ 
+        console.log(result); 
+        console.log("done"); 
+      }).catch(function(err){
+        console.log("Fail"); 
+      }); 
+      
+      }) 
+
+  },
+  
   showUsers: function(event) {
     var registryInstance ;
     web3.eth.getAccounts(function(error, accounts) {

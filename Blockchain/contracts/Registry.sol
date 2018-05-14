@@ -19,7 +19,6 @@ contract Registry {
         var user = users[msg.sender]; 
         user.url = _url; 
         userAdresses.push(msg.sender); 
-        total = total + 1000000000000000000;
       }
   }
 

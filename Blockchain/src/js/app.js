@@ -70,6 +70,9 @@ App = {
     $(document).on('click', '.show', App.showUsers);
     $(document).on('click', '.showRegister', App.showRegister); 
     $(document).on('click', '.handleRegister', App.handleRegister); 
+    $(document).on('click', '.selectStorage', App.selectStorage); 
+    
+
   },
 
   markAdopted: function(adopters, account) {
@@ -180,6 +183,12 @@ App = {
     });
   },
 
+  selectStorage: function(event){  
+    var url = "http://dropStore.com"
+    console.log('clicked')
+    return url; 
+  },
+
   handleRegister: function(event){
     event.preventDefault();
     
@@ -194,14 +203,13 @@ App = {
 
       App.contracts.Registry.deployed().then(function(instance) {
         registryInstance = instance;
-        var url = document.getElementById('username').value;
-         console.log('url: ' + url);
-        
+        var userID = document.getElementById('userID').value;
         // Execute adopt as a transaction by sending account
-        // return registryInstance._register('0xe5745f42a2d6cf19b5baef841c0c36747ef6b382', 
-        // App.namehash('haidedang.eth'), url);
+        // HAS TO BE THE ENS ADRESS!!! 
+        return registryInstance._register('0x64d1b55b982d93653839dce399dc30b4323b4f90', 
+        App.namehash(userID+'.eth'), App.selectStorage());
 
-        return registryInstance._registerProto(url);
+        // return registryInstance._registerProto(url);
         
       }).then(function(result) {
         console.log(App.convertToEth(result)); 

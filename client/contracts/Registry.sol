@@ -1,6 +1,6 @@
 pragma solidity ^0.4.15;
 
-// import './ENSRegistry.sol'; 
+ import './ENSRegistry.sol'; 
 
 contract Registry {
 
@@ -12,15 +12,15 @@ contract Registry {
   mapping (address => User) users; 
   address[] public userAdresses; 
  
-  // function _register(address addressOfENS, bytes32 node, string _url) public {
-  //   //  if(ens.owner(node) === msg.sender) 
-  //     ENSRegistry Service = ENSRegistry(addressOfENS); 
-  //     if (Service.owner(node) == msg.sender){
-  //       var user = users[msg.sender]; 
-  //       user.url = _url; 
-  //       userAdresses.push(msg.sender); 
-  //     }
-  // }
+  function _register(address addressOfENS, bytes32 node, string _url) public {
+    //  if(ens.owner(node) === msg.sender) 
+      ENSRegistry Service = ENSRegistry(addressOfENS); 
+      if (Service.owner(node) == msg.sender){
+        var user = users[msg.sender]; 
+        user.url = _url; 
+        userAdresses.push(msg.sender); 
+      }
+  }
 
   function _registerProto(string _url) public {
     //  if(ens.owner(node) === msg.sender) 

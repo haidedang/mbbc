@@ -35,15 +35,15 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x6060604052341561000f57600080fd5b60405160408061038983398101604052808051906020019091908051906020019091905050816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550806001816000191690555050506102f9806100906000396000f300606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063d22057a914610046575b600080fd5b341561005157600080fd5b61008a60048080356000191690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061008c565b005b8160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166302571be36001548460405180836000191660001916815260200182600019166000191681526020019250505060405180910390206000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808260001916600019168152602001915050602060405180830381600087803b151561015e57600080fd5b6102c65a03f1151561016f57600080fd5b50505060405180519050905060008173ffffffffffffffffffffffffffffffffffffffff1614806101cb57503373ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16145b15156101d657600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166306ab592360015486866040518463ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180846000191660001916815260200183600019166000191681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019350505050600060405180830381600087803b15156102b357600080fd5b6102c65a03f115156102c457600080fd5b505050505050505600a165627a7a72305820b0705a7bd0c77b75048ca925ee8ec9145d513cebb2051dc789776ec2d413b1e10029",
-  "deployedBytecode": "0x606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063d22057a914610046575b600080fd5b341561005157600080fd5b61008a60048080356000191690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061008c565b005b8160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166302571be36001548460405180836000191660001916815260200182600019166000191681526020019250505060405180910390206000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808260001916600019168152602001915050602060405180830381600087803b151561015e57600080fd5b6102c65a03f1151561016f57600080fd5b50505060405180519050905060008173ffffffffffffffffffffffffffffffffffffffff1614806101cb57503373ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16145b15156101d657600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166306ab592360015486866040518463ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180846000191660001916815260200183600019166000191681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019350505050600060405180830381600087803b15156102b357600080fd5b6102c65a03f115156102c457600080fd5b505050505050505600a165627a7a72305820b0705a7bd0c77b75048ca925ee8ec9145d513cebb2051dc789776ec2d413b1e10029",
+  "bytecode": "0x6060604052341561000f57600080fd5b60405160408061038983398101604052808051906020019091908051906020019091905050816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550806001816000191690555050506102f9806100906000396000f300606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063d22057a914610046575b600080fd5b341561005157600080fd5b61008a60048080356000191690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061008c565b005b8160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166302571be36001548460405180836000191660001916815260200182600019166000191681526020019250505060405180910390206000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808260001916600019168152602001915050602060405180830381600087803b151561015e57600080fd5b6102c65a03f1151561016f57600080fd5b50505060405180519050905060008173ffffffffffffffffffffffffffffffffffffffff1614806101cb57503373ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16145b15156101d657600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166306ab592360015486866040518463ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180846000191660001916815260200183600019166000191681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019350505050600060405180830381600087803b15156102b357600080fd5b6102c65a03f115156102c457600080fd5b505050505050505600a165627a7a72305820f7dc32cf0a17073b45429fdf85160695ea3fe482c997961b3f75dbb62e1ce94d0029",
+  "deployedBytecode": "0x606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063d22057a914610046575b600080fd5b341561005157600080fd5b61008a60048080356000191690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061008c565b005b8160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166302571be36001548460405180836000191660001916815260200182600019166000191681526020019250505060405180910390206000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808260001916600019168152602001915050602060405180830381600087803b151561015e57600080fd5b6102c65a03f1151561016f57600080fd5b50505060405180519050905060008173ffffffffffffffffffffffffffffffffffffffff1614806101cb57503373ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16145b15156101d657600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166306ab592360015486866040518463ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180846000191660001916815260200183600019166000191681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019350505050600060405180830381600087803b15156102b357600080fd5b6102c65a03f115156102c457600080fd5b505050505050505600a165627a7a72305820f7dc32cf0a17073b45429fdf85160695ea3fe482c997961b3f75dbb62e1ce94d0029",
   "sourceMap": "131:871:2:-;;;547:112;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;620:7;614:3;;:13;;;;;;;;;;;;;;;;;;648:4;637:8;:15;;;;;;;547:112;;131:871;;;;;;",
   "deployedSourceMap": "131:871:2:-;;;;;;;;;;;;;;;;;;;;;;;;861:139;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;929:7;243:20;266:3;;;;;;;;;;;:9;;;286:8;;296:7;276:28;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;266:39;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;243:62;;339:1;323:12;:17;;;:47;;;;360:10;344:26;;:12;:26;;;323:47;315:56;;;;;;;;948:3;;;;;;;;;;;:19;;;968:8;;978:7;987:5;948:45;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;861:139;;;;:::o",
   "source": "pragma solidity ^0.4.18;\n\nimport './ENS.sol';\n\n/**\n * A registrar that allocates subdomains to the first person to claim them.\n */\ncontract FIFSRegistrar {\n    ENS ens;\n    bytes32 rootNode;\n\n    modifier only_owner(bytes32 subnode) {\n        address currentOwner = ens.owner(keccak256(rootNode, subnode));\n        require(currentOwner == 0 || currentOwner == msg.sender);\n        _;\n    }\n\n    /**\n     * Constructor.\n     * @param ensAddr The address of the ENS registry.\n     * @param node The node that this registrar administers.\n     */\n    function FIFSRegistrar(ENS ensAddr, bytes32 node) public {\n        ens = ensAddr;\n        rootNode = node;\n    }\n\n    /**\n     * Register a name, or change the owner of an existing registration.\n     * @param subnode The hash of the label to register.\n     * @param owner The address of the new owner.\n     */\n    function register(bytes32 subnode, address owner) public only_owner(subnode) {\n        ens.setSubnodeOwner(rootNode, subnode, owner);\n    }\n}\n",
-  "sourcePath": "/Users/hai.dang/Documents/Development/projects/MBBC/tab-tracker/client/contracts/FIFSRegistrar.sol",
+  "sourcePath": "/Users/hai.dang/Documents/Development/projects/MBBC/client/contracts/FIFSRegistrar.sol",
   "ast": {
     "attributes": {
-      "absolutePath": "/Users/hai.dang/Documents/Development/projects/MBBC/tab-tracker/client/contracts/FIFSRegistrar.sol",
+      "absolutePath": "/Users/hai.dang/Documents/Development/projects/MBBC/client/contracts/FIFSRegistrar.sol",
       "exportedSymbols": {
         "FIFSRegistrar": [
           334
@@ -67,7 +67,7 @@
       {
         "attributes": {
           "SourceUnit": 80,
-          "absolutePath": "/Users/hai.dang/Documents/Development/projects/MBBC/tab-tracker/client/contracts/ENS.sol",
+          "absolutePath": "/Users/hai.dang/Documents/Development/projects/MBBC/client/contracts/ENS.sol",
           "file": "./ENS.sol",
           "scope": 335,
           "symbolAliases": [
@@ -306,7 +306,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 466,
+                                  "referencedDeclaration": 511,
                                   "type": "function () pure returns (bytes32)",
                                   "value": "keccak256"
                                 },
@@ -385,7 +385,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 475,
+                              "referencedDeclaration": 520,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -506,7 +506,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 472,
+                                          "referencedDeclaration": 517,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -1015,5 +1015,5 @@
   },
   "networks": {},
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-05-16T15:53:45.171Z"
+  "updatedAt": "2018-05-16T16:29:53.218Z"
 }

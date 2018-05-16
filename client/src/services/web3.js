@@ -52,9 +52,12 @@ const App = {
           console.log(self.instance); 
           
           web3.eth.getAccounts(function(error, accounts) {
-            self.instance._registerProto('hallo', {from: accounts[0], gas: 2000000}).then((result)=> {resolve(result)})
+            self.instance._register('0xdaa6f583fae6c7e621cb6d1e4f05edd264d1af3b', App.namehash(userID+'.eth'), 'halo.com', {from: accounts[0]}).then((result)=> {resolve(result)})
             .catch ((err)=> { reject(err)});
           }) 
+
+          // return registryInstance._register('0x64d1b55b982d93653839dce399dc30b4323b4f90', 
+          // App.namehash(userID+'.eth'), App.selectStorage());
 
           
           // self.instance._register('0xd50025a1cc65692e14b2355b4fdc43c3c1970999', 

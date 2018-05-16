@@ -266,6 +266,7 @@ App = {
       App.contracts.ENSRegistry.deployed().then(function(instance) {
         ENSInstance = instance;
         console.log(App.namehash('facebook'));
+        console.log("ENSInstance")
         console.log(ENSInstance.address); 
         
          

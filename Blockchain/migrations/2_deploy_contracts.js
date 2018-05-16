@@ -1,4 +1,4 @@
-var Registry = artifacts.require("./Registry.sol");
+
 var Adoption = artifacts.require("./Adoption.sol"); 
 const ENS = artifacts.require("./ENSRegistry.sol"); 
 const FIFSRegistrar = artifacts.require('./FIFSRegistrar.sol');
@@ -43,6 +43,5 @@ module.exports = function(deployer) {
   var tld = 'eth'; 
 
   deployFIFSRegistrar(deployer, tld); 
-  deployer.deploy(Registry);
-  deployer.deploy(Adoption);
+
 };

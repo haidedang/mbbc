@@ -39,10 +39,10 @@ app.get('/login/:MetaAddress', metaAuth, (req, res) => {
     }
   });
 
-// Meta Mask Authentication 
+// Meta Mask Authenticat    ion 
 app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req,res)=> { 
     if(req.metaAuth && req.metaAuth.recovered){ 
-        res.send(req.metaAuth.recovered); 
+        res.send(req.metaAuth.recovered); // send jwt Token 
     } else { 
         res.status(400);
     }

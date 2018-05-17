@@ -54,8 +54,16 @@ export default {
     App.init();
   },
   methods: {
-    register: function() { 
-      App.handleRegister(this.userID).then((result)=>{console.log(result)}).catch((err)=> {console.log(err)}); 
+async register () { 
+    // await  App.event(this.userID); 
+    await  App.handleRegister(this.userID)
+    .then((result)=>{
+      console.log(result); 
+      error = result;
+    })
+    .catch((err)=> {this.error= err.toString()}); 
+      // console.log(App.result.args)
+      // console.log('komisch')
     }
     // async register () {
     //   try {

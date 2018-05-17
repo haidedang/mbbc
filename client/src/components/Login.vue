@@ -28,6 +28,7 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
+import App from '@/services/web3'
 
 export default {
   data () {
@@ -37,10 +38,18 @@ export default {
       error: null
     }
   },
+  beforeCreate: function(){ 
+    App.init();
+  },
   methods: {
    async login () { 
-    let response =   await AuthenticationService.login();
-    console.log(response);
+     App.login().then((result)=> { 
+       if (result){
+         this.$router.push({ 
+           name:'songs'
+         })
+       }
+     });
       // this.$store.dispatch('setToken', response.data.token)
       // this.$store.dispatch('setUser', response.data.user)
       // this.$router.push({

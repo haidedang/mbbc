@@ -35,15 +35,15 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x6060604052341561000f57600080fd5b60405160408061038983398101604052808051906020019091908051906020019091905050816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550806001816000191690555050506102f9806100906000396000f300606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063d22057a914610046575b600080fd5b341561005157600080fd5b61008a60048080356000191690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061008c565b005b8160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166302571be36001548460405180836000191660001916815260200182600019166000191681526020019250505060405180910390206000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808260001916600019168152602001915050602060405180830381600087803b151561015e57600080fd5b6102c65a03f1151561016f57600080fd5b50505060405180519050905060008173ffffffffffffffffffffffffffffffffffffffff1614806101cb57503373ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16145b15156101d657600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166306ab592360015486866040518463ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180846000191660001916815260200183600019166000191681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019350505050600060405180830381600087803b15156102b357600080fd5b6102c65a03f115156102c457600080fd5b505050505050505600a165627a7a72305820fe197dbcbb4c0ebacc8b61e2eae52165520cf4541e6cb11c627dde9f720b61eb0029",
-  "deployedBytecode": "0x606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063d22057a914610046575b600080fd5b341561005157600080fd5b61008a60048080356000191690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061008c565b005b8160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166302571be36001548460405180836000191660001916815260200182600019166000191681526020019250505060405180910390206000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808260001916600019168152602001915050602060405180830381600087803b151561015e57600080fd5b6102c65a03f1151561016f57600080fd5b50505060405180519050905060008173ffffffffffffffffffffffffffffffffffffffff1614806101cb57503373ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16145b15156101d657600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166306ab592360015486866040518463ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180846000191660001916815260200183600019166000191681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019350505050600060405180830381600087803b15156102b357600080fd5b6102c65a03f115156102c457600080fd5b505050505050505600a165627a7a72305820fe197dbcbb4c0ebacc8b61e2eae52165520cf4541e6cb11c627dde9f720b61eb0029",
+  "bytecode": "0x6060604052341561000f57600080fd5b60405160408061038983398101604052808051906020019091908051906020019091905050816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550806001816000191690555050506102f9806100906000396000f300606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063d22057a914610046575b600080fd5b341561005157600080fd5b61008a60048080356000191690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061008c565b005b8160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166302571be36001548460405180836000191660001916815260200182600019166000191681526020019250505060405180910390206000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808260001916600019168152602001915050602060405180830381600087803b151561015e57600080fd5b6102c65a03f1151561016f57600080fd5b50505060405180519050905060008173ffffffffffffffffffffffffffffffffffffffff1614806101cb57503373ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16145b15156101d657600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166306ab592360015486866040518463ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180846000191660001916815260200183600019166000191681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019350505050600060405180830381600087803b15156102b357600080fd5b6102c65a03f115156102c457600080fd5b505050505050505600a165627a7a7230582099cf961d3c28c72ed58eb60699e1d17fd4227eb15d222fea08e2d7137c6eb7280029",
+  "deployedBytecode": "0x606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063d22057a914610046575b600080fd5b341561005157600080fd5b61008a60048080356000191690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061008c565b005b8160008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166302571be36001548460405180836000191660001916815260200182600019166000191681526020019250505060405180910390206000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808260001916600019168152602001915050602060405180830381600087803b151561015e57600080fd5b6102c65a03f1151561016f57600080fd5b50505060405180519050905060008173ffffffffffffffffffffffffffffffffffffffff1614806101cb57503373ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16145b15156101d657600080fd5b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166306ab592360015486866040518463ffffffff167c010000000000000000000000000000000000000000000000000000000002815260040180846000191660001916815260200183600019166000191681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019350505050600060405180830381600087803b15156102b357600080fd5b6102c65a03f115156102c457600080fd5b505050505050505600a165627a7a7230582099cf961d3c28c72ed58eb60699e1d17fd4227eb15d222fea08e2d7137c6eb7280029",
   "sourceMap": "131:871:3:-;;;547:112;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;620:7;614:3;;:13;;;;;;;;;;;;;;;;;;648:4;637:8;:15;;;;;;;547:112;;131:871;;;;;;",
   "deployedSourceMap": "131:871:3:-;;;;;;;;;;;;;;;;;;;;;;;;861:139;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;929:7;243:20;266:3;;;;;;;;;;;:9;;;286:8;;296:7;276:28;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;266:39;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;243:62;;339:1;323:12;:17;;;:47;;;;360:10;344:26;;:12;:26;;;323:47;315:56;;;;;;;;948:3;;;;;;;;;;;:19;;;968:8;;978:7;987:5;948:45;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;861:139;;;;:::o",
   "source": "pragma solidity ^0.4.18;\n\nimport './ENS.sol';\n\n/**\n * A registrar that allocates subdomains to the first person to claim them.\n */\ncontract FIFSRegistrar {\n    ENS ens;\n    bytes32 rootNode;\n\n    modifier only_owner(bytes32 subnode) {\n        address currentOwner = ens.owner(keccak256(rootNode, subnode));\n        require(currentOwner == 0 || currentOwner == msg.sender);\n        _;\n    }\n\n    /**\n     * Constructor.\n     * @param ensAddr The address of the ENS registry.\n     * @param node The node that this registrar administers.\n     */\n    function FIFSRegistrar(ENS ensAddr, bytes32 node) public {\n        ens = ensAddr;\n        rootNode = node;\n    }\n\n    /**\n     * Register a name, or change the owner of an existing registration.\n     * @param subnode The hash of the label to register.\n     * @param owner The address of the new owner.\n     */\n    function register(bytes32 subnode, address owner) public only_owner(subnode) {\n        ens.setSubnodeOwner(rootNode, subnode, owner);\n    }\n}\n",
-  "sourcePath": "/Users/hai.dang/Documents/Development/projects/MBBC/Blockchain/contracts/FIFSRegistrar.sol",
+  "sourcePath": "/Users/hai.dang/Development/projects/MBBC/Blockchain/contracts/FIFSRegistrar.sol",
   "ast": {
     "attributes": {
-      "absolutePath": "/Users/hai.dang/Documents/Development/projects/MBBC/Blockchain/contracts/FIFSRegistrar.sol",
+      "absolutePath": "/Users/hai.dang/Development/projects/MBBC/Blockchain/contracts/FIFSRegistrar.sol",
       "exportedSymbols": {
         "FIFSRegistrar": [
           421
@@ -67,7 +67,7 @@
       {
         "attributes": {
           "SourceUnit": 167,
-          "absolutePath": "/Users/hai.dang/Documents/Development/projects/MBBC/Blockchain/contracts/ENS.sol",
+          "absolutePath": "/Users/hai.dang/Development/projects/MBBC/Blockchain/contracts/ENS.sol",
           "file": "./ENS.sol",
           "scope": 422,
           "symbolAliases": [
@@ -306,7 +306,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 598,
+                                  "referencedDeclaration": 484,
                                   "type": "function () pure returns (bytes32)",
                                   "value": "keccak256"
                                 },
@@ -385,7 +385,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 607,
+                              "referencedDeclaration": 493,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -506,7 +506,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 604,
+                                          "referencedDeclaration": 490,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -1053,8 +1053,18 @@
       "events": {},
       "links": {},
       "address": "0x330c1ec7ca709ff8300133ea78d260e6bd9586f4"
+    },
+    "1526537566731": {
+      "events": {},
+      "links": {},
+      "address": "0xcf8b89c7af30d4162a017441ad6d079f64676b51"
+    },
+    "1526547625120": {
+      "events": {},
+      "links": {},
+      "address": "0x1ae84a1adaefa4cc3c7d0b3ac475b7e5b740a63f"
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-05-16T10:48:49.803Z"
+  "updatedAt": "2018-05-17T09:01:56.761Z"
 }

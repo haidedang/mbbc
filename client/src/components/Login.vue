@@ -45,8 +45,9 @@ export default {
    async login () { 
      App.login().then((result)=> { 
        if (result){
+         this.$store.dispatch('setToken', 'j323fsdfseq'); 
          this.$router.push({ 
-           name:'songs'
+           name:'profile'
          })
        }
      });

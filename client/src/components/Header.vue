@@ -5,20 +5,33 @@
         class="home"
         tag="span"
         :to="{
-          name: 'songs'
+          name: 'login'
         }">
-        TabTracker
+        Blockchat
       </router-link>
     </v-toolbar-title>
 
     <v-toolbar-items>
       <v-btn 
+        v-if="$store.state.isUserLoggedIn"
         flat 
         dark
         :to="{
-          name: 'songs'
+          name: 'profile'
         }">
-        Browse
+        Messaging
+      </v-btn>
+    </v-toolbar-items>
+
+     <v-toolbar-items>
+      <v-btn 
+        v-if="$store.state.isUserLoggedIn"
+        flat 
+        dark
+        :to="{
+          name: 'profile'
+        }">
+        Blog
       </v-btn>
     </v-toolbar-items>
 

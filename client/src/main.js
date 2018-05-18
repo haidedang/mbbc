@@ -12,6 +12,7 @@ import Panel from '@/components/globals/Panel'
 import Web3 from 'web3'
 
 
+
 Vue.config.productionTip = false
 
 Vue.use(Vuetify)

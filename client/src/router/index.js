@@ -5,7 +5,7 @@ import Login from '@/components/Login'
 
 import Profile from '@/components/Profile'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -14,7 +14,7 @@ export default new Router({
     {path: '/', name:'home', component:Register},
     {
       path: '/profile',
-      name: 'profile', 
+      name: 'profile',
       component: Profile
     },
     {

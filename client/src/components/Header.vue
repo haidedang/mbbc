@@ -1,7 +1,7 @@
 <template>
   <v-toolbar fixed class="cyan" dark>
     <v-toolbar-title class="mr-4">
-      <router-link 
+      <router-link
         class="home"
         tag="span"
         :to="{
@@ -12,9 +12,9 @@
     </v-toolbar-title>
 
     <v-toolbar-items>
-      <v-btn 
+      <v-btn
         v-if="$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         :to="{
           name: 'profile'
@@ -24,9 +24,9 @@
     </v-toolbar-items>
 
      <v-toolbar-items>
-      <v-btn 
+      <v-btn
         v-if="$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         :to="{
           name: 'profile'
@@ -38,29 +38,29 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <v-btn 
+      <v-btn
         v-if="!$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         :to="{
           name: 'login'
         }">
         Login
       </v-btn>
-      
-      <v-btn 
+
+      <v-btn
         v-if="!$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         :to="{
           name: 'register'
         }">
         Sign Up
       </v-btn>
-      
-      <v-btn 
+
+      <v-btn
         v-if="$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         @click="logout">
         Log Out
@@ -73,8 +73,8 @@
 export default {
   methods: {
     logout () {
-      this.$store.dispatch('setToken', null)
-      this.$store.dispatch('setUser', null)
+      this.$store.dispatch('setToken', null);
+      this.$store.dispatch('setUser', null);
       this.$router.push({
         name: 'songs'
       })

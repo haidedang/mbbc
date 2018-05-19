@@ -29,9 +29,9 @@
 
     <div class="container">
       <div class="row">
-        <form class="mx-auto mt-5">
+        <form class="mx-auto">
           <a href="#" class="mx-auto d-flex justify-content-center">
-            <img v-bind:src="src" class="img-thumbnail rounded-circle" alt="Thumbnail">
+            <img v-bind:src="src" id="thumbnail" class="img-thumbnail rounded-circle" alt="Thumbnail">
           </a>
           <div class="form-group">
             <label>Ethereum ID</label>
@@ -43,7 +43,7 @@
             <input type="text" placeholder="Here comes your Username" class="form-control">
             <small>This is needed for Contacts to reach you</small>
           </div>
-          <button type="submit" class="btn btn-dark">Save Changes</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
       </div>
     </div>
@@ -63,11 +63,10 @@ export default {
 </script>
 
 <style>
-  img{
+  a{
     width:30%;
   }
   small{
-    color:dimgray;
+    color:dimgrey;
   }
 </style>
- 

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
-
+import User from '@/components/UserProfile'
 import Profile from '@/components/Profile'
 
 Vue.use(Router);
@@ -16,6 +16,11 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/User/*',
+      name: 'user',
+      component: User
     },
     {
       path: '*',

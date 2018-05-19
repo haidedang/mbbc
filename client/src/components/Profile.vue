@@ -1,5 +1,5 @@
  <template>
-  <div id="test">
+  <v-container fluid>
   <!--   <nav class="navbar navbar-expand-lg bg-dark navbar-dark justify-content-betweenf">
       <a class="navbar-brand" href="#">Blockchat</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,14 +26,15 @@
         </ul>
       </div>
     </nav> -->
-
-    <div class="container">
-      <div class="row">
-        <form class="mx-auto">
-          <a href="#" class="mx-auto d-flex justify-content-center">
-            <img v-bind:src="src" id="thumbnail" class="img-thumbnail rounded-circle" alt="Thumbnail">
+      <v-layout row wrap justify-content-center>
+        <form>
+          <a href="#">
+            <v-avatar :size="avatarSize">
+              <img v-bind:src="src" id="thumbnail" alt="Thumbnail">
+            </v-avatar>
           </a>
-          <div class="form-group">
+          <hr>
+          <div class="form-group mt-3">
             <label>Ethereum ID</label>
             <input type="text" placeholder="Etheerium ID please" class="form-control">
             <small>This is needed for Contacts to reach you</small>
@@ -41,31 +42,33 @@
           <div class="form-group">
             <label>Username</label>
             <input type="text" placeholder="Here comes your Username" class="form-control">
-            <small>This is needed for Contacts to reach you</small>
+            <small>This will be displayed for Contacts</small>
           </div>
           <button type="submit" class="btn btn-primary">Save Changes</button>
         </form>
-      </div>
-    </div>
+      </v-layout>
+
   <!--<router-view></router-view>-->
-  </div>
+  </v-container>
 </template>
 
 <script>
 export default {
   name: 'App',
-  data () {
+  data: function () {
     return {
       src: '../static/ferhat.jpg',
+    }
+  },
+  computed: {
+    avatarSize(){
+      return '180px'
     }
   }
 }
 </script>
 
 <style>
-  a{
-    width:30%;
-  }
   small{
     color:dimgrey;
   }

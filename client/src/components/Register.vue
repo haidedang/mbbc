@@ -28,7 +28,7 @@
         <v-btn
           dark
           class="cyan"
-          @click="register">
+          @click="registerUser">
           Register
         </v-btn>
       </panel>
@@ -37,51 +37,30 @@
 </template>
 
 <script>
-import AuthenticationService from '@/services/AuthenticationService'
-import App from '@/services/web3'
- 
+import AuthenticationService from "@/services/AuthenticationService";
+import App from "@/services/web3";
 
 export default {
-  data () {
+  data() {
     return {
-      email: '',
-      password: '',
-      userID: '', 
+      email: "",
+      password: "",
+      userID: "",
       error: null
-    }
+    };
   },
-  beforeCreate: function(){ 
+  beforeCreate: function() {
     App.init();
   },
   methods: {
-async register () { 
-    // await  App.event(this.userID); 
-    await  App.handleRegister(this.userID)
-    .then((result)=>{
-      console.log(result); 
-      error = result;
-    })
-    .catch((err)=> {this.error= err.toString()}); 
-      // console.log(App.result.args)
-      // console.log('komisch')
+   
+    async registerUser() {
+      let response = await App.registerUser(this.userID);
+      console.log(response);
     }
-    // async register () {
-    //   try {
-    //     const response = await AuthenticationService.register({
-    //       email: this.email,
-    //       password: this.password
-    //     })
-    //     this.$store.dispatch('setToken', response.data.token)
-    //     this.$store.dispatch('setUser', response.data.user)
-    //     this.$router.push({
-    //       name: 'songs'
-    //     })
-    //   } catch (error) {
-    //     this.error = error.response.data.error
-    //   }
-    // }
+   
   }
-}
+};
 </script>
 
 <style scoped>

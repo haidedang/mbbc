@@ -61,21 +61,7 @@ export default {
    login(){ 
     AuthenticationService.login().then((result)=>console.log(result)); 
   }
-    // async login () {
-    //   try {
-    //     const response = await AuthenticationService.login({
-    //       email: this.email,
-    //       password: this.password
-    //     })
-    //     this.$store.dispatch('setToken', response.data.token)
-    //     this.$store.dispatch('setUser', response.data.user)
-    //     this.$router.push({
-    //       name: 'songs'
-    //     })
-    //   } catch (error) {
-    //     this.error = error.response.data.error
-    //   }
-    // }
+ 
   }
 }
 </script>

@@ -35,15 +35,19 @@ app.get('/login', (req, res) => {
 app.get('/login/:MetaAddress', metaAuth, (req, res) => {
     // Request a message from the server
     if (req.metaAuth && req.metaAuth.challenge) {
+        console.log("success")
       res.send(req.metaAuth.challenge)
     }
   });
 
 // Meta Mask Authenticat    ion 
 app.get('/auth/:MetaMessage/:MetaSignature', metaAuth, (req,res)=> { 
+    console.log(req.metaAuth.recovered)
     if(req.metaAuth && req.metaAuth.recovered){ 
+        console.log(req.metaAuth.recovered)
         res.send(req.metaAuth.recovered); // send jwt Token 
     } else { 
+        console.log('fail')
         res.status(400);
     }
 })

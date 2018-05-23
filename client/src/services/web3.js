@@ -98,7 +98,7 @@ const App = {
               // requirement here would be that User already has an ID registered in Ethereum! 
               if (result !== '0x0000000000000000000000000000000000000000') {
                 if (result.toUpperCase() === accounts[0].toUpperCase()) {
-                  self.instance._register('0xdcaea7eeacb202b57dd1e0f5a7441eb34a8e0743', App.namehash(userID + '.eth'), 'http://dropbox.com', { from: accounts[0] })
+                  self.instance._register('0x0f498d6c7cb6c811f027396ba346f1df89c02b6f', App.namehash(userID + '.eth'), 'http://dropbox.com', { from: accounts[0] })
                     .then((result) => {
                       console.log('done')
                       // self.event(userID).then((result)=>console.log(result.args)); 

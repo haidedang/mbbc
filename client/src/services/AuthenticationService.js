@@ -9,6 +9,7 @@
 //   }
 // }
 
+
 import Api from '@/services/Api';
 import $ from 'jquery';
 
@@ -50,7 +51,8 @@ function asyncLogin() {
             const params = [challenge, from];
             const method = 'eth_signTypedData';
 
-            web3.currentProvider.sendAsync({
+         console.log(web3.currentProvider)
+            window.web3.currentProvider.sendAsync({
                 method,
                 params,
                 from

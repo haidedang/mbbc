@@ -14,7 +14,7 @@ import Web3 from 'web3'
 
 
 Vue.config.productionTip = false
-
+  
 Vue.use(Vuetify)
 Vue.use(VueYouTubeEmbed)
 
@@ -42,3 +42,4 @@ new Vue({
   components: { App }
 })
 })
+

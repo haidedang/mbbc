@@ -2,6 +2,7 @@
 var Adoption = artifacts.require("./Adoption.sol"); 
 const ENS = artifacts.require("./ENSRegistry.sol"); 
 const FIFSRegistrar = artifacts.require('./FIFSRegistrar.sol');
+const Resolver = artifacts.require('./URLResolver.sol');
 
 const web3 = new (require('web3'))();
 const namehash = require('eth-ens-namehash');
@@ -29,6 +30,10 @@ function deployFIFSRegistrar(deployer, tld) {
 
   // Deploy the ENS first
   deployer.deploy(ENS)
+    .then(()=> {
+      // deploy the Resolve and bind it with ENS 
+      return deployer.deploy(Resolver, ENS.address); 
+    })
     .then(() => {
       // Deploy the FIFSRegistrar and bind it with ENS
       return deployer.deploy(FIFSRegistrar, ENS.address, rootNode.namehash);
@@ -41,7 +46,5 @@ function deployFIFSRegistrar(deployer, tld) {
 
 module.exports = function(deployer) {
   var tld = 'eth'; 
-
   deployFIFSRegistrar(deployer, tld); 
-
 };

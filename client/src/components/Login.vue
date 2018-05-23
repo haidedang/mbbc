@@ -42,21 +42,25 @@ export default {
     App.init();
   },
   methods: {
-   async login () { 
-     App.login().then((result)=> { 
-       if (result){
-         this.$store.dispatch('setToken', 'j323fsdfseq'); 
-         this.$router.push({ 
-           name:'profile'
-         })
-       }
-     });
-      // this.$store.dispatch('setToken', response.data.token)
-      // this.$store.dispatch('setUser', response.data.user)
-      // this.$router.push({
-      //   name:'songs'
-      // })
-    }
+  //  async login () { 
+  //    App.login().then((result)=> { 
+  //      if (result){
+  //        this.$store.dispatch('setToken', 'j323fsdfseq'); 
+  //        this.$router.push({ 
+  //          name:'profile'
+  //        })
+  //      }
+  //    });
+  //     // this.$store.dispatch('setToken', response.data.token)
+  //     // this.$store.dispatch('setUser', response.data.user)
+  //     // this.$router.push({
+  //     //   name:'songs'
+  //     // })
+  //   }
+
+   login(){ 
+    AuthenticationService.login().then((result)=>console.log(result)); 
+  }
     // async login () {
     //   try {
     //     const response = await AuthenticationService.login({

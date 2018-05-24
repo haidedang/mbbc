@@ -26,12 +26,8 @@ export default {
     login() {
       return new Promise((resolve,reject)=>{
         asyncLogin().then((result) => {
-          $.get('http://localhost:8081/auth/' + challenge[1].value + '/' + result, (res) => {
-              if (res === account) {
-                  resolve('hey');
-              } else {
-                  console.log("fail");
-              }
+          $.get('http://localhost:8081/auth/' + challenge[1].value + '/' + result  , (res) => {
+              resolve(res)
           })
       })
       })

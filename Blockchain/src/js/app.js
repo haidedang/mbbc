@@ -249,7 +249,7 @@ App = {
         return registryInstance.register(web3.sha3(url), account, {from: account}); 
       }).then(function(result){ 
         console.log("done"); 
-      }).catch(function(err){
+      }).catch(function(err){url
         console.log("Fail"); 
       }); 
       

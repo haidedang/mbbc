@@ -58,8 +58,21 @@ export default {
   //     // })
   //   }
 
-   login(){ 
-    AuthenticationService.login().then((result)=>console.log(result)); 
+   async login(){ 
+    let response = await AuthenticationService.login();
+   
+    //  if (response){ 
+    //     $.post('http://localhost:8081/login', {userID:this.userID}, (response) => {
+    //       console.log(response);
+       this.$store.dispatch('setToken', response.token)
+       this.$store.dispatch('setUser', response.user)
+       console.log(response.user)
+       this.$router.push({
+              path: `/profile/${response.user.userID}`
+            })
+    //     }); 
+    //   } 
+
   }
  
   }

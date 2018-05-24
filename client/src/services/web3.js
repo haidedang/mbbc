@@ -205,55 +205,114 @@ const App = {
     
   },
   
-  registerUser: function(user) {
-    console.log('HIT')
-    var registryInstance ;
-    web3.eth.getAccounts(function(error, accounts) {
-      if (error) { 
-        console.log(error); 
-      }
-
-      var account = accounts[0]; 
-
-      App.contracts.URLResolver.deployed().then(function(instance) {
-        let registryInstance = instance;
-        console.log(registryInstance.address)
-       
-        // return registryInstance.register(web3.sha3(url), account, {from: account}); 
-
-        return registryInstance.setUrl(App.namehash(user), 'domain.com', {from:account});
-        
-        // console.log("Hey");
-        // console.log(result);
-      }).then(function(result){ 
-        console.log('reached');
-        console.log(result);
-      }).catch(function(err) {
-        console.log(err.message);
-      });
+  registerUser: function(user, url) {
+    return new Promise ((resolve, reject) => { 
+      console.log('HIT')
+      var registryInstance ;
+      web3.eth.getAccounts(function(error, accounts) {
+        if (error) { 
+          console.log(error); 
+        }
+  
+        var account = accounts[0]; 
+  
+        App.contracts.URLResolver.deployed().then(function(instance) {
+          let registryInstance = instance;
+          console.log(registryInstance.address)
+         
+          // return registryInstance.register(web3.sha3(url), account, {from: account}); 
+  
+          return registryInstance.setUrl(App.namehash(user), url , {from:account});
+          
+          // console.log("Hey");
+          // console.log(result);
+        }).then(function(result){ 
+          console.log('reached');
+          resolve(account);
+        }).catch(function(err) {
+          console.log(err.message);
+        });
+  
+      })
 
     })
-    
+   
   },
+  // Refactoring neccessary 
+  // handleRegister: function (userID) {
+  //   let self = this;
+
+  //   return new Promise((resolve, reject) => {
+
+  //     console.log('reached');
+  //     console.log(self.instance);
+
+  //     App.event(userID);
+
+  //     web3.eth.getAccounts(function (error, accounts) {
+  //       console.log(self.instance.ENSRegistry);
+  //       // CASE 1: User already registered, cannot register one more! 
+  //       self.instance.getUsers.call().then((result) => {
+  //         result.forEach(item => {
+  //           if (item.toUpperCase() === accounts[0].toUpperCase()) {
+  //             throw new Error("You already registered");
+  //           }
+  //         })
+
+  //         // CASE 2 : User needs to have an Ethereum ID, and also ID adress must be the same as msg.sender 
+  //         self.instance.ENSRegistry.owner.call(App.namehash(userID + ".eth"))
+  //           .then((result) => {
+  //             console.log(result)
+  //             console.log(accounts[0]);
+  //             // if owner adress is same as msg.sender call the register function! 
+  //             // FrontEND is fetching the ENS Registry and comparing 
+  //             // requirement here would be that User already has an ID registered in Ethereum! 
+  //             if (result !== '0x0000000000000000000000000000000000000000') {
+  //               if (result.toUpperCase() === accounts[0].toUpperCase()) {
+  //                 self.instance._register('0x0f498d6c7cb6c811f027396ba346f1df89c02b6f', App.namehash(userID + '.eth'), 'http://dropbox.com', { from: accounts[0] })
+  //                   .then((result) => {
+  //                     console.log('done')
+  //                     // self.event(userID).then((result)=>console.log(result.args)); 
+  //                   })
+  //                   .catch((err) => { reject(err) });
+  //               } else if (result.toUpperCase() !== accounts[0].toUpperCase()) {
+  //                 resolve('You are not owner of that ID');
+  //               }
+  //             } else {
+  //               resolve('This Ethereum ID does not exist');
+  //             }
+
+  //           });
+  //       }).catch((e) => reject(e));
+  //     })
+  //   })
+
+
+  // }
 
   searchUser: function(userName) {
-    web3.eth.getAccounts(function(error, accounts) {
-      if (error) {
-        console.log(error);
-      }
-       let account = accounts[0];
-     //  console.log(web3.sha3('haidedang'))
-      App.contracts.URLResolver.deployed().then(function(instance) {
-        let Resolver = instance;
+    return new Promise ((resolve, reject) => {
+      web3.eth.getAccounts(function(error, accounts) {
+        if (error) {
+          console.log(error);
+        }
+         let account = accounts[0];
+       //  console.log(web3.sha3('haidedang'))
+        App.contracts.URLResolver.deployed().then(function(instance) {
+          let Resolver = instance;
+           
+          return Resolver.url.call((App.namehash(userName))); 
+        }).then(function(result){ 
          
-        return Resolver.url.call((App.namehash(userName))); 
-      }).then(function(result){ 
-        console.log(result); 
-        console.log("done"); 
-      }).catch(function(err){
-        console.log(err); 
-      }); 
-      }) 
+          console.log("done"); 
+          resolve(result); 
+        }).catch(function(err){
+          console.log(err); 
+        }); 
+        }) 
+
+    })
+   
   }
 
 };

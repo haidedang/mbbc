@@ -1,62 +1,71 @@
  <template>
-  <div id="test">
-  <!--   <nav class="navbar navbar-expand-lg bg-dark navbar-dark justify-content-betweenf">
-      <a class="navbar-brand" href="#">Blockchat</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Messaging<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Blog<span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active">
-              My Profile
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav> -->
-
+  <v-layout v-if="isUserLoggedIn"> 
+  
     <div class="container">
       <div class="row">
         <form class="mx-auto mt-5">
           <a href="#" class="mx-auto d-flex justify-content-center">
-            <img v-bind:src="src" class="img-thumbnail rounded-circle" alt="Thumbnail">
+            <!-- <img v-bind:src="src" class="img-thumbnail rounded-circle" alt="Thumbnail"> -->
           </a>
           <div class="form-group">
-            <label>Ethereum ID</label>
-            <input type="text" placeholder="Etheerium ID please" class="form-control">
-            <small>This is needed for Contacts to reach you</small>
+            <h2>Ethereum ID</h2>
+            <p>{{this.address}}</p>
           </div>
           <div class="form-group">
-            <label>Username</label>
-            <input type="text" placeholder="Here comes your Username" class="form-control">
+            <h2>Username</h2>
+            <h4>{{this.userID}}</h4>
             <small>This is needed for Contacts to reach you</small>
           </div>
-          <button type="submit" class="btn btn-dark">Save Changes</button>
+          <v-btn @click="show">Follow</v-btn>
         </form>
       </div>
     </div>
   <!--<router-view></router-view>-->
-  </div>
+  </v-layout>
 </template>
 
 <script>
+import {mapState} from 'vuex'
+import UserService from '@/services/UserService'
+import $ from 'jquery'
+
 export default {
-  name: 'App',
+  name: 'Profile',
   data () {
     return {
+      address:'',
+      userID:'',
       src: '../static/ferhat.jpg',
+    }
+  },
+  computed: { 
+    ...mapState([
+      'isUserLoggedIn',
+      'user'
+    ])
+  },
+  created:function() {
+  
+      console.log('wait')
+      if (!this.isUserLoggedIn) {
+        return
+      }
+      try {
+        $.get(
+          "http://localhost:8081/users/"+this.$route.params.id).then((result)=>{
+            console.log(result);
+            this.userID = result.user.userID; 
+            this.address = result.user.address;
+            console.log(this.userID)
+          })
+         
+      } catch (err) {
+        console.log(err)
+      }
+    },
+  methods: { 
+    show() { 
+      console.log(this.user);
     }
   }
 }

@@ -4,9 +4,9 @@
 <v-flex> 
   <button @click="registerDomain">Register Ethereum ID</button> 
 </v-flex> 
-<v-flex> 
+<!-- <v-flex> 
   <button @click="searchUser">Search User </button>
-</v-flex>
+</v-flex> -->
 
 </v-layout>
 </template>

@@ -18,6 +18,7 @@
           <!--HAIDEDANG STUFF  -->
           <v-text-field
             label="userID"
+            placeholder=" exampleID.eth"
             v-model="userID"
           ></v-text-field>
           

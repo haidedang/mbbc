@@ -1,8 +1,12 @@
 <template>
 <v-layout>
-<input placeholder="username" v-model = "userName"/>
+<v-flex>
+  <input class ="userName" placeholder="username" v-model = "userName"/>
+  <input class="domain" placeholder=".eth"/>
+  <v-btn  @click="registerDomain">Register Ethereum ID</v-btn> 
+</v-flex> 
 <v-flex> 
-  <button @click="registerDomain">Register Ethereum ID</button> 
+  
 </v-flex> 
 <!-- <v-flex> 
   <button @click="searchUser">Search User </button>
@@ -36,4 +40,14 @@ export default {
 </script>
 
 <style scoped>
+
+.domain { 
+  background-color: rgb(167, 166, 166); 
+  width:30px;
+}
+
+.userName {
+  border: 0.5px solid rgb(167, 166, 166); 
+}
+
 </style>

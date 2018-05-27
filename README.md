@@ -66,7 +66,7 @@ npm run dev
 
 ### Initial ENS Setup 
 
-Register a Ethereun ID first 
+Register a Ethereum ID first 
 ```
 http://localhost:8080/#/registerDomain
 
@@ -75,7 +75,7 @@ http://localhost:8080/#/registerDomain
 you can register with that ID now 
 
 ```
-http://localhost:8080/#/registerDomain
+http://localhost:8080/#/register
 
 ```
 

@@ -7,6 +7,7 @@ import Domain from '@/components/Domain'
 import Search from '@/components/Search'
 
 import Profile from '@/components/Profile'
+import Contacts from '@/components/FindContact'
 
 Vue.use(Router);
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/User/*',
       name: 'user',
       component: User
+    },
+    {
+      path: '/Contacts',
+      name: 'contacts',
+      component: Contacts
     },
     {
       path: '*',

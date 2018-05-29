@@ -11,12 +11,12 @@ import VueYouTubeEmbed from 'vue-youtube-embed'
 import Panel from '@/components/globals/Panel'
 import Web3 from 'web3'
 
+export const bus = new Vue();
 
+Vue.config.productionTip = false;
 
-Vue.config.productionTip = false
-
-Vue.use(Vuetify)
-Vue.use(VueYouTubeEmbed)
+Vue.use(Vuetify);
+Vue.use(VueYouTubeEmbed);
 
 Vue.component('panel', Panel);
 

@@ -12,6 +12,7 @@
     </v-toolbar-title>
 
     <v-toolbar-items>
+      <v-btn dark flat @click.stop="openMyDialog()">Find Contact</v-btn>
       <v-btn
         v-if="$store.state.isUserLoggedIn"
         flat
@@ -36,9 +37,9 @@
     </v-toolbar-items>
 
     <v-toolbar-items>
-      <v-btn 
+      <v-btn
         v-if="$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         :to="{
           name: 'search'
@@ -82,8 +83,12 @@
 </template>
 
 <script>
-export default {
+  import {bus} from '../main' // import the bus from main.js or new file
+  export default {
   methods: {
+    openMyDialog () {
+      bus.$emit('dialog', true) // emit the event to the bus
+    },
     logout () {
       this.$store.dispatch('setToken', null);
       this.$store.dispatch('setUser', null);
@@ -94,7 +99,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 .home {
   cursor: pointer;

@@ -35,6 +35,18 @@
       </v-btn>
     </v-toolbar-items>
 
+    <v-toolbar-items>
+      <v-btn 
+        v-if="$store.state.isUserLoggedIn"
+        flat 
+        dark
+        :to="{
+          name: 'search'
+        }">
+        Search
+      </v-btn>
+    </v-toolbar-items>
+
     <v-spacer></v-spacer>
 
     <v-toolbar-items>

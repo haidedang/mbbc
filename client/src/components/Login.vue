@@ -42,36 +42,39 @@ export default {
     App.init();
   },
   methods: {
-   async login () { 
-     App.login().then((result)=> { 
-       if (result){
-         this.$store.dispatch('setToken', 'j323fsdfseq'); 
-         this.$router.push({ 
-           name:'profile'
-         })
-       }
-     });
-      // this.$store.dispatch('setToken', response.data.token)
-      // this.$store.dispatch('setUser', response.data.user)
-      // this.$router.push({
-      //   name:'songs'
-      // })
-    }
-    // async login () {
-    //   try {
-    //     const response = await AuthenticationService.login({
-    //       email: this.email,
-    //       password: this.password
-    //     })
-    //     this.$store.dispatch('setToken', response.data.token)
-    //     this.$store.dispatch('setUser', response.data.user)
-    //     this.$router.push({
-    //       name: 'songs'
-    //     })
-    //   } catch (error) {
-    //     this.error = error.response.data.error
-    //   }
-    // }
+  //  async login () { 
+  //    App.login().then((result)=> { 
+  //      if (result){
+  //        this.$store.dispatch('setToken', 'j323fsdfseq'); 
+  //        this.$router.push({ 
+  //          name:'profile'
+  //        })
+  //      }
+  //    });
+  //     // this.$store.dispatch('setToken', response.data.token)
+  //     // this.$store.dispatch('setUser', response.data.user)
+  //     // this.$router.push({
+  //     //   name:'songs'
+  //     // })
+  //   }
+
+   async login(){ 
+    let response = await AuthenticationService.login();
+   
+    //  if (response){ 
+    //     $.post('http://localhost:8081/login', {userID:this.userID}, (response) => {
+    //       console.log(response);
+       this.$store.dispatch('setToken', response.token)
+       this.$store.dispatch('setUser', response.user)
+       console.log(response.user)
+       this.$router.push({
+              path: `/profile/${response.user.userID}`
+            })
+    //     }); 
+    //   } 
+
+  }
+ 
   }
 }
 </script>

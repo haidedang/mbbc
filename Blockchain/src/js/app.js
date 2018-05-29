@@ -60,6 +60,11 @@ App = {
 
     })
 
+    $.getJSON('URLResolver.json', function(data) {
+      var URLResolver = data; 
+      App.contracts.URLResolver  = TruffleContract(URLResolver); 
+      App.contracts.URLResolver.setProvider(App.web3Provider); 
+    })
     
     return App.bindEvents();
   },
@@ -71,6 +76,8 @@ App = {
     $(document).on('click', '.showRegister', App.showRegister); 
     $(document).on('click', '.handleRegister', App.handleRegister); 
     $(document).on('click', '.selectStorage', App.selectStorage); 
+    $(document).on('click', '.registerResolver', App.registerResolver); 
+    $(document).on('click', '.searchUser', App.searchUser); 
     
 
   },
@@ -242,7 +249,7 @@ App = {
         return registryInstance.register(web3.sha3(url), account, {from: account}); 
       }).then(function(result){ 
         console.log("done"); 
-      }).catch(function(err){
+      }).catch(function(err){url
         console.log("Fail"); 
       }); 
       
@@ -311,6 +318,65 @@ App = {
 
     })
     
+  },
+  
+  registerResolver: function(event) {
+    console.log('HIT')
+    var registryInstance ;
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) { 
+        console.log(error); 
+      }
+
+      var account = accounts[0]; 
+
+      App.contracts.URLResolver.deployed().then(function(instance) {
+        registryInstance = instance;
+        console.log(registryInstance.address)
+        var node = document.getElementById('node').value; 
+        // get the address 
+        // return registryInstance.register(web3.sha3(url), account, {from: account}); 
+
+        return registryInstance.setUrl(App.namehash(node), 'domain.com', {from:account});
+        
+        // console.log("Hey");
+        // console.log(result);
+      }).then(function(result){ 
+        console.log('reached');
+        console.log(result);
+      }).catch(function(err) {
+        console.log(err.message);
+      });
+
+    })
+    
+  },
+
+  searchUser: function(event) {
+    event.preventDefault();
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+
+      
+       account = accounts[0];
+     
+     //  console.log(web3.sha3('haidedang'));
+
+      App.contracts.URLResolver.deployed().then(function(instance) {
+        Resolver = instance;
+        var node = document.getElementById('search').value; 
+         
+        return Resolver.url.call((App.namehash(node))); 
+      }).then(function(result){ 
+        console.log(result); 
+        console.log("done"); 
+      }).catch(function(err){
+        console.log("Fail"); 
+      }); 
+      }) 
+
   }
 
 };

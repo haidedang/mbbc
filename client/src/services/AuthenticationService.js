@@ -9,6 +9,7 @@
 //   }
 // }
 
+
 import Api from '@/services/Api';
 import $ from 'jquery';
 
@@ -25,12 +26,8 @@ export default {
     login() {
       return new Promise((resolve,reject)=>{
         asyncLogin().then((result) => {
-          $.get('http://localhost:8081/auth/' + challenge[1].value + '/' + result, (res) => {
-              if (res === account) {
-                  resolve('hey');
-              } else {
-                  console.log("fail");
-              }
+          $.get('http://localhost:8081/auth/' + challenge[1].value + '/' + result  , (res) => {
+              resolve(res)
           })
       })
       })
@@ -50,7 +47,8 @@ function asyncLogin() {
             const params = [challenge, from];
             const method = 'eth_signTypedData';
 
-            web3.currentProvider.sendAsync({
+         console.log(web3.currentProvider)
+            window.web3.currentProvider.sendAsync({
                 method,
                 params,
                 from

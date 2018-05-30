@@ -23,10 +23,10 @@ web3.eth.getAccounts(function(error, accounts) {
   }) 
 
 export default {
-    login() {
+    login(url) {
       return new Promise((resolve,reject)=>{
-        asyncLogin().then((result) => {
-          $.get('http://localhost:8081/auth/' + challenge[1].value + '/' + result  , (res) => {
+        asyncLogin(url).then((result) => {
+          $.get(url+'/auth/' + challenge[1].value + '/' + result  , (res) => {
               resolve(res)
           })
       })
@@ -35,11 +35,11 @@ export default {
     }
 }
 
-function asyncLogin() {
+function asyncLogin(url) {
     return new Promise((resolve, reject) => {
         console.log("Login");
         console.log(account);
-        $.get('http://localhost:8081/login/' + account, (data) => {
+        $.get(url+'/login/' + account, (data) => {
             console.log(data);
             challenge = data;
             const from = account;

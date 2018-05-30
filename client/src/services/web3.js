@@ -304,7 +304,6 @@ const App = {
           return Resolver.url.call((App.namehash(userName))); 
         }).then(function(result){ 
          
-          console.log("done"); 
           resolve(result); 
         }).catch(function(err){
           console.log(err); 

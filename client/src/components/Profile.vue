@@ -28,6 +28,8 @@
 import {mapState} from 'vuex'
 import UserService from '@/services/UserService'
 import $ from 'jquery'
+import axios from 'axios'
+import Api from '../services/Api'
 
 export default {
   name: 'Profile',
@@ -41,31 +43,48 @@ export default {
   computed: { 
     ...mapState([
       'isUserLoggedIn',
-      'user'
+      'user',
+      'token'
     ])
   },
-  created:function() {
+  created: function() {
   
-      console.log('wait')
+      console.log('wait');
       if (!this.isUserLoggedIn) {
         return
       }
       try {
-        $.get(
-          "http://localhost:8081/users/"+this.$route.params.id).then((result)=>{
+        // console.log(this.token);
+        Api().get(this.user.storageAddress +"/users/"+this.$route.params.id)
+        .then((result)=> {
+           console.log(result);
+            this.userID = result.data.user.userID; 
+            this.address = result.data.user.address;
+            console.log(this.userID);
+        })
+         
+          // Address needs to be resolved here. 
+         /*  this.user.storageAddress +"/users/"+this.$route.params.id).then((result)=>{
             console.log(result);
             this.userID = result.user.userID; 
             this.address = result.user.address;
-            console.log(this.userID)
-          })
+            console.log(this.userID);
+          }) */
          
-      } catch (err) {
+    } catch (err) {
         console.log(err)
       }
     },
   methods: { 
     show() { 
       console.log(this.user);
+
+      // address of the CurrentUSER 
+      // TODO: Send request to the Friends Server and wait for ACCEPTANCE 
+      $.get(
+          this.user.storageAddress+"/users/"+ this.user.userID+'/' +this.$route.params.id).then((result)=>{
+            console.log(result);
+          })
     }
   }
 }

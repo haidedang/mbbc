@@ -2,11 +2,11 @@
   <v-layout column>
     <v-flex xs6 offset-xs3>
       <panel title="Login">
-        <!-- <v-text-field
-          label="Email"
-          v-model="email"
+        <v-text-field
+          label="userID"
+          v-model="userID"
         ></v-text-field>
-        <br>
+        <!-- <br>
         <v-text-field
           label="Password"
           type="password"
@@ -28,18 +28,17 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
-import App from '@/services/web3'
+import AuthService from '@/services/web3'
 
 export default {
   data () {
     return {
-      email: '',
-      password: '',
+      userID: '',
       error: null
     }
   },
   beforeCreate: function(){ 
-    App.init();
+    AuthService.init();
   },
   methods: {
   //  async login () { 
@@ -59,7 +58,10 @@ export default {
   //   }
 
    async login(){ 
-    let response = await AuthenticationService.login();
+    let url =  await AuthService.searchUser(this.userID);
+    console.log(url);
+    let response = await AuthenticationService.login(url);
+    console.log(response)
    
     //  if (response){ 
     //     $.post('http://localhost:8081/login', {userID:this.userID}, (response) => {

@@ -27,8 +27,8 @@
         <div class="danger-alert" v-html="error" />
         
          <v-radio-group v-model="radios" :mandatory="false">
-            <v-radio ref="storage1" color="red" label="DropStore.com" value="http://dropStore.com" @change="selectRadio1"></v-radio>
-            <v-radio ref="storage2" color="blue" label="CryptoStorage.com" value="http://cryptoStorage" @change="selectRadio2"></v-radio>
+            <v-radio ref="storage1" color="red" label="DropStore.com" value="http://localhost:8081" @change="selectRadio1"></v-radio>
+            <v-radio ref="storage2" color="blue" label="CryptoStorage.com" value="http://localhost:8082" @change="selectRadio2"></v-radio>
        </v-radio-group>
       
                <br>
@@ -75,8 +75,8 @@ export default {
 
       if (this.result) {
         $.post(
-          "http://localhost:8081/register",
-          { userID: this.userID, address: this.result },
+          this.value + "/register",
+          { userID: this.userID, address: this.result, storageAddress: this.value },
           response => {
             console.log(response);
             this.$store.dispatch("setToken", response.token);

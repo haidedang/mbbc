@@ -2,13 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
+import User from '@/components/UserProfile'
 import Domain from '@/components/Domain'
 import Search from '@/components/Search'
 import Chat from '@/components/Chat'
 
 import Profile from '@/components/Profile'
+import Contacts from '@/components/FindContact'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -22,6 +24,16 @@ export default new Router({
       path: '/profile/:id',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/User/*',
+      name: 'user',
+      component: User
+    },
+    {
+      path: '/Contacts',
+      name: 'contacts',
+      component: Contacts
     },
     {
       path: '*',

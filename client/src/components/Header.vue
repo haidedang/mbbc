@@ -1,7 +1,7 @@
 <template>
   <v-toolbar fixed class="cyan" dark>
     <v-toolbar-title class="mr-4">
-      <router-link 
+      <router-link
         class="home"
         tag="span"
         :to="{
@@ -12,9 +12,10 @@
     </v-toolbar-title>
 
     <v-toolbar-items>
-      <v-btn 
+      <v-btn dark flat @click.stop="openMyDialog()">Find Contact</v-btn>
+      <v-btn
         v-if="$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         :to="{
           name: 'profile'
@@ -24,9 +25,9 @@
     </v-toolbar-items>
 
      <v-toolbar-items>
-      <v-btn 
+      <v-btn
         v-if="$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         :to="{
           name: 'profile'
@@ -36,9 +37,9 @@
     </v-toolbar-items>
 
     <v-toolbar-items>
-      <v-btn 
+      <v-btn
         v-if="$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         :to="{
           name: 'search'
@@ -50,29 +51,29 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <v-btn 
+      <v-btn
         v-if="!$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         :to="{
           name: 'login'
         }">
         Login
       </v-btn>
-      
-      <v-btn 
+
+      <v-btn
         v-if="!$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         :to="{
           name: 'register'
         }">
         Sign Up
       </v-btn>
-      
-      <v-btn 
+
+      <v-btn
         v-if="$store.state.isUserLoggedIn"
-        flat 
+        flat
         dark
         @click="logout">
         Log Out
@@ -82,11 +83,15 @@
 </template>
 
 <script>
-export default {
+  import {bus} from '../main' // import the bus from main.js or new file
+  export default {
   methods: {
+    openMyDialog () {
+      bus.$emit('dialog', true) // emit the event to the bus
+    },
     logout () {
-      this.$store.dispatch('setToken', null)
-      this.$store.dispatch('setUser', null)
+      this.$store.dispatch('setToken', null);
+      this.$store.dispatch('setUser', null);
       this.$router.push({
         name: 'songs'
       })
@@ -94,7 +99,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 .home {
   cursor: pointer;

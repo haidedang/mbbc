@@ -1,6 +1,7 @@
  <template>
-  <v-layout v-if="isUserLoggedIn"> 
-  
+
+  <v-layout v-if="isUserLoggedIn">
+
     <div class="container">
       <div class="row">
         <form class="mx-auto mt-5">
@@ -20,8 +21,9 @@
         </form>
       </div>
     </div>
-  <!--<router-view></router-view>-->
   </v-layout>
+
+  <!--<router-view></router-view>-->
 </template>
 
 <script>
@@ -40,12 +42,15 @@ export default {
       src: '../static/ferhat.jpg',
     }
   },
-  computed: { 
+  computed: {
     ...mapState([
       'isUserLoggedIn',
       'user',
       'token'
-    ])
+    ]),
+     avatarSize(){
+      return '180px'
+    }
   },
   created: function() {
   
@@ -63,20 +68,22 @@ export default {
             console.log(this.userID);
         })
          
-          // Address needs to be resolved here. 
-         /*  this.user.storageAddress +"/users/"+this.$route.params.id).then((result)=>{
+       /*    // Address needs to be resolved here. 
+          this.user.storageAddress +"/users/"+this.$route.params.id).then((result)=>{
             console.log(result);
-            this.userID = result.user.userID; 
+            this.userID = result.user.userID;
             this.address = result.user.address;
-            console.log(this.userID);
-          }) */
-         
-    } catch (err) {
+            console.log(this.userID)
+          })
+
+      } catch (err) {
         console.log(err)
+      } */
+      } catch(e) {
       }
-    },
+  },
   methods: { 
-    show() { 
+    show() {
       console.log(this.user);
 
       // address of the CurrentUSER 
@@ -87,7 +94,8 @@ export default {
           })
     }
   }
-}
+} 
+
 </script>
 
 <style>
@@ -95,7 +103,6 @@ export default {
     width:30%;
   }
   small{
-    color:dimgray;
+    color:dimgrey;
   }
 </style>
- 

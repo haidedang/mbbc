@@ -12,7 +12,8 @@ export default new Vuex.Store({
   state: {
     token: null,
     user: null,
-    isUserLoggedIn: false
+    isUserLoggedIn: false,
+    url: null
   },
   mutations: {
     setToken (state, token) {
@@ -21,9 +22,15 @@ export default new Vuex.Store({
     },
     setUser (state, user) {
       state.user = user
+    },
+    setURL(state, url) { 
+      state.url = url 
     }
   },
   actions: {
+    setURL({commit}, url) {
+      commit('setURL', url)
+    },
     setToken ({commit}, token) {
       commit('setToken', token)
     },

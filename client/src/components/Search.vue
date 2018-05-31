@@ -34,7 +34,8 @@ export default {
       return {
         username: '',
         userExists: false,
-        items: [{title:"john"}]
+        items: [{title:"john"}],
+        url:''
       }
   },
   beforeCreate: function() {
@@ -49,14 +50,15 @@ export default {
   methods: { 
       async submit(){
          console.log(this.username);
-         let response =  await AuthService.searchUser(this.username); 
-         console.log(response);
-         response == '' ? this.userExists= false : this.userExists = true
+         this.url =  await AuthService.searchUser(this.username); 
+         console.log(this.url);
+         this.url == '' ? this.userExists= false : this.userExists = true
+         this.$store.dispatch("setURL", this.url);
          
       },
       async search(){
-        let url =  await AuthService.searchUser(this.username);
-        Api().get(url +"/users/"+this.username).then((result)=>{
+        console.log(this.username);
+        Api().get(this.url +"/users/"+this.username).then((result)=>{
             console.log(result);
             this.$router.push({
               path: `/profile/${this.username}`

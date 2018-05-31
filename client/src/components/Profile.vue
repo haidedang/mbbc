@@ -46,7 +46,8 @@ export default {
     ...mapState([
       'isUserLoggedIn',
       'user',
-      'token'
+      'token',
+      'url'
     ]),
      avatarSize(){
       return '180px'
@@ -60,7 +61,8 @@ export default {
       }
       try {
         // console.log(this.token);
-        Api().get(this.user.storageAddress +"/users/"+this.$route.params.id)
+        console.log(this.$route.params);
+        Api().get(this.url +"/users/"+this.$route.params.id)
         .then((result)=> {
            console.log(result);
             this.userID = result.data.user.userID; 

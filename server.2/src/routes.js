@@ -15,7 +15,7 @@ module.exports = (app) => {
   app.get('/auth/:MetaMessage/:MetaSignature', metaAuth,
     AuthenticationController.authenticate)
   app.post('/register', AuthenticationController.register)
-  app.get('/users/:user', isAuthenticated, AuthenticationController.profile)
+  app.get('/users/:user', AuthenticationController.profile)
 
   //-------- CONTACTLIST ---------------------
 

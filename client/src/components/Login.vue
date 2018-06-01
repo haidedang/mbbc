@@ -61,14 +61,16 @@ export default {
     let url =  await AuthService.searchUser(this.userID);
     console.log(url);
     let response = await AuthenticationService.login(url);
-    console.log("response" + response)
+    console.log(response);
+    console.log(response.user.storageAddress);
    
     //  if (response){ 
     //     $.post('http://localhost:8081/login', {userID:this.userID}, (response) => {
     //       console.log(response);
        this.$store.dispatch('setToken', response.token)
        this.$store.dispatch('setUser', response.user)
-       console.log(response.user)
+      this.$store.dispatch('setURL', response.user.storageAddress);
+       console.log(response.user.userID)
        this.$router.push({
               path: `/profile/${response.user.userID}`
             })

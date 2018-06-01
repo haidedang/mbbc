@@ -60,8 +60,10 @@ export default {
         return
       }
       try {
+        
         // console.log(this.token);
         console.log(this.$route.params);
+        console.log(this.url);
         Api().get(this.url +"/users/"+this.$route.params.id)
         .then((result)=> {
            console.log(result);

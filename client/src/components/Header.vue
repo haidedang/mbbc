@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar fixed class="cyan" dark>
+  <v-toolbar fixed class="green darken-1" dark>
     <v-toolbar-title class="mr-4">
       <router-link
         class="home"

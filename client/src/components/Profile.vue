@@ -54,7 +54,7 @@ export default {
     }
   },
   created: function() {
-  
+
       console.log('wait');
       if (!this.isUserLoggedIn) {
         return
@@ -65,12 +65,12 @@ export default {
         Api().get(this.url +"/users/"+this.$route.params.id)
         .then((result)=> {
            console.log(result);
-            this.userID = result.data.user.userID; 
+            this.userID = result.data.user.userID;
             this.address = result.data.user.address;
             console.log(this.userID);
         })
-         
-       /*    // Address needs to be resolved here. 
+
+       /*    // Address needs to be resolved here.
           this.user.storageAddress +"/users/"+this.$route.params.id).then((result)=>{
             console.log(result);
             this.userID = result.user.userID;
@@ -88,15 +88,17 @@ export default {
     show() {
       console.log(this.user);
 
-      // address of the CurrentUSER 
-      // TODO: Send request to the Friends Server and wait for ACCEPTANCE 
-      $.get(
+      // address of the CurrentUSER
+      // TODO: Send request to the Friends Server and wait for ACCEPTANCE
+      var test = $.get(
           this.user.storageAddress+"/users/"+ this.user.userID+'/' +this.$route.params.id).then((result)=>{
             console.log(result);
-          })
+            //this.user.contacts = result.data.user.contacts;
+          });
+      //this.user.contacts = test.data.user.contacts;
     }
   }
-} 
+}
 
 </script>
 

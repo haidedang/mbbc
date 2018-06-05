@@ -1,27 +1,32 @@
 <template>
   <v-layout column>
     <v-flex xs6 offset-xs3>
-      <panel title="Login">
-        <v-text-field
-          label="userID"
-          v-model="userID"
-        ></v-text-field>
-        <!-- <br>
-        <v-text-field
-          label="Password"
-          type="password"
-          v-model="password"
-        ></v-text-field> -->
-        <br>
-        <div class="danger-alert" v-html="error" />
-        <br>
-        <v-btn
-          dark
-          class="cyan"
-          @click="login">
-          Login
-        </v-btn>
-      </panel>
+      <div class="card">
+        <div class="card-title green darken-1 py-1">
+          <h5 class="my-auto">Login</h5>
+        </div>
+        <div class="card-body">
+          <v-text-field
+            label="userID"
+            v-model="userID"
+          ></v-text-field>
+          <!-- <br>
+          <v-text-field
+            label="Password"
+            type="password"
+            v-model="password"
+          ></v-text-field> -->
+          <br>
+          <div class="danger-alert" v-html="error" />
+          <br>
+          <v-btn
+            dark
+            class="green darken-1"
+            @click="login">
+            Login
+          </v-btn>
+        </div>
+      </div>
     </v-flex>
   </v-layout>
 </template>
@@ -44,8 +49,8 @@ export default {
   //  async login () { 
   //    App.login().then((result)=> { 
   //      if (result){
-  //        this.$store.dispatch('setToken', 'j323fsdfseq'); 
-  //        this.$router.push({ 
+  //        this.$store.dispatch('setToken', 'j323fsdfseq');
+  //        this.$router.push({
   //          name:'profile'
   //        })
   //      }
@@ -57,13 +62,13 @@ export default {
   //     // })
   //   }
 
-   async login(){ 
+   async login(){
     let url =  await AuthService.searchUser(this.userID);
     console.log(url);
     let response = await AuthenticationService.login(url);
     console.log(response);
     console.log(response.user.storageAddress);
-   
+
     //  if (response){ 
     //     $.post('http://localhost:8081/login', {userID:this.userID}, (response) => {
     //       console.log(response);
@@ -74,14 +79,17 @@ export default {
        this.$router.push({
               path: `/profile/${response.user.userID}`
             })
-    //     }); 
-    //   } 
+    //     });
+    //   }
 
   }
- 
+
   }
 }
 </script>
 
 <style scoped>
+  h5 {
+    color:white;
+  }
 </style>

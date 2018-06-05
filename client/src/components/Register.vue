@@ -1,44 +1,49 @@
 <template>
   <v-layout column>
     <v-flex xs6 offset-xs3>
-      <panel title="Register">
-        <form 
-          name="tab-tracker-form"
-          autocomplete="off">
-          <!-- <v-text-field
-            label="Email"
-            v-model="email"
-          ></v-text-field>
-          <v-text-field
-            label="Password"
-            type="password"
-            v-model="password"
-            autocomplete="new-password"
-          ></v-text-field> -->
-          <!--HAIDEDANG STUFF  -->
-          <v-text-field
-            label="userID"
-            placeholder=" exampleID.eth"
-            v-model="userID"
-          ></v-text-field>
-          
-        </form>
-       
-        <div class="danger-alert" v-html="error" />
-        
-         <v-radio-group v-model="radios" :mandatory="false">
-            <v-radio ref="storage1" color="red" label="DropStore.com" value="http://localhost:8081" @change="selectRadio1"></v-radio>
-            <v-radio ref="storage2" color="blue" label="CryptoStorage.com" value="http://localhost:8082" @change="selectRadio2"></v-radio>
-       </v-radio-group>
-      
-               <br>
-        <v-btn
-          dark
-          class="cyan"
-          @click="registerUser">
-          Register
-        </v-btn>
-      </panel>
+      <div class="card">
+        <div class="card-heading py-1 green darken-1">
+          <h5 class="my-auto">Register</h5>
+        </div>
+        <div class="card-body">
+          <form
+            name="tab-tracker-form"
+            autocomplete="off">
+            <!-- <v-text-field
+              label="Email"
+              v-model="email"
+            ></v-text-field>
+            <v-text-field
+              label="Password"
+              type="password"
+              v-model="password"
+              autocomplete="new-password"
+            ></v-text-field> -->
+            <!--HAIDEDANG STUFF  -->
+            <v-text-field
+              label="userID"
+              placeholder=" exampleID.eth"
+              v-model="userID"
+            ></v-text-field>
+
+          </form>
+
+          <div class="danger-alert" v-html="error" />
+
+           <v-radio-group v-model="radios" :mandatory="false">
+              <v-radio ref="storage1" color="red" label="DropStore.com" value="http://localhost:8081" @change="selectRadio1"></v-radio>
+              <v-radio ref="storage2" color="blue" label="CryptoStorage.com" value="http://localhost:8082" @change="selectRadio2"></v-radio>
+         </v-radio-group>
+
+                 <br>
+          <v-btn
+            dark
+            class="green darken-1"
+            @click="registerUser">
+            Register
+          </v-btn>
+        </div>
+      </div>
     </v-flex>
   </v-layout>
 </template>
@@ -63,11 +68,11 @@ export default {
   },
   methods: {
     selectRadio1(){
-      this.value =  this.$refs.storage1.value; 
+      this.value =  this.$refs.storage1.value;
       console.log(this.value);
     },
-    selectRadio2(){ 
-      this.value =  this.$refs.storage2.value; 
+    selectRadio2(){
+      this.value =  this.$refs.storage2.value;
       console.log(this.value);
     },
     async registerUser() {
@@ -93,4 +98,7 @@ export default {
 </script>
 
 <style scoped>
+  h5{
+    color:white;
+  }
 </style>

@@ -108,24 +108,78 @@ let Contracts = {
 };
 
 
+DummyUsers = {
+    0: {
+        username: 'John',
+        url: "http://localhost:8081"
+    },
+    1: {
+        username: 'Peter',
+        url: "http://localhost:8081"
+    },
+    2: {
+        username: 'Trump',
+        url: "http://localhost:8082"
+    },
+    3: {
+        username: 'Benny',
+        url: "http://localhost:8082"
+    },
+    4: {
+        username: 'Karl',
+        url: "http://localhost:8081"
+    }
+}
+
+for (const key of Object.keys(DummyUsers)) { 
+    console.log(parseInt(key))
+
+}
+
+function setUpDummyData(){
+    return new Promise((resolve, reject) => { 
+        for (const key of Object.keys(DummyUsers)) { 
+            console.log(parseInt(key))
+            Contracts.registerENS(DummyUsers[key].username, parseInt(key))
+            .then((result) => {
+                return Contracts.getOwnerAddress(DummyUsers[key].username+'.eth');
+            })
+            .then((result) => {
+                return Contracts.registerUser(DummyUsers[key].username+'.eth', DummyUsers[key].url, parseInt(key));
+            })
+            .then((result) => {
+                return Contracts.searchUser(DummyUsers[key].username+'.eth')
+            })
+            .then((result) => {
+               (result)
+            });
+        } 
+        
+    })
+}
+
+Contracts.init().then(() => {
+    return setUpDummyData(); 
+}).then((result) => console.log(result))
+/* 
 Contracts.init()
     .then(() => {
-        return Contracts.registerENS('Penny', 1)
+        return Contracts.registerENS('Kai', 2)
     })
     .then((result) => {
-        return Contracts.getOwnerAddress('Penny.eth');
+        return Contracts.getOwnerAddress('Kai.eth');
     })
     .then((result) => {
-        return Contracts.registerUser('Penny.eth', 'dropstore.com', 1);
+        return Contracts.registerUser('Kai.eth', 'test.com', 2);
     })
     .then((result) => {
-        return Contracts.searchUser('Penny.eth')
+        return Contracts.searchUser('Kai.eth')
     })
     .then((result) => {
         console.log(result)
-    });
+    }); */
 
-    
+
 
 
 

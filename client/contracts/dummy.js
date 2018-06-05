@@ -154,35 +154,12 @@ function setUpDummyData(){
                (result)
             });
         } 
-        
     })
 }
 
 Contracts.init().then(() => {
     return setUpDummyData(); 
 }).then((result) => console.log(result))
-/* 
-Contracts.init()
-    .then(() => {
-        return Contracts.registerENS('Kai', 2)
-    })
-    .then((result) => {
-        return Contracts.getOwnerAddress('Kai.eth');
-    })
-    .then((result) => {
-        return Contracts.registerUser('Kai.eth', 'test.com', 2);
-    })
-    .then((result) => {
-        return Contracts.searchUser('Kai.eth')
-    })
-    .then((result) => {
-        console.log(result)
-    }); */
-
-
-
-
-
 
 /* fifsRegistrar.register(web3.sha3('Peter.eth'), ) */
 

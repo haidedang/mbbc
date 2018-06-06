@@ -18,10 +18,10 @@ let url = config.mongoURL;
 // Clean Initial User Setup 
 MongoClient.connect(url, function (err, db) {
   if (err) throw err;
-  try{
+  try {
     let CryptoStorage = db.db("CryptoStorage")
-    CryptoStorage.listCollections({name: 'users'}).next(function(err, collinfo){
-      if(collinfo){
+    CryptoStorage.listCollections({ name: 'users' }).next(function (err, collinfo) {
+      if (collinfo) {
         console.log('exists')
         CryptoStorage.dropCollection("users", function (err, delOK) {
           if (err) throw err;
@@ -31,9 +31,9 @@ MongoClient.connect(url, function (err, db) {
       } else {
         console.log('keep Rocking')
       }
-    }) 
-   }
-  catch (e){
+    })
+  }
+  catch (e) {
     console.log('Clean database')
   }
 });

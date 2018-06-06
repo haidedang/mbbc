@@ -53,6 +53,27 @@ module.exports = {
             })
         }
     },
+    async registerDummy(req, res) { 
+        try {
+            // This will create an Error if Email already exists. 
+            // Creating only possible if Ethereum ID exists.
+            const user = new User(req.body);  
+            user.save().then((data)=> { 
+                console.log('success'); 
+                res.status(200).send(data);
+            })
+            // const user = await User.create(req.body)
+            // const userJson = user.toJSON()
+            // res.send({
+            //     user: userJson,
+            //     token: jwtSignUser(userJson)
+            // })
+        } catch (err) {
+            res.status(400).send({
+                error: 'This email account is already in use.'
+            })
+        }
+    },
     async sign(req, res) {
         try {
             if (req.metaAuth && req.metaAuth.challenge) {

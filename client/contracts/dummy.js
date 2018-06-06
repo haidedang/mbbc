@@ -2,6 +2,7 @@ let URLResolver = require('../build/contracts/URLResolver.json')
 let FIFSRegistrar = require('../build/contracts/FIFSRegistrar.json')
 let ENSRegistry = require('../build/contracts/ENSRegistry.json')
 let contract = require('truffle-contract')
+const request = require('request');
 
 var Web3 = require('web3')
 var provider = new Web3.providers.HttpProvider("http://localhost:9545");
@@ -131,34 +132,38 @@ DummyUsers = {
     }
 }
 
-for (const key of Object.keys(DummyUsers)) { 
+for (const key of Object.keys(DummyUsers)) {
     console.log(parseInt(key))
 
 }
 
-function setUpDummyData(){
-    return new Promise((resolve, reject) => { 
-        for (const key of Object.keys(DummyUsers)) { 
+function setUpDummyData() {
+    return new Promise((resolve, reject) => {
+        for (const key of Object.keys(DummyUsers)) {
             console.log(parseInt(key))
             Contracts.registerENS(DummyUsers[key].username, parseInt(key))
-            .then((result) => {
-                return Contracts.getOwnerAddress(DummyUsers[key].username+'.eth');
-            })
-            .then((result) => {
-                return Contracts.registerUser(DummyUsers[key].username+'.eth', DummyUsers[key].url, parseInt(key));
-            })
-            .then((result) => {
-                return Contracts.searchUser(DummyUsers[key].username+'.eth')
-            })
-            .then((result) => {
-               (result)
-            });
-        } 
+                .then((result) => {
+                    return Contracts.getOwnerAddress(DummyUsers[key].username + '.eth');
+                })
+                .then((result) => {
+                    return Contracts.registerUser(DummyUsers[key].username + '.eth', DummyUsers[key].url, parseInt(key));
+                })
+                .then((result) => {
+                    return Contracts.searchUser(DummyUsers[key].username + '.eth')
+                })
+                .then((result) => {
+                    request.post(DummyUsers[key].url + "/register", {
+                        json: { userID: DummyUsers[key].username + '.eth', address: Contracts.accounts[key].toLowerCase(), storageAddress: DummyUsers[key].url }
+                    })
+                }, (err, res, body) => {
+                    console.log(res.body);
+                });
+        }
     })
 }
 
 Contracts.init().then(() => {
-    return setUpDummyData(); 
+    return setUpDummyData();
 }).then((result) => console.log(result))
 
 /* fifsRegistrar.register(web3.sha3('Peter.eth'), ) */

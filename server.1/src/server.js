@@ -1,15 +1,15 @@
-const express = require('express'); 
+const express = require('express');
 const cors = require('cors');
-const path = require('path'); 
-const MetaAuth = require('meta-auth'); 
-const app = express(); 
+const path = require('path');
+const MetaAuth = require('meta-auth');
+const app = express();
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser'); 
-const metaAuth = new MetaAuth(); 
+const bodyParser = require('body-parser');
+const metaAuth = new MetaAuth();
 // const {sequelize} = require('./models')
 const config = require('./config/config')
 
-var server = require('http').createServer(app);  
+var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 const clientIo = require('socket.io-client')
 
@@ -19,22 +19,22 @@ let url = config.mongoURL;
 // Clean Initial User Setup 
 MongoClient.connect(url, function (err, db) {
   if (err) throw err;
-  try{
+  try {
     let DropStore = db.db("DropStore")
-    DropStore.listCollections({name: 'users'}).next(function(err, collinfo){
-      if(collinfo){
+    DropStore.listCollections({ name: 'users' }).next(function (err, collinfo) {
+      if (collinfo) {
         console.log('exists')
         DropStore.dropCollection("users", function (err, delOK) {
           if (err) throw err;
-          if (delOK) console.log("Collection deleted");
+          if (delOK) console.log("Collection deleted - run dummy.js to provide Demo Users");
           db.close()
         });
       } else {
-        console.log('Keep Rockin')
+        console.log('Keep Rockin -run dummy.js to provide Demo Users')
       }
-    }) 
-   }
-  catch (e){
+    })
+  }
+  catch (e) {
     console.log('Clean database')
   }
 });
@@ -51,11 +51,11 @@ mongoose.set('debug', true);
 
 app.use(cors());
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -63,25 +63,25 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-require('./passport'); 
+require('./passport');
 
 require('./routes')(app)
 
 
-io.on('connection', function(socket){
+io.on('connection', function (socket) {
   socket.emit('')
-  socket.on('anothermessage', function(data){
+  socket.on('anothermessage', function (data) {
     // db.createNewMessage 
     console.log(data);
   })
 
-  socket.on('message', function(data){ 
+  socket.on('message', function (data) {
     // store Data in the DB 
     ClientSocket.emit('anotherMessage');
   })
 })
 
-server.listen(config.port, function(){
+server.listen(config.port, function () {
   console.log(`Server started on port ${config.port}`)
 })
 

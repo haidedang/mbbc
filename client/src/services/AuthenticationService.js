@@ -1,35 +1,54 @@
+// import Api from '@/services/Api'
+
+// export default {
+//   register (credentials) {
+//     return Api().post('register', credentials)
+//   },
+//   login (credentials) {
+//     return Api().post('login', credentials)
+//   }
+// }
+
+
 import Api from '@/services/Api';
 import $ from 'jquery';
 
 let challenge = null;
 let signature = null;
 
+let account = null; 
+
+web3.eth.getAccounts(function(error, accounts) {
+    account = accounts[0]; 
+  }) 
+
 export default {
-    login() {
-        asyncLogin().then((result) => {
-            $.get('http://localhost:8081/auth/' + challenge[1].value + '/' + result, (res) => {
-                if (res === web3.eth.accounts[0]) {
-                    console.log("success")
-                } else {
-                    console.log("fail");
-                }
-            })
-        })
+    login(url) {
+      return new Promise((resolve,reject)=>{
+        asyncLogin(url).then((result) => {
+          $.get(url+'/auth/' + challenge[1].value + '/' + result  , (res) => {
+              resolve(res)
+          })
+      })
+      })
+       
     }
 }
 
-function asyncLogin() {
+function asyncLogin(url) {
     return new Promise((resolve, reject) => {
         console.log("Login");
-        $.get('http://localhost:8081/login/' + web3.eth.accounts[0], (data) => {
+        console.log(account);
+        $.get(url+'/login/' + account, (data) => {
             console.log(data);
             challenge = data;
-            const from = web3.eth.accounts[0];
+            const from = account;
 
             const params = [challenge, from];
             const method = 'eth_signTypedData';
 
-            web3.currentProvider.sendAsync({
+         console.log(web3.currentProvider)
+            window.web3.currentProvider.sendAsync({
                 method,
                 params,
                 from
@@ -48,6 +67,8 @@ function asyncLogin() {
         });
     })
 }
+
+
 
 
 

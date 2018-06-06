@@ -13,6 +13,32 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 const clientIo = require('socket.io-client')
 
+let MongoClient = require('mongodb').MongoClient;
+let url = config.mongoURL;
+
+// Clean Initial User Setup 
+MongoClient.connect(url, function (err, db) {
+  if (err) throw err;
+  try{
+    let DropStore = db.db("DropStore")
+    DropStore.listCollections({name: 'users'}).next(function(err, collinfo){
+      if(collinfo){
+        console.log('exists')
+        DropStore.dropCollection("users", function (err, delOK) {
+          if (err) throw err;
+          if (delOK) console.log("Collection deleted");
+          db.close()
+        });
+      } else {
+        console.log('Keep Rockin')
+      }
+    }) 
+   }
+  catch (e){
+    console.log('Clean database')
+  }
+});
+
 // MongoDB Connection
 mongoose.connect(config.mongoURL, error => {
   if (error) {

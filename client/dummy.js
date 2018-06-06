@@ -1,6 +1,6 @@
-let URLResolver = require('../build/contracts/URLResolver.json')
-let FIFSRegistrar = require('../build/contracts/FIFSRegistrar.json')
-let ENSRegistry = require('../build/contracts/ENSRegistry.json')
+let URLResolver = require('./build/contracts/URLResolver.json')
+let FIFSRegistrar = require('./build/contracts/FIFSRegistrar.json')
+let ENSRegistry = require('./build/contracts/ENSRegistry.json')
 let contract = require('truffle-contract')
 const request = require('request');
 

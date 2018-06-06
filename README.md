@@ -16,11 +16,27 @@ npm install -g truffle@4.1.11
 
 ### Installation
 
-#### Server 
+#### Terminal 1 - first Server
 
 Navigate to server folder 
 ```
-cd server
+cd server.1
+```
+Install dependencies 
+```
+npm install
+```
+
+Run development build 
+
+```
+npm start
+```
+#### Terminal 2 - second Server
+
+Navigate to server folder 
+```
+cd server.2
 ```
 Install dependencies 
 ```
@@ -33,7 +49,7 @@ Run development build
 npm start
 ```
 
-#### Client and Blockchain 
+#### Terminal 3 - Blockchain 
 
 Navigate to client folder 
 ```
@@ -51,6 +67,8 @@ Run local blockchain
 truffle develop
 ```
 
+#### Terminal 4 - Client 
+
 Open new terminal window to deploy smart contracts on local blockchain 
 
 ```
@@ -64,7 +82,14 @@ Run application in browser
 npm run dev
 ```
 
-### Initial ENS Setup 
+#### Terminal 5 - Setup demo Users 
+
+```
+cd client
+node dummy.js 
+```
+
+### Initial ENS Setup   (depreceated use Setup Demo Users)
 
 Register a Ethereum ID first 
 ```

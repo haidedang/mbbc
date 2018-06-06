@@ -14,6 +14,8 @@ The goal of this project is to create a decentralized microblogging and messagin
 npm install -g truffle@4.1.11
 ```
 
+4.  [MetaMask](https://metamask.io/) 
+
 ### Installation
 
 #### Terminal 1 - first Server

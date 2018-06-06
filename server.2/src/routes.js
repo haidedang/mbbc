@@ -16,6 +16,7 @@ module.exports = (app) => {
     AuthenticationController.authenticate)
   app.post('/register', AuthenticationController.register)
   app.get('/users/:user', AuthenticationController.profile)
+  app.post('/registerDummy/:address', AuthenticationController.registerDummy)
 
   //-------- CONTACTLIST ---------------------
 

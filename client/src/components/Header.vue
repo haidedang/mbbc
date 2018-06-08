@@ -18,7 +18,7 @@
         flat
         dark
         :to="{
-          name: 'profile'
+          name: 'message'
         }">
         Messaging
       </v-btn>

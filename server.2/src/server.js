@@ -12,6 +12,7 @@ const config = require('./config/config')
 let server = require('http').createServer(app);
 let io = require('socket.io')(server);
 const clientIo = require('socket.io-client')
+let clientSocket = clientIo('http://localhost:8081');
 let MongoClient = require('mongodb').MongoClient;
 let url = config.mongoURL;
 
@@ -67,17 +68,38 @@ require('./passport');
 
 require('./routes')(app)
 
+app.post('/test/:userId', (req, res) => {
+  console.log(req.body)
+  console.log(io.sockets.sockets)
+  for (var key in io.sockets.sockets) {
+    if (io.sockets.sockets[key].username == undefined)
+      return
+    if (io.sockets.sockets[key].username.username == req.params.userId)
+      io.to(key).emit('reply', req.body.message);
+      break;
+  }
+ 
+  res.send('successful');
+
+})
+
 
 io.on('connection', function (socket) {
-  socket.emit('')
-  socket.on('anothermessage', function (data) {
+  socket.emit('online')
+  socket.on('anotherMessage', function (data) {
     // db.createNewMessage 
     console.log(data);
   })
 
+  socket.on('username', function (username) {
+    console.log(username.username)
+    socket.username = username;
+  })
+
   socket.on('message', function (data) {
     // store Data in the DB 
-    ClientSocket.emit('anotherMessage');
+   console.log(data)
+
   })
 })
 
@@ -85,8 +107,3 @@ server.listen(config.port, function () {
   console.log(`Server started on port ${config.port}`)
 })
 
-// sequelize.sync({force: false})
-//   .then(() => {
-//     server.listen(8082)
-//     console.log(`Server started on port ${config.port}`)
-//   })

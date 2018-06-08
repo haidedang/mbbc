@@ -91,6 +91,16 @@ cd client
 node dummy.js 
 ```
 
+#### List Of Demo Users you can use to login 
+
+```
+John.eth
+Peter.eth
+Trump.eth
+Benny.eth
+Karl.eth
+```
+
 ### Initial ENS Setup   (depreceated use Setup Demo Users)
 
 Register a Ethereum ID first 

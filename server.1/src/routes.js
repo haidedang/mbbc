@@ -24,5 +24,6 @@ module.exports = (app) => {
   //-------- CHATTING ------------------------ 
   // TODO: Add Authentification for the selected User with unique JWT Token 
   app.get('/users/:userID/:conversationID', ChatController.getConversations)
+  app.post('/chat/:recipient', ChatController.sendMessage) 
   app.post('chat/new/:recipient', ChatController.newConversation)
 }

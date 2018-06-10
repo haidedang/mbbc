@@ -2,6 +2,8 @@ const Conversation = require('../models/Conversation'),
   Message = require('../models/Message'),
   User = require('../models/User');
 
+const server = require('../server'); 
+
 exports.getConversations = function (req, res, next) {
   // Only return one message from each conversation to display as snippet
   Conversation.find({ participants: req.user._id })
@@ -108,3 +110,19 @@ exports.sendReply = function (req, res, next) {
     return res.status(200).json({ message: 'Reply successfully sent!' });
   });
 };
+
+exports.sendMessage = function (req ,res, next) {
+    console.log(req.body)
+    console.log(server.io.sockets.sockets)
+    for (var key in server.io.sockets.sockets) {
+        console.log(key)
+        console.log(server.io.sockets.sockets[key].username)
+        if (server.io.sockets.sockets[key].username == undefined)
+            return
+        if (server.io.sockets.sockets[key].username.username == req.params.recipient)
+            server.io.to(key).emit('reply', req.body.message);
+    }
+    res.send('successful');
+}
+
+

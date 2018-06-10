@@ -446,7 +446,7 @@
     "MessageSchema": {
       "type": "object",
       "properties": {
-        "id": {
+        "conversationID ": {
           "type": "integer",
           "format": "int64"
         },

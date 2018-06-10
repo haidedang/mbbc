@@ -134,7 +134,15 @@ DummyUsers = {
 
 for (const key of Object.keys(DummyUsers)) {
     console.log(parseInt(key))
+}
 
+function waitForServer() {
+    return new Promise((resolve, reject) => { 
+        setTimeout(() =>{ 
+            console.log("server finished loading"); 
+            resolve(); 
+        })
+    })
 }
 
 function setUpDummyData() {
@@ -162,9 +170,16 @@ function setUpDummyData() {
     })
 }
 
-Contracts.init().then(() => {
-    return setUpDummyData();
-}).then((result) => console.log(result))
+Contracts.init()
+    .then(() => {
+        return waitForServer(); 
+    })
+    .then(() => {
+        return setUpDummyData();
+    })
+    .then((result) => console.log(result))
+
+
 
 /* fifsRegistrar.register(web3.sha3('Peter.eth'), ) */
 

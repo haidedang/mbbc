@@ -4,7 +4,11 @@
   "description": "REST-API",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "dev": "npm run mongo1 && npm run mongo2 && npm run server",
+    "server": "PORT=8081 dbName=DropStore nodemon src/server.js & PORT=8082 dbName=CryptoStorage nodemon src/server.js & npm run dummy",
+    "mongo1" : "DELAY=0 dbName=DropStore node src/config/mongoClean.js", 
+    "mongo2" : "DELAY=2000 dbName=CryptoStorage node src/config/mongoClean.js",
+    "dummy": "node ../client/dummy.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Haidedang",
@@ -19,6 +23,8 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "path": "^0.12.7",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
     "sequelize": "^4.37.8",
     "socket.io": "^2.1.1",
     "sqlite3": "^4.0.0"

@@ -14,6 +14,8 @@ The goal of this project is to create a decentralized microblogging and messagin
 npm install -g truffle@4.1.11
 ```
 
+4.  [MetaMask](https://metamask.io/) 
+
 ### Installation
 
 #### Terminal 1 - first Server
@@ -87,6 +89,16 @@ npm run dev
 ```
 cd client
 node dummy.js 
+```
+
+#### List Of Demo Users you can use to login 
+
+```
+John.eth
+Peter.eth
+Trump.eth
+Benny.eth
+Karl.eth
 ```
 
 ### Initial ENS Setup   (depreceated use Setup Demo Users)

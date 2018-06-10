@@ -80,7 +80,7 @@ export default {
       let url =  await AuthService.searchUser(this.recipient); 
       console.log(url)
         $.post(
-          url+'/test/'+this.recipient,
+          url+'/chat/'+this.recipient,
           {
             userID: this.user, 
             sentTo: this.recipient, 
@@ -89,7 +89,6 @@ export default {
             console.log(response)
           }
         );
-        
     }
   }
 }

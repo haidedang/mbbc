@@ -1,6 +1,8 @@
 const config = {
-    mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/DropStore',
+    dbName: process.env.dbName,
+    mongoURL: 'mongodb://localhost:27017/'+ process.env.dbName || 'mongodb://localhost:27017/DropStore',
     port: process.env.PORT || 8081,
+    delay: process.env.DELAY,
     authentication: {
         jwtSecret: process.env.JWT_SECRET || 'secret'
       }

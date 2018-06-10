@@ -1,7 +1,6 @@
 client/node_modules/
 blockchain/node_modules/
-server.2/node_modules/
-server.1/node_modules/
+server/node_modules/
 client/build/contracts/
 
 

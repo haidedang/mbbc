@@ -1,4 +1,6 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.18;
+
+import './ENS.sol';
 
 /**
  * A simple resolver anyone can use; only allows the owner of a node to set its
@@ -21,11 +23,17 @@ contract URLResolver {
     struct Record {
         string url;
         PublicKey pubkey;
+        
+    }
+
+    struct Reverse {
+        string userName; 
     }
 
     ENS ens;
 
     mapping (bytes32 => Record) records;
+    mapping (address => Reverse) reverse; 
 
     modifier only_owner(bytes32 node) {
         require(ens.owner(node) == msg.sender);
@@ -61,8 +69,9 @@ contract URLResolver {
         return (records[node].pubkey.x, records[node].pubkey.y);
     }
 
-    function setUrl(bytes32 node, string url) public only_owner(node) {
+    function setUrl(bytes32 node, string url, string userName, address owner) public only_owner(node) {
         records[node].url = url;
+        reverse[owner].userName = userName; 
         emit URLChanged(node,url);
     }
 
@@ -70,6 +79,9 @@ contract URLResolver {
         return records[node].url;
     }
 
+    function domainID(address owner) public view returns (string) { 
+        return reverse[owner].userName; 
+    }
 
     /**
      * Returns true if the resolver implements the interface specified by the provided hash.
@@ -83,27 +95,3 @@ contract URLResolver {
     }
 }
 
-interface ENS {
-
-    // Logged when the owner of a node assigns a new owner to a subnode.
-    event NewOwner(bytes32 indexed node, bytes32 indexed label, address owner);
-
-    // Logged when the owner of a node transfers ownership to a new account.
-    event Transfer(bytes32 indexed node, address owner);
-
-    // Logged when the resolver for a node changes.
-    event NewResolver(bytes32 indexed node, address resolver);
-
-    // Logged when the TTL of a node changes
-    event NewTTL(bytes32 indexed node, uint64 ttl);
-
-
-    function setSubnodeOwner(bytes32 node, bytes32 label, address owner) external;
-    function setResolver(bytes32 node, address resolver) external;
-    function setOwner(bytes32 node, address owner) external;
-    function setTTL(bytes32 node, uint64 ttl) external;
-    function owner(bytes32 node) external view returns (address);
-    function resolver(bytes32 node) external view returns (address);
-    function ttl(bytes32 node) external view returns (uint64);
-
-}

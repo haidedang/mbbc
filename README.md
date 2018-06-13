@@ -7,22 +7,23 @@ The goal of this project is to create a decentralized microblogging and messagin
 ### Prerequisites
 
 1.  [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
-2.  [NodeJS + NPM](https://nodejs.org/en/download/package-manager/)
+2.  [NodeJS + NPM](https://nodejs.org/en/download/package-manager/) [node Version: 8.9.1]
 3.  Truffle
-
+4.  Ganache-cli 
 ```
 npm install -g truffle@4.1.11
+npm install -g ganache-cli
 ```
 
 4.  [MetaMask](https://metamask.io/) 
 
 ### Installation
 
-#### Terminal 1 - first Server
+#### Terminal 1 - Start first Server
 
 Navigate to server folder 
 ```
-cd server.1
+cd server
 ```
 Install dependencies 
 ```
@@ -30,25 +31,20 @@ npm install
 ```
 
 Run development build 
-
 ```
-npm start
+npm run dev-server1
 ```
-#### Terminal 2 - second Server
+#### Terminal 2 - Start Second Server
 
 Navigate to server folder 
 ```
-cd server.2
-```
-Install dependencies 
-```
-npm install
+cd server
 ```
 
 Run development build 
 
 ```
-npm start
+npm run dev-server2
 ```
 
 #### Terminal 3 - Blockchain 
@@ -63,10 +59,10 @@ Install dependencies
 npm install 
 ```
 
-Run local blockchain 
+Run local blockchain at specified Port
 
 ```
-truffle develop
+ganache-cli -p 9545
 ```
 
 #### Terminal 4 - Client 
@@ -84,37 +80,7 @@ Run application in browser
 npm run dev
 ```
 
-#### Terminal 5 - Setup demo Users 
 
-```
-cd client
-node dummy.js 
-```
-
-#### List Of Demo Users you can use to login 
-
-```
-John.eth
-Peter.eth
-Trump.eth
-Benny.eth
-Karl.eth
-```
-
-### Initial ENS Setup   (depreceated use Setup Demo Users)
-
-Register a Ethereum ID first 
-```
-http://localhost:8080/#/registerDomain
-
-```
-
-you can register with that ID now 
-
-```
-http://localhost:8080/#/register
-
-```
 
 
 ## Built With

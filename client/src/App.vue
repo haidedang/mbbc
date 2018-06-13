@@ -33,12 +33,13 @@ export default {
   margin-top: 60px;
   min-height:600px;
 
-  .main {
+  
+}
+.main {
     position: relative;
     overflow: hidden;
   }
-}
-
+  
 .danger-alert {
   color: red;
 }

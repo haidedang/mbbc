@@ -69,23 +69,26 @@ const App = {
         return node.toString();
     },
     registerDomain: function (username) {
-        web3.eth.getAccounts(function (error, accounts) {
-            if (error) {
-                console.log(error);
-            }
-            let account = accounts[0];
+        return new Promise((resolve, reject) => {
+            web3.eth.getAccounts(function (error, accounts) {
+                if (error) {
+                    console.log(error);
+                }
+                let account = accounts[0];
 
-            let register = App.contracts.FIFSRegistrar.deployed().then((instance) => {
-                let registryInstance = instance;
-                return registryInstance.register(web3.sha3(username), account, { from: account });
+                let register = App.contracts.FIFSRegistrar.deployed().then((instance) => {
+                    let registryInstance = instance;
+                    return registryInstance.register(web3.sha3(username), account, { from: account });
+                })
+                    .then(function (result) {
+                        console.log("done");
+                        resolve(result);
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
             })
-                .then(function (result) {
-                    console.log("done");
-                }).catch(function (err) {
-                    console.log(err);
-                });
-
         })
+
     },
     getAddressOfDomain: function (username) {
         return new Promise((resolve, reject) => {
@@ -280,7 +283,7 @@ const App = {
                 let account = accounts[0];
                 App.contracts.ENSRegistry.deployed().then((instance) => {
 
-                    return instance.setSubnodeOwner(App.namehash('reverse'), web3.sha3('addr'), '0x479519788d4bd5e1f8126734c5e031def0a62172', { from: accounts[0] });
+                    return instance.setSubnodeOwner(App.namehash('reverse'), web3.sha3('addr'), '0xfe433d7479467b5684a54078c1027e74a13c98fb', { from: accounts[0] });
                 }).then((result) => {
                     console.log("childnode");
                     resolve(result)

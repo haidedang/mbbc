@@ -277,19 +277,19 @@ const App = {
     setChildNode() {
         return new Promise((resolve, reject) => {
             web3.eth.getAccounts((error, accounts) => {
-                if (error) {
-                    console.log(error);
-                }
-                let account = accounts[0];
-                App.contracts.ENSRegistry.deployed().then((instance) => {
-
-                    return instance.setSubnodeOwner(App.namehash('reverse'), web3.sha3('addr'), '0xfe433d7479467b5684a54078c1027e74a13c98fb', { from: accounts[0] });
-                }).then((result) => {
-                    console.log("childnode");
-                    resolve(result)
-                }).catch(function (err) {
-                    console.log(err);
-                });
+                return new Promise((resolve, reject) => {
+                    App.contracts.ReverseResolver.deployed().then((registrarInstance)=>{
+                        App.contracts.EnsRegistry.deployed().then((instance) => {
+                            return instance.setSubnodeOwner(Contracts.namehash('reverse'), web3.utils.sha3('addr'), registrarInstance.address, { from: Contracts.accounts[0]});
+                        }).then((result) => {
+                            console.log("childnode");
+                            resolve(result)
+                        }).catch(function (err) {
+                            console.log(err);
+                        });
+                    })
+                        
+                })
             })
         })
     },

@@ -23,6 +23,8 @@ mongoose.connect(config.mongoURL, error => {
 
 mongoose.set('debug', true);
 
+const tweet = require('./routes/tweet.routes'); 
+
 app.use(cors());
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -31,9 +33,11 @@ app.use(function (req, res, next) {
 });
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use('/api', tweet)
+
 
 require('./passport');
-require('./routes')(app)
+require('./routes/authentication.routes')(app)
 
 require('./socket')(io)
 

@@ -103,5 +103,49 @@ module.exports = {
                 error: 'invalid address'
             })
         }
+    },
+    async authenticateGuest(req, res) {
+        try {
+            // If valid Signature proceed login process
+            if (req.metaAuth && req.metaAuth.recovered) {
+                console.log("Valid Signature")
+                console.log(req.metaAuth.recovered);
+
+
+                // Find User in BlockChain with ReverseAddress 
+                // Given the EthereumAddress of the owner find the URL of the owner 
+                // If URL exists send back a auth token, if not deny access 
+
+                
+              /*   const user = await User.findOne(
+                     {
+                        address: req.metaAuth.recovered
+                    }
+                ) */
+            // if user not in Database throw error else return the User    
+                if (!user) {
+                    return res.status(403).send({
+                        error: 'The login information was incorrect'
+                    })
+                }
+
+                const userJson = user.toJSON()
+
+                res.send({
+                    user: userJson,
+                    token: jwtSignUser(userJson)
+                })
+
+                // send jwt Token here 
+            } else {
+                console.log('fail')
+                res.status(400);
+            }
+
+        } catch (err) {
+            res.status(400).send({
+                error: 'invalid address'
+            })
+        }
     }
 }

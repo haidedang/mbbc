@@ -1,7 +1,7 @@
 const AuthenticationController = require('../controllers/AuthenticationController')
 const MetaAuth = require('meta-auth');
 const metaAuth = new MetaAuth();
-const ChatController = require('../controllers/ChatController')
+const ConversationController = require('../controllers/ConversationController')
 const UserController = require('../controllers/UserController')
 const isAuthenticated = require('../isAuthenticated')
 
@@ -26,8 +26,9 @@ module.exports = (app) => {
 
     //-------- CHATTING ------------------------ 
     // TODO: Add Authentification for the selected User with unique JWT Token 
-    app.get('/users/:userID/:conversationID', ChatController.getConversations)
-    app.post('/chat/:recipient', ChatController.sendMessage)
-    app.post('chat/new/:recipient', ChatController.newConversation)
+    app.get('/users/:userID/:conversationID', ConversationController.getConversations)
+    
+    app.post('/conversation/:recipient', ConversationController.sendMessage)
+    app.post('conversation/new/:recipient', ConversationController.newConversation)
   
 }

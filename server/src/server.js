@@ -24,6 +24,8 @@ mongoose.connect(config.mongoURL, error => {
 mongoose.set('debug', true);
 
 const tweet = require('./routes/tweet.routes'); 
+const conversation = require('./routes/conversation.routes');
+const user = require('./routes/user.routes') 
 
 app.use(cors());
 app.use(function (req, res, next) {
@@ -34,6 +36,8 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use('/api', tweet)
+app.use('/api', conversation)
+app.use ('/api', user)
 
 
 require('./passport');

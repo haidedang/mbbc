@@ -24,7 +24,7 @@ exports.getTweets= (req, res) =>{
    * @param res
    */
   exports.getTweet= (req, res) =>{
-    Tweet.findOne({ cuid: req.params.cuid })
+    Tweet.findOne({ id: req.params.id })
       .exec((err, Tweet) => {
         if (err) {
           res.status(500)
@@ -60,7 +60,6 @@ exports.getTweets= (req, res) =>{
    */
   exports.addTweet= (req, res) =>{
     const newTweet = new Tweet(req.body)
-    newTweet.cuid = cuid()
     newTweet.save((err, saved) => {
       if (err) {
         res.status(500)
@@ -77,7 +76,7 @@ exports.getTweets= (req, res) =>{
    * @param res
    */
   exports.deleteTweet= (req, res) =>{
-    Tweet.findOne({ cuid: req.params.cuid })
+    Tweet.findOne({ id: req.params.id })
       .exec((err, Tweet) => {
         if (err) {
           res.status(500)

@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const cuid = require('../models/User')
+
 
 exports.addContact = (req, res) => {
 
@@ -15,9 +15,6 @@ exports.addContact = (req, res) => {
                 user.save();
             }
         })
-
-    
-
 
     /*  // newContact doesnt really need to be fetched, I just need the UserID
     async function getNewContact(){ 
@@ -44,7 +41,6 @@ exports.addContact = (req, res) => {
 
 exports.addUser = (req, res) => {
     const newUser = new User(req.body)
-    newUser.cuid = cuid()
     newUser.save((err, saved) => {
         if (err) {
             res.status(500)

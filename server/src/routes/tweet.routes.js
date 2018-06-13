@@ -8,7 +8,7 @@ router.route('/tweets')
   .get(TweetController.getTweets)
 
 // Get one tweet by cuid
-router.route('/tweet/:cuid')
+router.route('/tweet/:id')
   .get(TweetController.getTweet)
 
 // Get one tweet by userId
@@ -20,7 +20,7 @@ router.route('/tweet')
   .post(TweetController.addTweet)
 
 // Delete a tweets by cuid
-router.route('/tweets/:cuid')
+router.route('/tweets/:id')
   .delete(TweetController.deleteTweet)
 
 

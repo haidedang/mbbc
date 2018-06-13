@@ -8,8 +8,8 @@
     "dev-server2": "npm run mongo2 && PORT=8082 dbName=CryptoStorage nodemon src/server.js",
     "dev-dummy": "npm run mongo1 && npm run mongo2 && npm run server",
     "server": "npm run PORT=8081 dbName=DropStore nodemon src/server.js & PORT=8082 dbName=CryptoStorage nodemon src/server.js & npm run dummy",
-    "mongo1" : "DELAY=0 dbName=DropStore node src/config/mongoClean.js", 
-    "mongo2" : "DELAY=2000 dbName=CryptoStorage node src/config/mongoClean.js",
+    "mongo1": "DELAY=0 dbName=DropStore node src/config/mongoClean.js",
+    "mongo2": "DELAY=2000 dbName=CryptoStorage node src/config/mongoClean.js",
     "dummy": "node ../client/dummy.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cuid": "^2.1.1",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.1",
     "meta-auth": "^1.1.2",

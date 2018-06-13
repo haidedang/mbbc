@@ -27,7 +27,7 @@
   .text {
     height: 160px;
     border-top: solid 1px #ddd;
-  textarea {s
+  textarea {
     padding: 10px;
     height: 100%;
     width: 100%;

@@ -47,7 +47,8 @@
     flex: 1 0 30%;
     height: 100%;
     overflow-y: auto;
-    width: 100%;
+    min-width:50%;
+    width:fit-content;
     padding: 50px 30px;
     box-sizing: border-box;
     border-right: 1px solid #43A047;

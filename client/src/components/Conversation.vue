@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div class="message" v-scroll-bottom="session.messages">
       <ul v-if="session">
         <li v-for="item in session.messages">
@@ -12,8 +13,11 @@
           </div>
         </li>
       </ul>
-      <text></text>
     </div>
+  <div class="textArea">
+    <textarea placeholder="Ctrl + Enter" v-model="content" @keyup="onKeyup"></textarea>
+  </div>
+  </div>
 </template>
 
 <script>
@@ -46,7 +50,7 @@
   .message {
     padding: 10px 15px;
     overflow-y: scroll;
-    width:70%;
+    width:100%;
     height:350px;
     ul{
       list-style-type: none;
@@ -110,5 +114,18 @@
    }
   }
   }
+  }
+
+  .textArea {
+    height: 160px;
+    border-top: solid 1px #ddd;
+    textarea {
+      padding: 10px;
+      height: 100%;
+      width: 100%;
+      border: none;
+      outline: none;
+      resize: none;
+    }
   }
 </style>

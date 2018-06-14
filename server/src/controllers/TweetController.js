@@ -1,5 +1,4 @@
 const Tweet = require('../models/Tweet');
-const cuid = require('cuid')
 /**
  * Get Tweets.
  *

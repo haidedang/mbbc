@@ -12,7 +12,9 @@ exports.addContact = (req, res) => {
                 res.send('ERROR: user already in contact List');
             } else {
                 user.contacts.push(req.params.newContact)
-                user.save();
+                user.save(((err, user) => { 
+                    return res.status(200).json({user: user});
+                }));
             }
         })
 

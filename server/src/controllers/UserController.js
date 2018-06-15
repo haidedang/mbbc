@@ -13,7 +13,7 @@ exports.addContact = (req, res) => {
             } else {
                 user.contacts.push(req.params.newContact)
                 user.save(((err, user) => { 
-                    return res.status(200).json({user: user});
+                    return res.status(200).json({userID: req.params.newContact});
                 }));
             }
         })

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import Text from '@/components/Text'
+  import Text from '@/components/Chat/Text'
 
     export default {
       components: {Text},

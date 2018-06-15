@@ -10,11 +10,11 @@
           </a>
           <div class="form-group">
             <h2>Ethereum ID</h2>
-            <p>{{this.address}}</p>
+            <p>{{this.user.address}}</p>
           </div>
           <div class="form-group">
             <h2>Username</h2>
-            <h4>{{this.userID}}</h4>
+            <h4>{{this.user.userID}}</h4>
             <small>This is needed for Contacts to reach you</small>
           </div>
           <v-btn @click="show">Follow</v-btn>
@@ -32,6 +32,7 @@ import UserService from '@/services/UserService'
 import $ from 'jquery'
 import axios from 'axios'
 import Api from '../services/Api'
+import AuthService from "@/services/web3";
 
 export default {
   name: 'Profile',
@@ -41,6 +42,9 @@ export default {
       userID:'',
       src: '../static/ferhat.jpg',
     }
+  },
+  beforeCreate: function() {
+    AuthService.init();
   },
   computed: {
     ...mapState([
@@ -53,7 +57,7 @@ export default {
       return '180px'
     }
   },
-  created: function() {
+  created: async function() {
 
       console.log('wait');
       if (!this.isUserLoggedIn) {
@@ -64,13 +68,23 @@ export default {
         // console.log(this.token);
         console.log(this.$route.params);
         console.log(this.url);
-        Api().get(this.url +"/users/"+this.$route.params.id)
+        // TODO: this.url needs to be edited. Wrong reference, needs to query from blockchain 
+
+        /* UserService.getUser(this.url, this.$route.params.id)
+            .then((result) => { 
+                console.log( result); 
+            })
+ */
+        let url =  await AuthService.searchUser(this.$route.params.id); 
+        this.$store.dispatch('getProfile', {url: url, id: this.$route.params.id});
+
+        /* Api().get(this.url +"/users/"+this.$route.params.id)
         .then((result)=> {
            console.log(result);
             this.userID = result.data.user.userID;
             this.address = result.data.user.address;
             console.log(this.userID);
-        })
+        }) */
 
        /*    // Address needs to be resolved here.
           this.user.storageAddress +"/users/"+this.$route.params.id).then((result)=>{
@@ -88,10 +102,10 @@ export default {
   },
   methods: { 
     show() {
-      console.log(this.user);
-
+      this.$store.dispatch("setUser", response.user);
       // address of the CurrentUSER
       // TODO: Send request to the Friends Server and wait for ACCEPTANCE
+      //Add a Contact
       var test = $.get(
           this.user.storageAddress+"/users/"+ this.user.userID+'/' +this.$route.params.id).then((result)=>{
             console.log(result);

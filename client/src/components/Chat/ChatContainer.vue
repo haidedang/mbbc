@@ -6,8 +6,8 @@
 </template>
 
 <script>
-  import Sidebar from '@/components/Sidebar'
-  import Conversation from '@/components/Conversation'
+  import Sidebar from '@/components/Chat/Sidebar'
+  import Conversation from '@/components/Chat/Conversation'
 
   export default {
     components : { Sidebar, Conversation}

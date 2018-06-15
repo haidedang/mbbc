@@ -1,7 +1,14 @@
 import Vue from 'vue' 
 
+
 export default { 
-    addContact (state, payload) { 
+    setUser (state, payload) { 
+        state.user = data
+    }
+}
+
+export default { 
+    setContact (state, payload) { 
         state.user.contacts.push(payload.userID); 
     }
 }

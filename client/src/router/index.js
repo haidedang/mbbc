@@ -6,7 +6,7 @@ import User from '@/components/UserProfile'
 import Domain from '@/components/Domain'
 import Search from '@/components/Search'
 import Chat from '@/components/Chat'
-import Message from '@/components/Message'
+import ChatContainer from '@/components/Chat/ChatContainer'
 import Profile from '@/components/Profile'
 import Contacts from '@/components/FindContact'
 import RegisterDomain from '@/components/RegisterDomain'
@@ -65,9 +65,9 @@ export default new Router({
             component: User
         },
         {
-            path: '/Message',
-            name: 'message',
-            component: Message
+            path: '/Conversation',
+            name: 'conversation',
+            component: ChatContainer
         },
         {
             path: '/Contacts',

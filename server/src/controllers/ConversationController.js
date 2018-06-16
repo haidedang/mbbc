@@ -52,6 +52,14 @@ exports.getConversations = function (req, res, next) {
 exports.getConversationsByUserIDs = (req, res) => {
     Conversation.find({ participants: [req.params.userID, req.params.recipient] })
         .exec((err, conversation) => {
+            if (conversation.length == 0) {
+                const conversation = new Conversation({
+                    participants: [req.params.userID, req.params.recipient]
+                });
+                conversation.save((err, res) => { 
+                    console.log(res);
+                })
+            }
             return res.status(200).json({ conversation: conversation })
         })
 }

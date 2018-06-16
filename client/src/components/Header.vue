@@ -108,7 +108,6 @@ export default {
       console.log(response.user.storageAddress);
       this.$store.dispatch("setToken", response.token);
       this.$store.dispatch("setUser", response.user);
-      this.$store.dispatch("setURL", response.user.storageAddress);
       console.log(response.user.userID);
       this.$router.push({
         path: `/profile/${response.user.userID}`

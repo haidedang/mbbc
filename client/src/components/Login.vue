@@ -32,64 +32,40 @@
 </template>
 
 <script>
-import AuthenticationService from '@/services/AuthenticationService'
-import AuthService from '@/services/web3'
+import AuthenticationService from "@/services/AuthenticationService";
+import AuthService from "@/services/web3";
 
 export default {
-  data () {
+  data() {
     return {
-      userID: '',
+      userID: "",
       error: null
-    }
+    };
   },
-  beforeCreate: function(){ 
+  beforeCreate: function() {
     AuthService.init();
   },
   methods: {
-  //  async login () { 
-  //    App.login().then((result)=> { 
-  //      if (result){
-  //        this.$store.dispatch('setToken', 'j323fsdfseq');
-  //        this.$router.push({
-  //          name:'profile'
-  //        })
-  //      }
-  //    });
-  //     // this.$store.dispatch('setToken', response.data.token)
-  //     // this.$store.dispatch('setUser', response.data.user)
-  //     // this.$router.push({
-  //     //   name:'songs'
-  //     // })
-  //   }
+    async login() {
+      let url = await AuthService.searchUser(this.userID);
+      console.log(url);
+      let response = await AuthenticationService.login(url);
+      console.log(response);
+      console.log(response.user.storageAddress);
 
-   async login(){
-    let url =  await AuthService.searchUser(this.userID);
-    console.log(url);
-    let response = await AuthenticationService.login(url);
-    console.log(response);
-    console.log(response.user.storageAddress);
-
-    //  if (response){ 
-    //     $.post('http://localhost:8081/login', {userID:this.userID}, (response) => {
-    //       console.log(response);
-       this.$store.dispatch('setToken', response.token)
-       this.$store.dispatch('setUser', response.user)
-      this.$store.dispatch('setURL', response.user.storageAddress);
-       console.log(response.user.userID)
-       this.$router.push({
-              path: `/profile/${response.user.userID}`
-            })
-    //     });
-    //   }
-
+      this.$store.dispatch("setToken", response.token);
+      this.$store.dispatch("setUser", response.user);
+      console.log(response.user.userID);
+      this.$router.push({
+        path: `/profile/${response.user.userID}`
+      });
+    }
   }
-
-  }
-}
+};
 </script>
 
 <style scoped>
-  h5 {
-    color:white;
-  }
+h5 {
+  color: white;
+}
 </style>

@@ -4,6 +4,7 @@ const mongoose = require('mongoose'),
 const MessageSchema = new Schema({
   conversationId: {
     type: Schema.Types.ObjectId,
+    ref:'Conversation',
     required: true
   },
   body: {
@@ -11,7 +12,7 @@ const MessageSchema = new Schema({
     required: true
   },
   author: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.String,
     ref: 'User'
   }
 },

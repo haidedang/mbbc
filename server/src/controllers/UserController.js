@@ -9,13 +9,16 @@ exports.addContact = (req, res) => {
         .then((user) => {
             if (user.contacts.includes(req.params.newContact)) {
                 console.log('user already in contact List');
-                res.send('ERROR: user already in contact List');
+                res.status(400).json({user:user});
+            } else if (req.params.newContact == undefined || req.params.newContact == undefined) {
+                res.status(400).send('User undefined');
             } else {
                 user.contacts.push(req.params.newContact)
-                user.save(((err, user) => { 
-                    return res.status(200).json({userID: req.params.newContact});
+                user.save(((err, user) => {
+                return res.json({ user: user });
                 }));
             }
+
         })
 
     /*  // newContact doesnt really need to be fetched, I just need the UserID
@@ -52,13 +55,13 @@ exports.addUser = (req, res) => {
     })
 }
 
-exports.getUsers= (req, res) =>{
+exports.getUsers = (req, res) => {
     User.find()
-      .exec((err, Users) => {
-        if (err) {
-          res.status(500)
-            .send(err)
-        }
-        res.json({ Users: Users })
-      })
-  }
+        .exec((err, Users) => {
+            if (err) {
+                res.status(500)
+                    .send(err)
+            }
+            res.json({ Users: Users })
+        })
+}

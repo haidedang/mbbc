@@ -3,10 +3,26 @@ import UserService from '../services/UserService'
 export const getProfile = ({ commit }, contact) => {
     UserService.getUser(contact.url, contact.id)
         .then((result) => {
-            /* commit('addUser', result);  */
-            commit('setProfile', result) // result = new User! 
             console.log(result);
+            commit('setProfile', result.data.user) // result = new User! 
         })
+}
+
+export const addContact = ({commit}, contact) => { 
+    UserService.addContact(contact.url, contact.id, contact.recipient)
+        .then((result) => { 
+            console.log(result)
+            if(result == undefined){ 
+                return; 
+            } else { 
+                commit('setUser', result.data.user); 
+            }
+        })  
+}
+
+export const setCurrentConversation = ({commit}, conversation) => { 
+    
+
 }
 
 export const setURL = ({ commit }, url) => {

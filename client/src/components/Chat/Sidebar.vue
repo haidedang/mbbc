@@ -7,17 +7,17 @@
             <img class="rounded-circle mt-0" v-bind:src="src" id="thumbnail" alt="Thumbnail">
           </li>
           <li class="my-3">
-            <h6>{{id}}</h6>
+            <h6>{{this.user.userID}}</h6>
           </li>
         </ul>
       </div>
       <v-divider></v-divider>
       <v-list style="background-color: transparent">
         <v-list-tile 
-        v-for="contact in contacts" 
+        v-for="contact in this.user.contacts" 
         :key="contact" 
         avatar
-        @click="show(contact)">
+        @click="setCurrentConversation">
           <!--<v-list-tile-avatar>
             <img :src="">
           </v-list-tile-avatar>-->
@@ -41,14 +41,13 @@ export default {
   data() {
     return {
       dialog: false,
-      src: "../static/ferhat.jpg",
-      id: JSON.parse(localStorage.getItem("vuex")).user.userID,
-      /* contacts: JSON.parse(localStorage.getItem("vuex")).user.contacts */
-      contacts: this.user.contacts
+      src: "../static/ferhat.jpg"
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user"])
+    ...mapState(["isUserLoggedIn", "user"]),
+    ...mapActions(["setCurrentConversation"])
+
   },
   methods: {
     show(contact) {

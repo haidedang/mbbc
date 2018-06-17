@@ -21,8 +21,12 @@ export const addContact = ({commit}, contact) => {
 }
 
 export const setCurrentConversation = ({commit}, conversation) => { 
-    
-
+    UserService.getConversationByUserIDs(conversation.url, conversation.id, conversation.recipient)
+        .then((result) =>  {
+            console.log(result)
+            commit('setCurrentConversation', result.data.conversation); 
+            /*  commit('setCurrentConversation', ) */
+        })
 }
 
 export const setURL = ({ commit }, url) => {

@@ -16,7 +16,8 @@ const state =  {
   user: null,
   profile: null, 
   isUserLoggedIn: false,
-  url: null
+  url: null,
+  conversation: null
 }
 
 export default new Vuex.Store({

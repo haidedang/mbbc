@@ -17,10 +17,7 @@
         v-for="contact in this.user.contacts" 
         :key="contact" 
         avatar
-        @click="setCurrentConversation">
-          <!--<v-list-tile-avatar>
-            <img :src="">
-          </v-list-tile-avatar>-->
+        @click="setCurrentConversation(contact)">
         <v-list-tile-content>
             <v-list-tile-title v-text="contact"></v-list-tile-title>
           </v-list-tile-content>
@@ -31,12 +28,14 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   created() {
-    console.log(JSON.parse(localStorage.getItem("vuex")));
-    console.log(this.user)
+   /*  console.log(JSON.parse(localStorage.getItem("vuex")));
+    console.log(this.user);
+    console.log(this.conversation) */
   },
   data() {
     return {
@@ -45,14 +44,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user"]),
-    ...mapActions(["setCurrentConversation"])
-
+    ...mapState(["isUserLoggedIn", "user", "conversation"])
   },
   methods: {
-    show(contact) {
-        console.log(this.user)
-      console.log(contact);
+    setCurrentConversation(contact) {
+      this.$store.dispatch("setCurrentConversation", {
+        url: this.user.storageAddress,
+        id: this.user.userID,
+        recipient: contact
+      });
     }
   }
 };

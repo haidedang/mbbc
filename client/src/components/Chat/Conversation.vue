@@ -2,27 +2,34 @@
   <div>
     <div class="message" v-scroll-bottom="session.messages">
       <ul v-if="session">
-        <li v-for="item in session.messages" :key="item">
+        <li v-for="item in session.messages" :key="item.id">
           <!--<p class="time">
             <span>{{ item.date | time }}</span>
           </p> -->
           <div class="main" :class="{ self: item.self }">
             <img class="avatar" width="30" height="30" :src="src" />
             <div class="text">{{ item.content }}
-              <sub>{{ item.date | time }}</sub></div>
+              <sub>{{ item.date | time }}</sub>
+            </div>
           </div>
         </li>
-      </ul>
+      </ul> 
     </div>
   <div class="textArea">
-    <textarea placeholder="Ctrl + Enter" v-model="content" ></textarea>
+    <textarea placeholder="your message" v-model="input" @keydown.enter="submit" ></textarea>
   </div>
   </div>
 </template>
 
 <script>
 /* import Text from "@/components/Chat/Text"; */
-import {mapState} from 'vuex'
+import { mapState } from "vuex";
+import UserService from "@/services/UserService";
+import $ from "jquery";
+import io from "socket.io-client";
+import AuthService from "@/services/web3";
+
+let socket = null;
 
 export default {
   name: "Conversation",
@@ -30,22 +37,76 @@ export default {
     return {
       src: "../static/ferhat.jpg",
       session: {
-        messages: {
-          1: {
+        messages: [{
+            conversationId:'12312314121',
             date: "11:23",
             content: "Hello"
           },
-          2: {
+          {
+            conversationId: '32432234234',
             date: "11:25",
             content: "Are you my twin?"
           }
-        }
+          ]
+        
       },
-      content:''
+      input: ""
     };
   },
-  computed: { 
-      ...mapState(["isUserLoggedIn", "user", "conversation"])
+  computed: {
+    ...mapState(["isUserLoggedIn", "user", "conversation"])
+  },
+  created() {
+    console.log("Here " + this.user.userID);
+    console.log(this.conversation[0].participants[1]);
+    let recipient = this.conversation[0].participants[1];
+    let userName = this.user.userID;
+    socket = io.connect(this.user.storageAddress);
+    socket.on("connect", function() {
+      socket.emit("username", { username: userName });
+
+      console.log("Connected! ID: " + socket.id);
+    });
+
+    socket.on("online", function(data) {
+      console.log("received");
+    });
+    socket.on("reply", function(data) {
+      console.log(data);
+    });
+  },
+
+  methods: {
+    show() {
+      console.log(this.user);
+    },
+    async submit() {
+      socket.emit("message", {
+        conversationId: this.conversation[0]._id, 
+        author: this.user.userID,
+        sentTo: this.conversation[0].participants[1],
+        content: this.input,
+        socket: socket.id
+      });
+      console.log(this.recipient);
+      let url = await AuthService.searchUser(
+        this.conversation[0].participants[1]
+      );
+      console.log(url);
+      $.post(
+        url + "/conversation/" + this.conversation[0].participants[1],
+        {
+          userID: this.user,
+          sentTo: this.conversation[0].participants[1],
+          message: this.input
+        },
+        response => {
+          console.log(response);
+        }
+      );
+
+      this.input = "";
+    }
   }
 };
 </script>

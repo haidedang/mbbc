@@ -33,7 +33,7 @@ import { mapActions } from "vuex";
 
 export default {
   created() {
-   /*  console.log(JSON.parse(localStorage.getItem("vuex")));
+    /*  console.log(JSON.parse(localStorage.getItem("vuex")));
     console.log(this.user);
     console.log(this.conversation) */
   },
@@ -48,11 +48,20 @@ export default {
   },
   methods: {
     setCurrentConversation(contact) {
-      this.$store.dispatch("setCurrentConversation", {
-        url: this.user.storageAddress,
-        id: this.user.userID,
-        recipient: contact
-      });
+      this.$store
+        .dispatch("setCurrentConversation", {
+          url: this.user.storageAddress,
+          id: this.user.userID,
+          recipient: contact
+        })
+        .then(conversation => {
+            console.log(conversation[0]._id)
+            this.$store
+                .dispatch("setCurrentMessages", {
+                    url: this.user.storageAddress, 
+                    id: conversation[0]._id
+                })
+        });
     }
   }
 };

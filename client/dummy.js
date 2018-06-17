@@ -1,6 +1,8 @@
 let URLResolver = require('./build/contracts/URLResolver.json')
 let FIFSRegistrar = require('./build/contracts/FIFSRegistrar.json')
 let ENSRegistry = require('./build/contracts/ENSRegistry.json')
+let DefaultReverseResolver = require('./build/contracts/DefaultReverseResolver.json')
+let ReverseRegistrar = require('./build/contracts/ReverseRegistrar.json')
 let contract = require('truffle-contract')
 const request = require('request');
 
@@ -35,6 +37,14 @@ let Contracts = {
             Contracts.urlResolver.setProvider(provider);
             fixProvider(Contracts.urlResolver);
 
+            Contracts.DefaultResolver = contract(DefaultReverseResolver)
+            Contracts.DefaultResolver.setProvider(provider)
+            fixProvider(Contracts.DefaultResolver);
+
+            Contracts.ReverseResolver = contract(ReverseRegistrar);
+            Contracts.ReverseResolver.setProvider(provider)
+            fixProvider(Contracts.ReverseResolver);
+
             /* let accounts = await web3.eth.getAccounts();
             Contracts.accounts = accounts; */
             web3.eth.getAccounts().then((accounts) => {
@@ -67,19 +77,47 @@ let Contracts = {
         })
 
     },
-    registerUser: function (user, url, key) {
+    setNameForReverseAddress: function (userName, key) {
         return new Promise((resolve, reject) => {
-            Contracts.urlResolver.deployed().then(function (instance) {
-                let registryInstance = instance;
-                return registryInstance.setUrl(Contracts.namehash(user), url, { from: Contracts.accounts[key].toLowerCase() });
-            }).then(function (result) {
-                console.log('Registration successfull');
-                resolve();
-            }).catch(function (err) {
-                console.log(err.message);
-            });
+                Contracts.ReverseResolver.deployed().then((instance) => {
+                    let reverseResolveInstance = instance;
+                    return reverseResolveInstance.setName(userName, { from: Contracts.accounts[key].toLowerCase()});
+                }).then(function (result) {
+                    console.log(result)
+                    console.log("done");
+                    resolve(); 
+                }).catch(function (err) {
+                    console.log(err);
+                });
         })
     },
+    registerUser: function (userName, key, url) {
+        return new Promise((resolve, reject) => {
+            console.log('HIT')
+                Contracts.urlResolver.deployed().then(function (instance) {
+                    // return registryInstance.register(web3.sha3(url), account, {from: account});
+                    return instance.setUrl(Contracts.namehash(userName), url, userName, Contracts.accounts[key].toLowerCase(), { from: Contracts.accounts[key].toLowerCase() });
+                }).then(function (result) {
+                    console.log('reached');
+                    resolve();
+                }).catch(function (err) {
+                    console.log(err.message);
+                });
+        })
+    },
+    /*     registerUser: function (user, url, key) {
+            return new Promise((resolve, reject) => {
+                Contracts.urlResolver.deployed().then(function (instance) {
+                    let registryInstance = instance;
+                    return registryInstance.setUrl(Contracts.namehash(user), url, { from: Contracts.accounts[key].toLowerCase() });
+                }).then(function (result) {
+                    console.log('Registration successfull');
+                    resolve();
+                }).catch(function (err) {
+                    console.log(err.message);
+                });
+            })
+        }, */
     getOwnerAddress: function (userName) {
         return new Promise((resolve, reject) => {
             Contracts.ensRegistry.deployed().then(function (instance) {
@@ -137,10 +175,10 @@ for (const key of Object.keys(DummyUsers)) {
 }
 
 function waitForServer() {
-    return new Promise((resolve, reject) => { 
-        setTimeout(() =>{ 
-            console.log("server finished loading"); 
-            resolve(); 
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("server finished loading");
+            resolve();
         })
     })
 }
@@ -153,8 +191,11 @@ function setUpDummyData() {
                 .then((result) => {
                     return Contracts.getOwnerAddress(DummyUsers[key].username + '.eth');
                 })
+               /*  .then((result) => {
+                    return Contracts.setNameForReverseAddress(DummyUsers[key].username+'.eth', parseInt(key))
+                }) */
                 .then((result) => {
-                    return Contracts.registerUser(DummyUsers[key].username + '.eth', DummyUsers[key].url, parseInt(key));
+                    return Contracts.registerUser(DummyUsers[key].username + '.eth',parseInt(key), DummyUsers[key].url);
                 })
                 .then((result) => {
                     return Contracts.searchUser(DummyUsers[key].username + '.eth')
@@ -172,7 +213,7 @@ function setUpDummyData() {
 
 Contracts.init()
     .then(() => {
-        return waitForServer(); 
+        return waitForServer();
     })
     .then(() => {
         return setUpDummyData();

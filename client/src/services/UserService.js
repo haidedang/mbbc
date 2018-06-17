@@ -1,5 +1,4 @@
 import Api from '@/services/Api'
-import { getConversationsByUserIDs } from '../../../server/src/controllers/ConversationController';
 
 export default {
 
@@ -12,7 +11,7 @@ export default {
     },
 
     getConversationByUserIDs(url, userID, recipient){
-        return Api().get(url + `api/conversation/${userID}/${recipient}` )
+        return Api().get(url + `/api/conversation/${userID}/${recipient}` )
     }
 
 

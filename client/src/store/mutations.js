@@ -21,6 +21,9 @@ export default {
     },
     setCurrentConversation(state, response){ 
         state.conversation = response 
+    },
+    setCurrentMessages(state, response){
+    
     }
 }
 

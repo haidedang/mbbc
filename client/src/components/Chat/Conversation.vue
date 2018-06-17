@@ -1,20 +1,19 @@
 <template>
   <div>
-    <div class="message" v-scroll-bottom="session.messages">
+   <!--  <div class="message" v-scroll-bottom="session.messages"> -->
+    <div class= "message">
       <ul v-if="session">
-        <li v-for="item in session.messages" :key="item.id">
-          <!--<p class="time">
-            <span>{{ item.date | time }}</span>
-          </p> -->
+        <li v-for="item in messages" :key="item.id">
           <div class="main" :class="{ self: item.self }">
             <img class="avatar" width="30" height="30" :src="src" />
             <div class="text">{{ item.content }}
-              <sub>{{ item.date | time }}</sub>
+             <!--  <sub>{{ item.timestamp | time }}</sub> -->
             </div>
           </div>
         </li>
       </ul> 
     </div>
+    
   <div class="textArea">
     <textarea placeholder="your message" v-model="input" @keydown.enter="submit" ></textarea>
   </div>
@@ -28,6 +27,10 @@ import UserService from "@/services/UserService";
 import $ from "jquery";
 import io from "socket.io-client";
 import AuthService from "@/services/web3";
+import { mapGetters } from "vuex";
+import store from '@/store/store'
+
+
 
 let socket = null;
 
@@ -37,28 +40,30 @@ export default {
     return {
       src: "../static/ferhat.jpg",
       session: {
-        messages: [{
-            conversationId:'12312314121',
+        messages: [
+          {
+            conversationId: "12312314121",
             date: "11:23",
             content: "Hello"
           },
           {
-            conversationId: '32432234234',
+            conversationId: "32432234234",
             date: "11:25",
             content: "Are you my twin?"
           }
-          ]
-        
+        ]
       },
       input: ""
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "conversation"])
+    ...mapState(["isUserLoggedIn", "user", "conversation"]),
+    ...mapGetters({ messages: "currentMessages" })
   },
   created() {
     console.log("Here " + this.user.userID);
     console.log(this.conversation[0].participants[1]);
+    console.log(this.messages);
     let recipient = this.conversation[0].participants[1];
     let userName = this.user.userID;
     socket = io.connect(this.user.storageAddress);
@@ -72,27 +77,33 @@ export default {
       console.log("received");
     });
     socket.on("reply", function(data) {
-      console.log(data);
+        console.log(data); 
+      store.dispatch("sendMessage", {
+        conversationId: store.state.conversation[0]._id,
+        author: store.state.conversation[0].participants[1],
+        content: data,
+        timestamp: Date.now()
+      });
+      
     });
   },
-
   methods: {
     show() {
       console.log(this.user);
     },
     async submit() {
       socket.emit("message", {
-        conversationId: this.conversation[0]._id, 
+        conversationId: this.conversation[0]._id,
         author: this.user.userID,
         sentTo: this.conversation[0].participants[1],
         content: this.input,
         socket: socket.id
       });
-      console.log(this.recipient);
       let url = await AuthService.searchUser(
         this.conversation[0].participants[1]
       );
       console.log(url);
+
       $.post(
         url + "/conversation/" + this.conversation[0].participants[1],
         {
@@ -104,6 +115,12 @@ export default {
           console.log(response);
         }
       );
+      this.$store.dispatch("sendMessage", {
+        conversationId: this.conversation[0]._id,
+        author: this.user.userID,
+        content: this.input,
+        timestamp: Date.now()
+      });
 
       this.input = "";
     }

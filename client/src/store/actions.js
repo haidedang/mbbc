@@ -40,6 +40,10 @@ export const setCurrentMessages = ({commit}, conversation) => { 
         })
 }
 
+export const sendMessage = ({commit}, message) => {
+    commit('addMessage', message)
+}
+
 export const setURL = ({ commit }, url) => {
     commit('setURL', url)
 }

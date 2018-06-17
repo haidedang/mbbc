@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import * as actions from './actions'
+import * as getters from './getters'
 import mutations from './mutations'
 
 Vue.use(Vuex)
@@ -17,11 +18,13 @@ const state =  {
   profile: null, 
   isUserLoggedIn: false,
   url: null,
-  conversation: null
+  conversation: null,
+  messages: [] 
 }
 
 export default new Vuex.Store({
     state,
+    getters,
     mutations, 
     actions,
     plugins

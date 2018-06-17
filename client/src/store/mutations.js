@@ -24,6 +24,9 @@ export default {
     },
     setCurrentMessages(state, response){
     
+    },
+    addMessage(state, message) { 
+       state.messages.push(message); 
     }
 }
 

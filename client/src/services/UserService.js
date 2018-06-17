@@ -12,6 +12,10 @@ export default {
 
     getConversationByUserIDs(url, userID, recipient){
         return Api().get(url + `/api/conversation/${userID}/${recipient}` )
+    },
+
+    getMessagesByConversationId(url, conversationId){
+        return Api().get(url + `/api/messages/${conversationId}` )
     }
 
 

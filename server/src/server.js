@@ -26,6 +26,7 @@ mongoose.set('debug', true);
 const tweet = require('./routes/tweet.routes'); 
 const conversation = require('./routes/conversation.routes');
 const user = require('./routes/user.routes') 
+const message = require('./routes/message.routes')
 
 app.use(cors());
 app.use(function (req, res, next) {
@@ -38,6 +39,7 @@ app.use(bodyParser.json())
 app.use('/api', tweet)
 app.use('/api', conversation)
 app.use ('/api', user)
+app.use('/api', message)
 
 
 require('./passport');

@@ -21,11 +21,22 @@ export const addContact = ({commit}, contact) => {
 }
 
 export const setCurrentConversation = ({commit}, conversation) => { 
-    UserService.getConversationByUserIDs(conversation.url, conversation.id, conversation.recipient)
+    return new Promise((resolve, reject) => { 
+        UserService.getConversationByUserIDs(conversation.url, conversation.id, conversation.recipient)
         .then((result) =>  {
-            console.log(result)
             commit('setCurrentConversation', result.data.conversation); 
+            resolve(result.data.conversation)
             /*  commit('setCurrentConversation', ) */
+        })
+    })
+}
+
+export const setCurrentMessages = ({commit}, conversation) => { 
+    UserService.getMessagesByConversationId(conversation.url, conversation.id)
+        .then((result) => { 
+            
+           /*  commit('setCurrentMessages', result.data.message) */
+            console.log(result)
         })
 }
 

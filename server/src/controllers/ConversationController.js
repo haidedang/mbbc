@@ -56,11 +56,12 @@ exports.getConversationsByUserIDs = (req, res) => {
                 const conversation = new Conversation({
                     participants: [req.params.userID, req.params.recipient]
                 });
-                conversation.save((err, res) => { 
-                    console.log(res);
+                conversation.save((err, conversation) => { 
+                    return res.status(200).json({conversation:conversation})
                 })
+            } else { 
+                return res.status(200).json({ conversation: conversation })
             }
-            return res.status(200).json({ conversation: conversation })
         })
 }
 

@@ -28,9 +28,7 @@ import $ from "jquery";
 import io from "socket.io-client";
 import AuthService from "@/services/web3";
 import { mapGetters } from "vuex";
-import store from '@/store/store'
-
-
+import store from "@/store/store";
 
 let socket = null;
 
@@ -60,7 +58,7 @@ export default {
     ...mapState(["isUserLoggedIn", "user", "conversation"]),
     ...mapGetters({ messages: "currentMessages" })
   },
-  created() {
+  mounted() {
     console.log("Here " + this.user.userID);
     console.log(this.conversation[0].participants[1]);
     console.log(this.messages);
@@ -77,39 +75,43 @@ export default {
       console.log("received");
     });
     socket.on("reply", function(data) {
-        console.log(data); 
+      console.log(data);
       store.dispatch("sendMessage", {
         conversationId: store.state.conversation[0]._id,
         author: store.state.conversation[0].participants[1],
         content: data,
         timestamp: Date.now()
       });
-      
     });
   },
+  destroyed() {
+    socket.close();
+  },
+
   methods: {
     show() {
       console.log(this.user);
     },
     async submit() {
+        // send to server A 
       socket.emit("message", {
         conversationId: this.conversation[0]._id,
         author: this.user.userID,
-        sentTo: this.conversation[0].participants[1],
         content: this.input,
-        socket: socket.id
       });
       let url = await AuthService.searchUser(
         this.conversation[0].participants[1]
       );
       console.log(url);
-
+          // TODO: Refactor with /n and API service
+          // send to Server B 
       $.post(
         url + "/conversation/" + this.conversation[0].participants[1],
         {
-          userID: this.user,
-          sentTo: this.conversation[0].participants[1],
-          message: this.input
+          conversationId: this.conversation[0]._id,
+          author: this.user.userID,
+          content: this.input,
+          timestamp: Date.now()
         },
         response => {
           console.log(response);

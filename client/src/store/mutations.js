@@ -23,7 +23,7 @@ export default {
         state.conversation = response 
     },
     setCurrentMessages(state, response){
-    
+        
     },
     addMessage(state, message) { 
        state.messages.push(message); 

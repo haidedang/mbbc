@@ -1,22 +1,22 @@
 <template>
   <div>
    <!--  <div class="message" v-scroll-bottom="session.messages"> -->
-    <div class= "message">
+    <div class= "message" v-scroll-bottom="messages">
       <ul v-if="session">
         <li v-for="item in messages" :key="item.id">
-          <div class="main" :class="{ self: item.self }">
-            <img class="avatar" width="30" height="30" :src="src" />
+          <div class="main" :class="{self: kek(item)} ">
+            <img class="avatar" :src="src" />
             <div class="text">{{ item.content }}
-             <!--  <sub>{{ item.timestamp | time }}</sub> -->
+             <!--<sub>{{ item.timestamp | time }}</sub> -->
             </div>
           </div>
         </li>
       </ul> 
     </div>
     
-  <div class="textArea">
-    <textarea placeholder="your message" v-model="input" @keydown.enter="submit" ></textarea>
-  </div>
+    <div class="textArea">
+      <textarea placeholder="your message" v-model="input" @keydown.enter="submit" ></textarea>
+    </div>
   </div>
 </template>
 
@@ -38,18 +38,7 @@ export default {
     return {
       src: "../static/ferhat.jpg",
       session: {
-        messages: [
-          {
-            conversationId: "12312314121",
-            date: "11:23",
-            content: "Hello"
-          },
-          {
-            conversationId: "32432234234",
-            date: "11:25",
-            content: "Are you my twin?"
-          }
-        ]
+        messages: []
       },
       input: ""
     };
@@ -89,6 +78,14 @@ export default {
   },
 
   methods: {
+    kek(item){
+      var test = JSON.parse(localStorage.getItem("vuex"));
+      if(item.author == test.user.userID){
+        return true;
+      }else{
+        return false;
+      }
+    },
     show() {
       console.log(this.user);
     },
@@ -126,7 +123,22 @@ export default {
 
       this.input = "";
     }
-  }
+  },
+  filters: {
+        time (date) {
+            if (typeof date === 'string') {
+                var date = new Date(date);
+            }
+            return date.getHours() + ':' + date.getMinutes();
+        }
+    },
+    directives:{
+        'scroll-bottom' () {
+            this.vm.$nextTick(() => {
+                this.el.scrollTop = this.el.scrollHeight - this.el.clientHeight;
+            });
+        }
+    }
 };
 </script>
 
@@ -158,11 +170,11 @@ export default {
     float: left;
     margin: 0 10px 0 0;
     border-radius: 3px;
-    max-width: 33px;
+    width: 30px;
+    height: 30px;
   }
   .text {
     float: left;
-    display: inline-block;
     position: relative;
     padding: 0 10px;
     max-width: ~"calc(100% - 40px)";
@@ -184,15 +196,21 @@ export default {
     }
   }
   .self {
-    text-align: right;
     .avatar {
       float: right;
       margin: 0 0 0 10px;
     }
     .text {
+      float:right;
       background-color: #b2e281;
+      display: inline-block;
+      word-wrap: break-all;
+      line-height: 2.5;
+      font-size: 12px;
+      position:relative;
       &:before {
-        right: inherit;
+        position:absolute;
+        top: 9px;
         left: 100%;
         border-right-color: transparent;
         border-left-color: #b2e281;

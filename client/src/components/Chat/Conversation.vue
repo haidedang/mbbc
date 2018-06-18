@@ -131,7 +131,7 @@ export default {
 <style scoped lang="less">
 .message {
   padding: 10px 15px;
-  overflow-y: scroll;
+  overflow-y: auto;
   width: 100%;
   height: 350px;
   ul {
@@ -156,6 +156,7 @@ export default {
     float: left;
     margin: 0 10px 0 0;
     border-radius: 3px;
+    max-width: 33px;
   }
   .text {
     float: left;

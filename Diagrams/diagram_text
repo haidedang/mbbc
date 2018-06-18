@@ -1,0 +1,137 @@
+http://www.plantuml.com/plantuml/uml/
+
+Sequence diagrams:
+
+Sending a contact request:
+@startuml
+database Blockchain
+actor UserA
+participant ServerA
+participant ServerB
+actor UserB
+
+UserA -> Blockchain: Querying endpoint for UserB
+Blockchain --> UserA: Response to query
+UserA --> ServerB: POST /{UserB ID}/friendRequests
+ServerB o-->o UserB: Sending friendrequest UserA -> UserB through SOCKET
+alt UserB accepts UserA's friend request
+	UserB o-->o ServerB: Add UserA to UserB’s contact list through SOCKET
+	rnote over ServerB
+		ServerB creates new conversation with newly generated ConversationID for UserA -> UserB conversation
+	endrnote
+        ServerB o-->o UserB: Send the newly generated ConversationID through to UserB (server authentication purposes)
+	UserB --> ServerA: POST /conversations/ (add UserA -> UserB conversation)
+	ServerA --> UserA: Update UserA's contactList through SOCKET by adding UserB to the list
+end
+@enduml
+
+
+
+Sending a message
+
+@startuml
+actor UserA
+participant ServerA
+database StorageA
+database StorageB
+participant ServerB
+actor UserB
+
+UserA o-->o ServerA: Sending message UserA -> UserB through SOCKET
+ServerA --> StorageA: Saving message UserA -> UserB in the database
+UserA --> ServerB: POST /messages/ UserA -> UserB
+ServerB --> StorageB: Saving message UserA -> UserB in the database
+UserB o->o ServerB: Getting messages through SOCKET
+ServerB o-->o UserB: Response with messages through SOCKET, message UserA -> UserB included
+@enduml
+
+
+Getting tweets
+@startuml
+database Blockchain
+actor UserA
+participant ServerB
+participant ServerC
+actor UserB
+
+UserA -> Blockchain: Querying endpoint for UserB
+Blockchain --> UserA: Response to query
+loop for every User in UserA's contact list
+UserA -> ServerB: GET /tweets/{UserB ID}/
+ServerB --> UserA: Response with UserB’s tweets
+UserA -> ServerC: GET /tweets/{UserC ID}/
+ServerC --> UserA: Response with UserC’s tweets
+end
+UserA ->UserA: aggregating tweets
+@enduml
+
+Sending notification for a new tweet
+
+###TO_DO###
+
+Getting/updating personal data (e.g.: contacts)
+
+@startuml
+actor UserA
+participant ServerA
+
+UserA o->o ServerA: Update user profile through SOCKET
+@enduml
+
+------------------------------------
+
+Class diagram:
+
+@startuml
+class Contact
+{
+    User_ID: ETHER ID, 		     
+    Contact: ETHER ID   
+}
+
+class Profile {
+    ID: ETHER ID,
+    displayName : String,
+    firstName : String,
+    lasttName : String,
+    city : String,
+    photo : String,
+    status : String,
+    description : String
+}
+
+Profile -- Conversation: Participant_1
+Profile -- Friend_request: Sender_ID
+Profile *-- "0..*" Contact: User_ID
+Profile o-- "0..*" Tweet: User_ID
+Conversation *-- "0..*" Message
+
+
+class Friend_request		    
+{
+   ID: String
+   Sender_ID: ETHER ID,		     
+   Receiver_ID: ETHER ID		     
+}
+
+class Message {
+        conversation_id : String,
+        content : String,
+        sent_by : ETHER ID,
+        message_time : datetime
+}
+
+class Conversation     
+{
+      ID: String
+      Participant_1: ETHER ID
+      Participant_2: ETHER ID
+}
+class Tweet
+{
+ID: String
+User_ID: ETHER ID
+Message: String
+created_time: datetime
+}
+@enduml

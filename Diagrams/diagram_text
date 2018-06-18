@@ -52,7 +52,6 @@ database Blockchain
 actor UserA
 participant ServerB
 participant ServerC
-actor UserB
 
 UserA -> Blockchain: Querying endpoint for UserB
 Blockchain --> UserA: Response to query

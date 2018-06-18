@@ -72,8 +72,7 @@ export default {
   flex: 1 0 30%;
   height: 100%;
   overflow-y: auto;
-  min-width: 50%;
-  width: fit-content;
+  min-width: 100%;
   padding: 50px 30px;
   box-sizing: border-box;
   border-right: 1px solid #43a047;

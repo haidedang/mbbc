@@ -1,3 +1,4 @@
+const Message = require('./models/Message')
 
 module.exports = (io) => { 
     io.on('connection', function (socket) {
@@ -14,8 +15,20 @@ module.exports = (io) => {
     
         socket.on('message', function (data) {
             // store Data in the DB 
+            
             console.log(data)
-    
+            const message = new Message({ 
+                conversationId: data.conversationId,
+                body: data.content, 
+                author: data.author
+            })
+            message.save((err, result) => { 
+                if (err) {
+                    console.log({ error: err });
+                    return 
+                }
+                console.log(result)
+            })
         })
     }) 
 }

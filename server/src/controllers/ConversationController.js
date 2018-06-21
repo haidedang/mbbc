@@ -154,17 +154,32 @@ exports.sendReply = function (req, res, next) {
  * @param {*} next 
  */
 exports.sendMessage = function (req, res, next) {
+
     console.log(req.body)
-    console.log(server.io.sockets.sockets)
+    const message = new Message({ 
+        conversationId: req.body.conversationId,
+        body: req.body.content, 
+        author: req.body.author
+    })
+    message.save((err, result) => { 
+        if (err) {
+            res.send({ error: err });
+            return next(err);
+        }
+        return res.status(200).json({ message: result });
+    })
+
     for (var key in server.io.sockets.sockets) {
         console.log(key)
         console.log(server.io.sockets.sockets[key].username)
         if (server.io.sockets.sockets[key].username == undefined)
             return
-        if (server.io.sockets.sockets[key].username.username == req.params.recipient)
-            server.io.to(key).emit('reply', req.body.message);
+        if (server.io.sockets.sockets[key].username.username == req.params.recipient){
+            server.io.to(key).emit('reply', req.body.content);
+        }
+            
     }
-    res.send('successful');
+
 }
 
 

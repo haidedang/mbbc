@@ -5251,7 +5251,11 @@
       "address": "0xccc4a2cad34fb7f502eaacbd6dc64ca844dba213",
       "transactionHash": "0x022b6402d2c06cdb729b354d692d7e799787f50de211314c193e1b37ebb90bd5"
     },
+<<<<<<< HEAD
     "1529322113728": {
+=======
+    "1529318541320": {
+>>>>>>> 9efdde8e4e874da2245bae7d08dca7386d155bfa
       "events": {
         "0xce0457fe73731f824cc272376169235128c118b49d344817417c6d108d155e82": {
           "anonymous": false,
@@ -5328,6 +5332,7 @@
         }
       },
       "links": {},
+<<<<<<< HEAD
       "address": "0x93a7423067d8fca041917aef8266f5a949103b5f",
       "transactionHash": "0x002255dcaaddc4ba8d3b427acae50db548b44fc096d55de895813936c27fb4a8"
     },
@@ -5574,4 +5579,12 @@
   },
   "schemaVersion": "2.0.0",
   "updatedAt": "2018-06-18T12:07:26.666Z"
+=======
+      "address": "0x7e6f13b57a070ab877d158bcc4f274fdb93f62fd",
+      "transactionHash": "0xaa12cef090bb9040b90e8922baf3772b199a57c060b808033d0ae8b42d8897db"
+    }
+  },
+  "schemaVersion": "2.0.0",
+  "updatedAt": "2018-06-18T12:47:15.968Z"
+>>>>>>> 9efdde8e4e874da2245bae7d08dca7386d155bfa
 }

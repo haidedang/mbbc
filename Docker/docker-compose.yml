@@ -1,0 +1,33 @@
+version: '3.6'
+
+services:
+    # Create backend service
+    server: 
+        container_name: server
+        restart: always
+        # As image, use the server Docker image that you uploaded into a
+        # public Docker registry earlier
+        image: antalszava/iosl_server
+        # Mount the ​/etc ​directory of the VM into the container as
+        # /hypervisor_etc​. This matches the volume that you defined in the
+        # Dockerfiles
+        volumes:
+            - /etc:/server
+        ports:
+        - "8081:8081"
+        links:
+        - mongo
+        # The service can be replicated more than once and the containers must
+        # automatically restart upon failure.
+        deploy:
+            mode: replicated
+            replicas: 2
+            restart_policy:
+                condition: on-failure
+    mongo:
+        container_name: mongo
+        image: mongo
+        volumes:
+        - ./data:/data/db
+        ports:
+        - "27017:27017"

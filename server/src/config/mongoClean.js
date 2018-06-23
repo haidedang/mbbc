@@ -3,36 +3,31 @@ let config = require('./config')
 let url = config.mongoURL;
 console.log(url);
 
-let collectionNames = ['users', 'messages', 'conversations']
-
 // Clean Initial User Setup 
 function init(){ 
-    collectionNames.forEach(collectionName => { 
-        MongoClient.connect(url, function (err, db) {
-            if (err) throw err;
-            try {
-                let dbName = db.db(config.dbName)
-                dbName.listCollections({ name: collectionName }).next(function (err, collinfo) {
-                    if (collinfo) {
-                        console.log('exists')
-                        dbName.dropCollection(collectionName, function (err, delOK) {
-                            if (err) throw err;
-                            if (delOK) console.log("Collection deleted");
-                            db.close()
-                        });
-                    } else {
-                        console.log('keep Rocking')
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        try {
+            let dbName = db.db(config.dbName)
+            dbName.listCollections({ name: 'users' }).next(function (err, collinfo) {
+                if (collinfo) {
+                    console.log('exists')
+                    dbName.dropCollection("users", function (err, delOK) {
+                        if (err) throw err;
+                        if (delOK) console.log("Collection deleted");
                         db.close()
-                    }
-                })
-            }
-            catch (e) {
-                console.log('Clean database')
-                db.close()
-            }
-        });
-    })
-    
+                    });
+                } else {
+                    console.log('keep Rocking')
+                    db.close()
+                }
+            })
+        }
+        catch (e) {
+            console.log('Clean database')
+            db.close()
+        }
+    });
 }
 
 

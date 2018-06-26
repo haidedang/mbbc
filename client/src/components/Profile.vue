@@ -17,7 +17,7 @@
             <h4>{{this.profile.userID}}</h4>
             <small>This is needed for Contacts to reach you</small>
           </div>
-          <v-btn @click="show">Follow</v-btn>
+          <v-btn @click="follow">Follow</v-btn>
         </form>
       </div>
     </div>
@@ -33,6 +33,7 @@ import $ from "jquery";
 import axios from "axios";
 import Api from "../services/Api";
 import AuthService from "@/services/web3";
+import AuthenticationService from "../services/AuthenticationService"
 
 export default {
   name: "Profile",
@@ -67,12 +68,14 @@ export default {
     }
   },
   methods: {
-    show() {
-      this.$store.dispatch("addContact", {
+    async follow() {
+       let response = await AuthenticationService.login(this.profile.storageAddress, `/friendRequest/auth/${this.user.userID}/${this.profile.userID}/`, '/friendRequest/');
+       console.log(response)
+     /*  this.$store.dispatch("addContact", {
         url: this.user.storageAddress,
         id: this.user.userID,
         recipient: this.profile.userID
-      });
+      }); */
     }
   }
 };

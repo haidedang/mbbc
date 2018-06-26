@@ -19,6 +19,7 @@ const state =  {
   isUserLoggedIn: false,
   url: null,
   conversation: null,
+  friendRequests: [],
   messages: [] 
 }
 

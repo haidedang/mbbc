@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import AuthenticationService from "@/services/AuthenticationService";
 import App from "@/services/web3";
 import $ from "jquery";
 

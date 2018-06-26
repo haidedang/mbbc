@@ -8,39 +8,51 @@ export const getProfile = ({ commit }, contact) => {
         })
 }
 
-export const addContact = ({commit}, contact) => { 
+export const addContact = ({ commit }, contact) => {
     UserService.addContact(contact.url, contact.id, contact.recipient)
-        .then((result) => { 
+        .then((result) => {
             console.log(result)
-            if(result == undefined){ 
-                return; 
-            } else { 
-                commit('setUser', result.data.user); 
+            if (result == undefined) {
+                return;
+            } else {
+                commit('setUser', result.data.user);
             }
-        })  
+        })
 }
 
-export const setCurrentConversation = ({commit}, conversation) => { 
-    return new Promise((resolve, reject) => { 
+export const setCurrentConversation = ({ commit }, conversation) => {
+    return new Promise((resolve, reject) => {
         UserService.getConversationByUserIDs(conversation.url, conversation.id, conversation.recipient)
-        .then((result) =>  {
-            commit('setCurrentConversation', result.data.conversation); 
-            resolve(result.data.conversation)
-            /*  commit('setCurrentConversation', ) */
-        })
+            .then((result) => {
+                commit('setCurrentConversation', result.data.conversation);
+                resolve(result.data.conversation)
+                /*  commit('setCurrentConversation', ) */
+            })
     })
 }
 
-export const setCurrentMessages = ({commit}, conversation) => { 
+export const clearConversation = ({ commit }, conversation) => {
+    commit('clearConversation', conversation)
+}
+
+export const removeFriendRequest = ({ commit }, friendRequest) => {
+    commit('removeFriendRequest', friendRequest)
+}
+
+export const setCurrentMessages = ({ commit }, conversation) => {
     UserService.getMessagesByConversationId(conversation.url, conversation.id)
-        .then((result) => { 
-            
-           /*  commit('setCurrentMessages', result.data.message) */
+        .then((result) => {
+
+            /*  commit('setCurrentMessages', result.data.message) */
             console.log(result)
         })
 }
 
-export const sendMessage = ({commit}, message) => {
+export const receiveFriendRequest = ({ commit }, friendRequest) => {
+    commit('receiveFriendRequest', friendRequest)
+}
+
+export const sendMessage = ({ commit }, message) => {
     commit('addMessage', message)
 }
 

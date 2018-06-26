@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { setCurrentConversation } from './actions';
+/* import { setCurrentConversation } from './actions'; */
 
 
 export default {
@@ -19,14 +19,26 @@ export default {
     setProfile(state, response) {
         state.profile = response
     },
-    setCurrentConversation(state, response){ 
-        state.conversation = response 
+    setCurrentConversation(state, response) {
+        state.conversation = response
     },
-    setCurrentMessages(state, response){
-        
+    setCurrentMessages(state, response) {
+
     },
-    addMessage(state, message) { 
-       state.messages.push(message); 
+    clearConversation(state, response){
+        state.conversation  = response
+    },
+    receiveFriendRequest(state, response){ 
+        state.friendRequests.push(response); 
+    },
+    removeFriendRequest(state,response){ 
+      let newArray=  state.friendRequests.filter((friendRequest)=>{ 
+            friendRequest.sender !== response.sender
+        })
+    state.friendRequests = newArray; 
+    },
+    addMessage(state, message) {
+        state.messages.push(message);
     }
 }
 

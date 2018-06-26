@@ -1,7 +1,14 @@
 <template>
   <div>
    <!--  <div class="message" v-scroll-bottom="session.messages"> -->
-    <div class= "message" v-scroll-bottom="messages">
+    <ul>
+        <li v-for="friendRequest in friendRequests" :key="friendRequest.id">
+            <div><p>{{friendRequest.sender}}</p></div>
+            <v-btn @click="accept(friendRequest)">Accept</v-btn>
+            <v-btn>Deny</v-btn>
+        </li>
+    </ul> 
+    <div class= "message" id="messages" >
       <ul v-if="session">
         <li v-for="item in messages" :key="item.id">
           <div class="main" :class="{self: kek(item)} ">
@@ -29,6 +36,7 @@ import io from "socket.io-client";
 import AuthService from "@/services/web3";
 import { mapGetters } from "vuex";
 import store from "@/store/store";
+import AuthenticationService from "../../services/AuthenticationService"
 
 let socket = null;
 
@@ -37,6 +45,7 @@ export default {
   data() {
     return {
       src: "../static/ferhat.jpg",
+      /* friendRequests: [{id:1}, {id:2}], */
       session: {
         messages: []
       },
@@ -44,13 +53,12 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "conversation"]),
+    ...mapState(["isUserLoggedIn", "user", "conversation", "friendRequests"]),
     ...mapGetters({ messages: "currentMessages" })
   },
   mounted() {
+    console.log("conversation", this.conversation);
     console.log("Here " + this.user.userID);
-    console.log(this.conversation[0].participants[1]);
-    console.log(this.messages);
     let recipient = this.conversation[0].participants[1];
     let userName = this.user.userID;
     socket = io.connect(this.user.storageAddress);
@@ -59,10 +67,11 @@ export default {
 
       console.log("Connected! ID: " + socket.id);
     });
-
     socket.on("online", function(data) {
       console.log("received");
     });
+
+    // --------- MESSAGING------------ 
     socket.on("reply", function(data) {
       console.log(data);
       store.dispatch("sendMessage", {
@@ -72,17 +81,28 @@ export default {
         timestamp: Date.now()
       });
     });
+    // ---------- FRIEND REQUEST---------- 
+    socket.on('friendRequest', (data) => { 
+        console.log(data)
+        store.dispatch('receiveFriendRequest', data)
+    })
   },
   destroyed() {
     socket.close();
   },
-
+  watch: {
+    messages: function() {
+      var container = this.$el.querySelector("#messages");
+      setTimeout(function(){console.log(container.scrollHeight);
+      container.scrollTop = container.scrollHeight;},1)
+    }
+  },
   methods: {
-    kek(item){
+    kek(item) {
       var test = JSON.parse(localStorage.getItem("vuex"));
-      if(item.author == test.user.userID){
+      if (item.author == test.user.userID) {
         return true;
-      }else{
+      } else {
         return false;
       }
     },
@@ -90,18 +110,18 @@ export default {
       console.log(this.user);
     },
     async submit() {
-        // send to server A 
+      // send to server A
       socket.emit("message", {
         conversationId: this.conversation[0]._id,
         author: this.user.userID,
-        content: this.input,
+        content: this.input
       });
       let url = await AuthService.searchUser(
         this.conversation[0].participants[1]
       );
       console.log(url);
-          // TODO: Refactor with /n and API service
-          // send to Server B 
+      // TODO: Refactor with /n and API service
+      // send to Server B
       $.post(
         url + "/conversation/" + this.conversation[0].participants[1],
         {
@@ -120,25 +140,25 @@ export default {
         content: this.input,
         timestamp: Date.now()
       });
-
       this.input = "";
+    },
+    async accept(friendRequest){
+        let url = await AuthService.searchUser(friendRequest.sender); 
+        friendRequest.accept = true; 
+        console.log(url)
+        let response = await AuthenticationService.login(url, `/receiveFriendRequest/auth/${friendRequest.sender}/${this.user.userID}/`, '/friendRequest/', 'POST', friendRequest);
+        console.log(response)
+        this.$store.dispatch('removeFriendRequest', friendRequest)
     }
   },
   filters: {
-        time (date) {
-            if (typeof date === 'string') {
-                var date = new Date(date);
-            }
-            return date.getHours() + ':' + date.getMinutes();
-        }
-    },
-    directives:{
-        'scroll-bottom' () {
-            this.vm.$nextTick(() => {
-                this.el.scrollTop = this.el.scrollHeight - this.el.clientHeight;
-            });
-        }
+    time(date) {
+      if (typeof date === "string") {
+        var date = new Date(date);
+      }
+      return date.getHours() + ":" + date.getMinutes();
     }
+  }
 };
 </script>
 
@@ -201,15 +221,15 @@ export default {
       margin: 0 0 0 10px;
     }
     .text {
-      float:right;
+      float: right;
       background-color: #b2e281;
       display: inline-block;
       word-wrap: break-all;
       line-height: 2.5;
       font-size: 12px;
-      position:relative;
+      position: relative;
       &:before {
-        position:absolute;
+        position: absolute;
         top: 9px;
         left: 100%;
         border-right-color: transparent;

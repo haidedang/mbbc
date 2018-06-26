@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Register from '@/components/Register'
-import Login from '@/components/Login'
 import User from '@/components/UserProfile'
 import Domain from '@/components/Domain'
 import Search from '@/components/Search'
@@ -43,11 +42,6 @@ export default new Router({
                     path:'storage', name:'storage', component: Storage
                 }
             ]
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: Login
         },
         {
             path: '/',

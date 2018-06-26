@@ -18,7 +18,6 @@ exports.addContact = (req, res) => {
                 return res.json({ user: user });
                 }));
             }
-
         })
 
     /*  // newContact doesnt really need to be fetched, I just need the UserID

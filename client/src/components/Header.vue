@@ -99,11 +99,13 @@ export default {
       this.$router.push({
         name: "songs"
       });
+        this.$store.dispatch("clearConversation", null)
+
     },
     async login() {
       let userID = await AuthService.getNameForReverseAddress();
       let url = await AuthService.searchUser(userID);
-      let response = await AuthenticationService.login(url);
+      let response = await AuthenticationService.login(url, '/auth/', '/login/');
       console.log(response);
       console.log(response.user.storageAddress);
       this.$store.dispatch("setToken", response.token);

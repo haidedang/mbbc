@@ -7,7 +7,7 @@ export default {
         state.user = response
     },
     setContact(state, payload) {
-        state.user.contacts.push(payload.userID);
+        state.user.contacts.push(payload);
     },
     setToken(state, token) {
         state.token = token
@@ -23,10 +23,17 @@ export default {
         state.conversation = response
     },
     setCurrentMessages(state, response) {
+        console.log(response)
+        response.data.message.forEach( (message) =>{
+            state.messages.push(message)
+        })
 
     },
     clearConversation(state, response){
         state.conversation  = response
+    },
+    clearMessages(state, messages){ 
+        state.messages = []
     },
     receiveFriendRequest(state, response){ 
         state.friendRequests.push(response); 

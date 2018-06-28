@@ -9,13 +9,15 @@ export const getProfile = ({ commit }, contact) => {
 }
 
 export const addContact = ({ commit }, contact) => {
+    console.log('DONE')
     UserService.addContact(contact.url, contact.id, contact.recipient)
         .then((result) => {
-            console.log(result)
+            console.log('Reached')
+            console.log('RESULT',result)
             if (result == undefined) {
                 return;
             } else {
-                commit('setUser', result.data.user);
+                commit('setContact', contact.recipient);
             }
         })
 }
@@ -42,10 +44,12 @@ export const removeFriendRequest = ({ commit }, friendRequest) => {
 export const setCurrentMessages = ({ commit }, conversation) => {
     UserService.getMessagesByConversationId(conversation.url, conversation.id)
         .then((result) => {
-
-            /*  commit('setCurrentMessages', result.data.message) */
-            console.log(result)
+             commit('setCurrentMessages', result) 
         })
+}
+
+export const clearMessages = ({commit}, messages) => { 
+    commit('clearMessages', messages)
 }
 
 export const receiveFriendRequest = ({ commit }, friendRequest) => {

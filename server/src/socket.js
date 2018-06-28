@@ -19,7 +19,7 @@ module.exports = (io) => {
             console.log(data)
             const message = new Message({ 
                 conversationId: data.conversationId,
-                body: data.content, 
+                body: data.body, 
                 author: data.author
             })
             message.save((err, result) => { 

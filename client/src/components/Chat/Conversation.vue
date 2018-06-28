@@ -13,7 +13,7 @@
         <li v-for="item in messages" :key="item.id">
           <div class="main" :class="{self: kek(item)} ">
             <img class="avatar" :src="src" />
-            <div class="text">{{ item.content }}
+            <div class="text">{{ item.body }}
              <!--<sub>{{ item.timestamp | time }}</sub> -->
             </div>
           </div>
@@ -36,7 +36,7 @@ import io from "socket.io-client";
 import AuthService from "@/services/web3";
 import { mapGetters } from "vuex";
 import store from "@/store/store";
-import AuthenticationService from "../../services/AuthenticationService"
+import AuthenticationService from "../../services/AuthenticationService";
 
 let socket = null;
 
@@ -56,10 +56,19 @@ export default {
     ...mapState(["isUserLoggedIn", "user", "conversation", "friendRequests"]),
     ...mapGetters({ messages: "currentMessages" })
   },
+  created() { 
+      $.get(
+        this.user.storageAddress + `/api/users/${this.user.userID}`,
+        response => {
+          console.log('Created Component with ' ,response);
+          this.$store.dispatch( 'setUser',response )
+        }
+      );
+  },
   mounted() {
-    console.log("conversation", this.conversation);
+    /*   console.log("conversation", this.conversation); */
     console.log("Here " + this.user.userID);
-    let recipient = this.conversation[0].participants[1];
+    /*   let recipient = this.conversation[0].participants[1]; */
     let userName = this.user.userID;
     socket = io.connect(this.user.storageAddress);
     socket.on("connect", function() {
@@ -71,21 +80,30 @@ export default {
       console.log("received");
     });
 
-    // --------- MESSAGING------------ 
+    // --------- MESSAGING------------
     socket.on("reply", function(data) {
-      console.log(data);
+      console.log("you received a message:", data);
+      // add to Frontend
       store.dispatch("sendMessage", {
+        conversationId: data.conversationId,
+        author: data.author,
+        body: data.body,
+        timestamp: data.timestamp
+      });
+
+      // persist in Server A
+      socket.emit("message", {
         conversationId: store.state.conversation[0]._id,
         author: store.state.conversation[0].participants[1],
-        content: data,
-        timestamp: Date.now()
+        body: data.body
       });
     });
-    // ---------- FRIEND REQUEST---------- 
-    socket.on('friendRequest', (data) => { 
-        console.log(data)
-        store.dispatch('receiveFriendRequest', data)
-    })
+    // ---------- FRIEND REQUEST----------
+    socket.on("friendRequest", data => {
+      console.log(data);
+      store.dispatch("receiveFriendRequest", data);
+    });
+
   },
   destroyed() {
     socket.close();
@@ -93,8 +111,10 @@ export default {
   watch: {
     messages: function() {
       var container = this.$el.querySelector("#messages");
-      setTimeout(function(){console.log(container.scrollHeight);
-      container.scrollTop = container.scrollHeight;},1)
+      setTimeout(function() {
+        console.log(container.scrollHeight);
+        container.scrollTop = container.scrollHeight;
+      }, 1);
     }
   },
   methods: {
@@ -109,46 +129,76 @@ export default {
     show() {
       console.log(this.user);
     },
+
+    //Sender
     async submit() {
-      // send to server A
+      // send to own Server
       socket.emit("message", {
         conversationId: this.conversation[0]._id,
         author: this.user.userID,
-        content: this.input
+        body: this.input
       });
       let url = await AuthService.searchUser(
         this.conversation[0].participants[1]
       );
       console.log(url);
       // TODO: Refactor with /n and API service
-      // send to Server B
+      // send to friends Server
+
       $.post(
         url + "/conversation/" + this.conversation[0].participants[1],
         {
           conversationId: this.conversation[0]._id,
           author: this.user.userID,
-          content: this.input,
+          body: this.input,
           timestamp: Date.now()
         },
         response => {
           console.log(response);
         }
       );
+
+      // add to FrontEnd
       this.$store.dispatch("sendMessage", {
         conversationId: this.conversation[0]._id,
         author: this.user.userID,
-        content: this.input,
+        body: this.input,
         timestamp: Date.now()
       });
       this.input = "";
     },
-    async accept(friendRequest){
-        let url = await AuthService.searchUser(friendRequest.sender); 
-        friendRequest.accept = true; 
-        console.log(url)
-        let response = await AuthenticationService.login(url, `/receiveFriendRequest/auth/${friendRequest.sender}/${this.user.userID}/`, '/friendRequest/', 'POST', friendRequest);
-        console.log(response)
-        this.$store.dispatch('removeFriendRequest', friendRequest)
+    async accept(friendRequest) {
+      let url = await AuthService.searchUser(friendRequest.sender);
+      friendRequest.accept = true;
+      // Add on own Server
+
+      this.$store.dispatch("addContact", {
+        url: this.user.storageAddress,
+        id: this.user.userID,
+        recipient: friendRequest.sender
+      });
+
+      $.post(
+        this.user.storageAddress +`/api/conversation/new/${this.user.userID}/${friendRequest.sender}`,
+        friendRequest,
+        response => {
+          console.log(response);
+        }
+      );
+
+      // Add on the other Server
+      let response = await AuthenticationService.login(
+        url,
+        `/receiveFriendRequest/auth/${friendRequest.sender}/${
+          this.user.userID
+        }/`,
+        "/friendRequest/",
+        "POST",
+        friendRequest
+      );
+
+      console.log(response);
+      this.$store.dispatch("removeFriendRequest", friendRequest);
     }
   },
   filters: {

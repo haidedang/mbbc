@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 const uuidv4 = require('uuid/v4')
 const server = require('../server');
+const UserController = require('./UserController')
 
 function jwtSignUser(user) {
     const ONE_WEEK = 60 * 60 * 24 * 7
@@ -175,7 +176,6 @@ module.exports = {
                     if (server.io.sockets.sockets[key].username.username == req.params.recipient) {
                         server.io.to(key).emit('friendRequest', friendRequest);
                     }
-
                 }
             } else {
                 console.log('fail')
@@ -198,6 +198,10 @@ module.exports = {
                 // Authenticated 
                 console.log(req.body)
                 if (req.body.accept == 'true'){ 
+
+                 /*  let conversation =  await Conversation.findOne({_id:req.body.conversationID})
+                  if(!conversation) { } */
+                  // TODO: 
                     const conversation = new Conversation({
                         _id: req.body.conversationID,
                         participants: [req.params.currentUser, req.params.newContact]
@@ -207,8 +211,14 @@ module.exports = {
                             res.send({ error: err });
                             /* return next(err); */
                         }
-                        res.send(newConversation);
+
+                        /* res.send(newConversation); */
                     })
+                    // add User to Contact List 
+                    UserController.addContact(req,res); 
+                    // acceptance message to Client 
+        
+                    
                 }
             } else { 
                 console.log('fail')

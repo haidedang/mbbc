@@ -55,7 +55,7 @@ export default {
           recipient: contact
         })
         .then(conversation => {
-            console.log(conversation[0]._id)
+            console.log('conversationID from Server',conversation[0]._id)
             this.$store
                 .dispatch("setCurrentMessages", {
                     url: this.user.storageAddress, 

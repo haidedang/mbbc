@@ -71,6 +71,7 @@ export default {
     async follow() {
        let response = await AuthenticationService.login(this.profile.storageAddress, `/friendRequest/auth/${this.user.userID}/${this.profile.userID}/`, '/friendRequest/');
        console.log(response)
+      
      /*  this.$store.dispatch("addContact", {
         url: this.user.storageAddress,
         id: this.user.userID,

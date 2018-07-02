@@ -1,6 +1,6 @@
 client/node_modules/
 server/node_modules/
-client/build/contracts/
-
+client/build
+npm-debug.log
 
 

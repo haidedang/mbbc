@@ -2,11 +2,10 @@
   <div id="app">
     <v-app>
       <pageHeader />
-
       <main>
-        <v-container>
+        <div class="m-0">
           <router-view></router-view>
-        </v-container>
+        </div>
       </main>
     </v-app>
   </div>
@@ -31,12 +30,11 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 10px;
-  min-height:500px;
+  
 
   
 }
 .main {
-    position: relative;
     overflow: hidden;
   }
   

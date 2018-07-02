@@ -12,7 +12,6 @@
     </v-toolbar-title>
 
     <v-toolbar-items>
-      <v-btn dark flat @click.stop="openMyDialog()">Find Contact</v-btn>
       <v-btn
         v-if="$store.state.isUserLoggedIn"
         flat
@@ -96,6 +95,7 @@ export default {
     logout() {
       this.$store.dispatch("setToken", null);
       this.$store.dispatch("setUser", null);
+      this.$store.dispatch('clearMessages',[]); 
       this.$router.push({
         name: "songs"
       });

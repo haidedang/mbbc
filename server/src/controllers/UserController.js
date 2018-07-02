@@ -1,5 +1,20 @@
 const User = require('../models/User');
 
+exports.addToContactList = (user, friend) =>  { 
+    if (user.contacts.includes(friend)) { 
+        console.log('user already in Contact List'); 
+    }
+}
+
+exports.getUserById = (req, res) => { 
+    User.findOne({userID:req.params.userId})
+        .then((user, err) => { 
+            if(err) { 
+                res.send({err: err})
+            } 
+            res.send(user)
+        })
+}
 
 exports.addContact = (req, res) => {
 

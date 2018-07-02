@@ -9,11 +9,11 @@ router.route('/users').get(UserController.getUsers)
 
 /* // Get one user by cuid
 router.route('/user/:cuid')
-  .get(UserController.getUser)
+  .get(UserController.getUser) */
 
 // Get one user by userId
 router.route('/users/:userId')
-  .get(UserController.getUserByUser)  */
+  .get(UserController.getUserById)  
 
 // Add a new User
 router.route('/user').post(UserController.addUser)

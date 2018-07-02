@@ -97,6 +97,7 @@ exports.getConversation = function (req, res, next) {
  */
 exports.newConversation = function (req, res, next) {
     const conversation = new Conversation({
+        _id: req.body.conversationID,
         participants: [req.params.userID, req.params.recipient]
     });
 
@@ -106,23 +107,24 @@ exports.newConversation = function (req, res, next) {
             return next(err);
         }
 
-        const message = new Message({
+        /* const message = new Message({
             conversationId: newConversation._id,
             body: req.body.content,
             author: req.params.userID
-        });
+        }); */
 
-        console.log(message)
-
-        message.save((err, newMessage) => {
+    /*     message.save((err, newMessage) => {
             if (err) {
                 res.send({ error: err });
                 return next(err);
             }
             return res.status(200).json({ message: 'Conversation started!', conversationId: conversation._id });
-        });
+        }); */
+        
     });
 };
+
+
 
 /** TESTED and WORKS 
  * 
@@ -158,7 +160,7 @@ exports.sendMessage = function (req, res, next) {
     console.log(req.body)
     const message = new Message({ 
         conversationId: req.body.conversationId,
-        body: req.body.content, 
+        body: req.body.body, 
         author: req.body.author
     })
     message.save((err, result) => { 
@@ -175,11 +177,9 @@ exports.sendMessage = function (req, res, next) {
         if (server.io.sockets.sockets[key].username == undefined)
             return
         if (server.io.sockets.sockets[key].username.username == req.params.recipient){
-            server.io.to(key).emit('reply', req.body.content);
+            server.io.to(key).emit('reply', req.body);
         }
-            
     }
-
 }
 
 

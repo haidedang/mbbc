@@ -39,6 +39,6 @@ module.exports = (app) => {
     app.get('/users/:userID/:conversationID', ConversationController.getConversations)
 
     app.post('/conversation/:recipient', ConversationController.sendMessage)
-    app.post('conversation/new/:recipient', ConversationController.newConversation)
-
+/*     app.post('conversation/new/:recipient', ConversationController.newConversation)
+ */
 }

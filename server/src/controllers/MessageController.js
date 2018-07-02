@@ -16,3 +16,14 @@ exports.getMessagesByConversationId= (req, res) =>{
         res.json({ message: Message })
       })
   }
+
+  exports.getMessages= (req, res) =>{
+    Message.find()
+      .exec((err, Messages) => {
+        if (err) {
+          res.status(500)
+            .send('this is an error')
+        }
+        res.json({ Messages: Messages })
+      })
+  }

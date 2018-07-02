@@ -91,12 +91,6 @@ export default {
         timestamp: data.timestamp
       });
 
-      // persist in Server A
-      socket.emit("message", {
-        conversationId: store.state.conversation[0]._id,
-        author: store.state.conversation[0].participants[1],
-        body: data.body
-      });
     });
     // ---------- FRIEND REQUEST----------
     socket.on("friendRequest", data => {

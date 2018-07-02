@@ -273,7 +273,7 @@ export default {
     .text {
       float: right;
       background-color: #b2e281;
-      display: inline-block;
+      display: block;
       word-wrap: break-all;
       line-height: 2.5;
       font-size: 12px;

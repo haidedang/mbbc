@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content">
+  <div class="d-flex">
     <sidebar class="contacts"></sidebar>
     <conversation></conversation>
   </div>
@@ -16,7 +16,6 @@
 
 <style scoped>
 .contacts{
-  max-width: 400px;
+  max-width: 33vh;
 }
-
 </style>

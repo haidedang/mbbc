@@ -22,7 +22,7 @@
     </div>
     
     <div class="textArea">
-      <textarea placeholder="your message" v-model="input" @keydown.enter="submit" ></textarea>
+      <textarea placeholder="Write your Message here" v-model="input" @keydown.enter="submit" ></textarea>
     </div>
   </div>
 </template>
@@ -217,7 +217,7 @@ export default {
   padding: 10px 15px;
   overflow-y: auto;
   width: 100%;
-  height: 350px;
+  height: 75vh;
   ul {
     list-style-type: none;
   }
@@ -290,7 +290,7 @@ export default {
 }
 
 .textArea {
-  height: 160px;
+  height: 15vh;
   border-top: solid 1px #ddd;
   textarea {
     padding: 10px;

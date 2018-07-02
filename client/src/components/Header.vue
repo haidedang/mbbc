@@ -12,7 +12,6 @@
     </v-toolbar-title>
 
     <v-toolbar-items>
-      <v-btn dark flat @click.stop="openMyDialog()">Find Contact</v-btn>
       <v-btn
         v-if="$store.state.isUserLoggedIn"
         flat

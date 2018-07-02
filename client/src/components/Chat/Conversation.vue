@@ -234,8 +234,8 @@ export default {
     float: left;
     margin: 0 10px 0 0;
     border-radius: 3px;
-    width: 30px;
-    height: 30px;
+    width: 5vh;
+    height: 5vh;
   }
   .text {
     float: left;

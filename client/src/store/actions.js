@@ -8,6 +8,14 @@ export const getProfile = ({ commit }, contact) => {
         })
 }
 
+export const getBlogs = ({ commit }, contact) => {
+    UserService.getTweetsFromUser(contact.url)
+        .then((result) => {
+            console.log(result);
+            commit('setBlogs', result.data.tweets)
+        })
+}
+
 export const addContact = ({ commit }, contact) => {
     console.log('DONE')
     UserService.addContact(contact.url, contact.id, contact.recipient)

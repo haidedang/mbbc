@@ -21,7 +21,7 @@ const state =  {
   conversation: null,
   friendRequests: [],
   messages: [] ,
-  blogs: []
+  blog: []
 }
 
 export default new Vuex.Store({

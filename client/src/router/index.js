@@ -7,7 +7,6 @@ import Search from '@/components/Search'
 import Chat from '@/components/Chat'
 import ChatContainer from '@/components/Chat/ChatContainer'
 import Profile from '@/components/Profile'
-import Contacts from '@/components/FindContact'
 import RegisterDomain from '@/components/RegisterDomain'
 import Storage from '@/components/Storage'
 import Blogging from '@/components/MicroBlog/Blogging'
@@ -68,11 +67,6 @@ export default new Router({
             path: '/Blog',
             name: 'blogging',
             component: Blogging
-        },
-        {
-            path: '/Contacts',
-            name: 'contacts',
-            component: Contacts
         },
         {
             path: '*',

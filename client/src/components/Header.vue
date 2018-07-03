@@ -1,94 +1,94 @@
 <template>
-  <v-toolbar fixed class="green darken-1" dark>
-    <v-toolbar-title class="mr-4">
-        <router-link
-        class="home"
-        tag="span"
-        :to="{
-          name: 'login'
-        }">
-        Blockchat
-      </router-link>
-    </v-toolbar-title>
+    <v-toolbar fixed class="green darken-1 d-flex" dark>
+        <v-toolbar-title class="mr-4">
+            <router-link
+            class="home"
+            tag="span"
+            :to="{
+              name: 'login'
+            }">
+            Blockchat
+          </router-link>
+        </v-toolbar-title>
 
-    <v-toolbar-items>
-      <v-btn
+        <v-toolbar-items>
+          <v-btn
+            v-if="$store.state.isUserLoggedIn"
+            flat
+            dark
+            :to="{
+              name: 'profile'
+            }">
+            Profile
+          </v-btn>
+        </v-toolbar-items>
+
+        <v-toolbar-items>
+          <v-btn
+            v-if="$store.state.isUserLoggedIn"
+            flat
+            dark
+            :to="{
+              name: 'search'
+            }">
+            Search
+          </v-btn>
+        </v-toolbar-items>
+
+        <v-spacer></v-spacer>
+
+        <v-toolbar-items>
+          <v-btn
+            v-if="!$store.state.isUserLoggedIn"
+            flat
+            dark
+            @click="login">
+            Login
+          </v-btn>
+
+          <v-btn
+            v-if="!$store.state.isUserLoggedIn"
+            flat
+            dark
+            :to="{
+              name: 'register'
+            }">
+            Sign Up
+          </v-btn>
+
+          <v-btn
+            v-if="$store.state.isUserLoggedIn"
+            flat
+            dark
+            @click="logout">
+            Log Out
+          </v-btn>
+        </v-toolbar-items>
+      <v-bottom-nav
+      :active.sync="bottomNav"
+      :value="true"
+      class="green lighten-2 bot-nav"
+      >
+        <v-btn
         v-if="$store.state.isUserLoggedIn"
         flat
         dark
-        :to="{
-          name: 'conversation'
-        }">
-        Messaging
-      </v-btn>
-    </v-toolbar-items>
-
-    <v-toolbar-items>
-      <v-btn
-      v-if="$store.state.isUserLoggedIn"
-      flat
-      dark
-      :to="{ 
-        name: 'blogging'
-        }">
-      Blog
-      </v-btn>
-    </v-toolbar-items>
-
-     <v-toolbar-items>
-      <v-btn
-        v-if="$store.state.isUserLoggedIn"
-        flat
-        dark
-        :to="{
-          name: 'profile'
-        }">
-        Profile
-      </v-btn>
-    </v-toolbar-items>
-
-    <v-toolbar-items>
-      <v-btn
-        v-if="$store.state.isUserLoggedIn"
-        flat
-        dark
-        :to="{
-          name: 'search'
-        }">
-        Search
-      </v-btn>
-    </v-toolbar-items>
-
-    <v-spacer></v-spacer>
-
-    <v-toolbar-items>
-       <v-btn
-        v-if="!$store.state.isUserLoggedIn"
-        flat
-        dark
-        @click="login">
-        Login
-      </v-btn>
-
-      <v-btn
-        v-if="!$store.state.isUserLoggedIn"
-        flat
-        dark
-        :to="{
-          name: 'register'
-        }">
-        Sign Up
-      </v-btn>
-
-      <v-btn
-        v-if="$store.state.isUserLoggedIn"
-        flat
-        dark
-        @click="logout">
-        Log Out
-      </v-btn>
-    </v-toolbar-items>
-  </v-toolbar>
+        :to="{ 
+          name: 'blogging'
+          }">
+        Blog
+        </v-btn>
+        <v-btn
+          v-if="$store.state.isUserLoggedIn"
+          flat
+          dark
+          :to="{
+            name: 'conversation'
+          }">
+          Messaging
+        </v-btn>
+      </v-bottom-nav> 
+    </v-toolbar>
 </template>
 
 <script>
@@ -131,6 +131,14 @@ export default {
 };
 </script>
 <style scoped>
+.bot-nav{
+  height:4vh;
+  position: absolute;
+}
+.darken-1{
+  height:10vh;
+}
+
 .home {
   cursor: pointer;
 }

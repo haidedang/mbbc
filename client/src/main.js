@@ -9,11 +9,9 @@ import 'vuetify/dist/vuetify.min.css'
 import store from '@/store/store'
 import VueYouTubeEmbed from 'vue-youtube-embed'
 import Panel from '@/components/globals/Panel'
-import Contacts from '@/components/FindContact'
 import Web3 from 'web3'
 
 
-Vue.component('contacts', Contacts);
 export const bus = new Vue();
 
 Vue.config.productionTip = false;

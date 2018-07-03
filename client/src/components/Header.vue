@@ -23,6 +23,18 @@
       </v-btn>
     </v-toolbar-items>
 
+    <v-toolbar-items>
+      <v-btn
+      v-if="$store.state.isUserLoggedIn"
+      flat
+      dark
+      :to="{ 
+        name: 'blogging'
+        }">
+      Blog
+      </v-btn>
+    </v-toolbar-items>
+
      <v-toolbar-items>
       <v-btn
         v-if="$store.state.isUserLoggedIn"
@@ -31,7 +43,7 @@
         :to="{
           name: 'profile'
         }">
-        Blog
+        Profile
       </v-btn>
     </v-toolbar-items>
 

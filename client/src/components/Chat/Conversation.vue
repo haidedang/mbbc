@@ -239,8 +239,8 @@ export default {
     float: left;
     margin: 0 10px 0 0;
     border-radius: 3px;
-    width: 30px;
-    height: 30px;
+    width: 5vh;
+    height: 5vh;
   }
   .text {
     float: left;
@@ -272,7 +272,7 @@ export default {
     .text {
       float: right;
       background-color: #b2e281;
-      display: inline-block;
+      display: block;
       word-wrap: break-all;
       line-height: 2.5;
       font-size: 12px;

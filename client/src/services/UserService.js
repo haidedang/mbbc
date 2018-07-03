@@ -16,8 +16,11 @@ export default {
 
     getMessagesByConversationId(url, conversationId){
         return Api().get(url + `/api/messages/${conversationId}` )
+    },
+    
+    getTweetsFromUser(url){
+        return Api().get(url + '/api/tweets/')
     }
-
 
 
     //getUser 

@@ -6,5 +6,10 @@ const MessageController = require('../controllers/MessageController')
 router.route('/messages/:conversationId')
   .get(MessageController.getMessagesByConversationId)
 
+router.route('/messages')
+  .get(MessageController.getMessages)
+
+
+
 
 module.exports = router; 

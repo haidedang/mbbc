@@ -16,6 +16,9 @@ export default {
     setURL(state, url) {
         state.url = url
     },
+    setBlogs(state, response) {
+        state.blogs = response;
+    },
     setProfile(state, response) {
         state.profile = response
     },

@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Contact = require('../models/Contact')
 
 exports.addToContactList = (user, friend) =>  { 
     if (user.contacts.includes(friend)) { 
@@ -28,6 +29,12 @@ exports.addContact = (req, res) => {
             } else if (req.params.newContact == undefined || req.params.newContact == undefined) {
                 res.status(400).send('User undefined');
             } else {
+                console.log('adding contact')
+                console.log(req.body)
+                let contact = new Contact({userID:req.body.userID, storageAddress:req.body.storageAddress})
+                contact.save((err, contact) => { 
+                    console.log(contact)
+                })
                 user.contacts.push(req.params.newContact)
                 user.save(((err, user) => {
                 return res.json({ user: user });

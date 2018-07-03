@@ -22,18 +22,19 @@ module.exports = (app) => {
 
     //-------- CONTACTLIST ---------------------
 
-    app.get('/users/:currentUser/:newContact', UserController.addContact)
+    app.post('/users/:currentUser/:newContact', UserController.addContact)
 
     // ------ FRIEND REQUEST --------- 
 
     app.get('/friendRequest/:MetaAddress', metaAuth,
         AuthenticationController.sign)
-    app.get('/friendRequest/auth/:userID/:recipient/:MetaMessage/:MetaSignature', metaAuth,
+    // User gets a FriendRequest which he has to answer 
+    app.post('/friendRequest/auth/:userID/:recipient/:MetaMessage/:MetaSignature', metaAuth,
         AuthenticationController.friendRequest)
+    // User gets the answer back with FriendRequest holding the ConversationID
     app.post('/receiveFriendRequest/auth/:currentUser/:newContact/:MetaMessage/:MetaSignature', metaAuth,
         AuthenticationController.receiveFriendRequest)
     
-
     //-------- CHATTING ------------------------ 
     // TODO: Add Authentification for the selected User with unique JWT Token 
     app.get('/users/:userID/:conversationID', ConversationController.getConversations)

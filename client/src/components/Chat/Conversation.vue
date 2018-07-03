@@ -164,14 +164,16 @@ export default {
     async accept(friendRequest) {
       let url = await AuthService.searchUser(friendRequest.sender);
       friendRequest.accept = true;
-      // Add on own Server
 
+      // Add Contact to own Server
       this.$store.dispatch("addContact", {
         url: this.user.storageAddress,
         id: this.user.userID,
-        recipient: friendRequest.sender
+        recipient: friendRequest.sender,
+        body: {userID: friendRequest.sender, storageAddress:friendRequest.storageAddress}
       });
-
+    
+    // Create a new Conversation on own Server 
       $.post(
         this.user.storageAddress +`/api/conversation/new/${this.user.userID}/${friendRequest.sender}`,
         friendRequest,
@@ -180,15 +182,18 @@ export default {
         }
       );
 
-      // Add on the other Server
+      // Add  on the other Server
       let response = await AuthenticationService.login(
         url,
         `/receiveFriendRequest/auth/${friendRequest.sender}/${
           this.user.userID
         }/`,
-        "/friendRequest/",
-        "POST",
-        friendRequest
+        '/friendRequest/',
+        'POST',
+        {accept: friendRequest.accept,
+        conversationID:friendRequest.conversationID,
+        userID:this.user.userID,
+        storageAddress:this.user.storageAddress}
       );
 
       console.log(response);

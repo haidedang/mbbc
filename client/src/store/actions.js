@@ -10,7 +10,7 @@ export const getProfile = ({ commit }, contact) => {
 
 export const addContact = ({ commit }, contact) => {
     console.log('DONE')
-    UserService.addContact(contact.url, contact.id, contact.recipient)
+    UserService.addContact(contact.url, contact.id, contact.recipient, contact.body)
         .then((result) => {
             console.log('Reached')
             console.log('RESULT',result)

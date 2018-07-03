@@ -2,8 +2,8 @@ import Api from '@/services/Api'
 
 export default {
 
-    addContact(url, userID, recipient) {
-        return Api().get(url + `/users/${userID}/${recipient}`)
+    addContact(url, userID, recipient, body) {
+        return Api().post(url + `/users/${userID}/${recipient}`,body)
     },
 
     getUser(url, userID) {

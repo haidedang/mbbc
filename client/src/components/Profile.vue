@@ -69,7 +69,13 @@ export default {
   },
   methods: {
     async follow() {
-       let response = await AuthenticationService.login(this.profile.storageAddress, `/friendRequest/auth/${this.user.userID}/${this.profile.userID}/`, '/friendRequest/');
+       let response = await AuthenticationService.login(
+           this.profile.storageAddress,
+            `/friendRequest/auth/${this.user.userID}/${this.profile.userID}/`,
+             '/friendRequest/',
+             'POST',
+             {userID:this.user.userID,
+             storageAddress:this.user.storageAddress});
        console.log(response)
       
      /*  this.$store.dispatch("addContact", {

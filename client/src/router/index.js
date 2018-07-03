@@ -10,6 +10,7 @@ import Profile from '@/components/Profile'
 import Contacts from '@/components/FindContact'
 import RegisterDomain from '@/components/RegisterDomain'
 import Storage from '@/components/Storage'
+import Blogging from '@/components/MicroBlog/Blogging'
 
 Vue.use(Router);
 
@@ -62,6 +63,11 @@ export default new Router({
             path: '/Conversation',
             name: 'conversation',
             component: ChatContainer
+        },
+        {
+            path: '/Blog',
+            name: 'blogging',
+            component: Blogging
         },
         {
             path: '/Contacts',

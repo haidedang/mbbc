@@ -160,9 +160,10 @@ module.exports = {
                 console.log("Valid Signature")
                 console.log(req.metaAuth.recovered);
 
-                // Authenticated 
+                // Authenticated   //sender : Person who sended the friendRequest
                 let friendRequest = {
                     sender: req.params.userID,
+                    storageAddress: req.body.storageAddress, 
                     accept: false,
                     conversationID: uuidv4()
                 }

@@ -3,7 +3,7 @@
     <v-app>
       <pageHeader />
       <main>
-        <div class="m-0">
+        <div class="mt-5">
           <router-view></router-view>
         </div>
       </main>

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <!--<v-container>
     <v-layout>
         <ul v-for="article in blog" :key="article.id">
           <li>
@@ -17,48 +17,22 @@
           </li>
         </ul>
     </v-layout>
+  </v-container> -->
+  <v-container>
+    <text></text>
+    <list-all></list-all>
   </v-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import UserService from "@/services/UserService";
-import $ from "jquery";
-import io from "socket.io-client";
-import AuthService from "@/services/web3";
-import { mapGetters } from "vuex";
-import store from "@/store/store";
-import AuthenticationService from "../../services/AuthenticationService";
+  import ListAll from "@/components/MicroBlog/ListAllBlogs"
+  import Text from "@/components/MicroBlog/TextArea"
 
-let socket = null;
-
-export default {
-  computed: {
-    ...mapState(["user", "blog"])
-  },
-  created() {
-    console.log("Contacts: " + this.user.contacts);
-    let userName = this.user.userID;
-    socket = io.connect(this.user.storageAddress);
-    socket.on("connect", function() {
-      socket.emit("username", { username: userName });
-
-      console.log("Connected! ID: " + socket.id);
-    });
-    socket.on("online", function(data) {
-      console.log("received");
-    });
+  export default {
+    components : { ListAll, Text}
   }
-};
 </script>
 
 <style lang="less" scoped>
-ul {
-  list-style-type: none;
-}
 
-.timestamp {
-  font-size: small;
-  color: darkgrey;
-}
 </style>

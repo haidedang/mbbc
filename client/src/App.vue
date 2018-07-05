@@ -36,7 +36,7 @@ export default {
 }
 .main {
     overflow: hidden;
-    margin-top: 2vh;
+    margin-top: 10vh;
   }
   
 .danger-alert {

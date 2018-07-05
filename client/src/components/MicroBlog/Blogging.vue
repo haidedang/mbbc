@@ -1,7 +1,23 @@
 <template>
-    <div>
-        BLOG
-    </div>
+  <v-container>
+    <v-layout>
+        <ul v-for="article in blog" :key="article.id">
+          <li>
+            <v-flex>
+              <v-card>
+                <v-card-title>
+                  <h3 class="mb-0">{{ article.userID }}</h3>
+                  <div class="mt-0">
+                    <p class="timestamp">{{ article.timestamp }}</p>
+                    <p class="mt-2"> {{ article.content }} </p>
+                  </div>
+                </v-card-title>
+              </v-card>
+            </v-flex>
+          </li>
+        </ul>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -18,7 +34,7 @@ let socket = null;
 
 export default {
   computed: {
-    ...mapState(["user"])
+    ...mapState(["user", "blog"])
   },
   created() {
     console.log("Contacts: " + this.user.contacts);
@@ -35,3 +51,14 @@ export default {
   }
 };
 </script>
+
+<style lang="less" scoped>
+ul {
+  list-style-type: none;
+}
+
+.timestamp {
+  font-size: small;
+  color: darkgrey;
+}
+</style>

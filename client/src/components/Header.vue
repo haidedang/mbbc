@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar fixed class="green darken-1 d-flex" dark>
+    <v-toolbar fixed class="green darken-1 d-flex pb-0" dark>
         <v-toolbar-title class="mr-4">
             <router-link
             class="home"
@@ -133,10 +133,12 @@ export default {
 <style scoped>
 .bot-nav{
   height:4vh;
+  margin-bottom: 4vh;
   position: absolute;
 }
 .darken-1{
-  height:10vh;
+  height:14vh;
+
 }
 
 .home {

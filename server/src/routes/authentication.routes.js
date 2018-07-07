@@ -4,6 +4,7 @@ const metaAuth = new MetaAuth();
 const ConversationController = require('../controllers/ConversationController')
 const UserController = require('../controllers/UserController')
 const isAuthenticated = require('../isAuthenticated')
+const guestIsAuthenticated = require('../guestIsAuthenticated'); 
 
 
 module.exports = (app) => {
@@ -14,11 +15,14 @@ module.exports = (app) => {
         AuthenticationController.sign)
     app.get('/auth/:MetaMessage/:MetaSignature', metaAuth,
         AuthenticationController.authenticate)
-    app.get('/guest/login/:MetaAddress', metaAuth, AuthenticationController.sign)
-    app.get('guest/auth/:MetaMessage/:MetaSignature', metaAuth,
-        AuthenticationController.authenticateGuest)
     app.post('/register', AuthenticationController.register)
     app.get('/users/:user', AuthenticationController.profile)
+
+    //--------- GUEST LOGIN --------------------
+            
+    app.get('/guest/:MetaAddress', metaAuth, AuthenticationController.sign)
+    app.post('/guestAuth/:userID/:MetaMessage/:MetaSignature', metaAuth,
+        AuthenticationController.authenticateGuest)
 
     //-------- CONTACTLIST ---------------------
 
@@ -39,7 +43,7 @@ module.exports = (app) => {
     // TODO: Add Authentification for the selected User with unique JWT Token 
     app.get('/users/:userID/:conversationID', ConversationController.getConversations)
 
-    app.post('/conversation/:recipient', ConversationController.sendMessage)
+    app.post('/conversation/:recipient', guestIsAuthenticated, ConversationController.sendMessage)
 /*     app.post('conversation/new/:recipient', ConversationController.newConversation)
  */
 }

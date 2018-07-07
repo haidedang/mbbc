@@ -73,7 +73,7 @@
         v-if="$store.state.isUserLoggedIn"
         flat
         dark
-        :to="{ 
+        :to="{
           name: 'blogging'
           }">
         Blog
@@ -87,7 +87,7 @@
           }">
           Messaging
         </v-btn>
-      </v-bottom-nav> 
+      </v-bottom-nav>
     </v-toolbar>
 </template>
 
@@ -107,7 +107,8 @@ export default {
     logout() {
       this.$store.dispatch("setToken", null);
       this.$store.dispatch("setUser", null);
-      this.$store.dispatch('clearMessages',[]); 
+      this.$store.dispatch('clearMessages',[]);
+      this.$store.dispatch('clearContacts', []);
       this.$router.push({
         name: "songs"
       });
@@ -122,6 +123,7 @@ export default {
       console.log(response.user.storageAddress);
       this.$store.dispatch("setToken", response.token);
       this.$store.dispatch("setUser", response.user);
+      this.$store.dispatch("setContacts", {url: response.user.storageAddress, userID:response.user.userID})
       console.log(response.user.userID);
       this.$router.push({
         path: `/profile/${response.user.userID}`

@@ -18,6 +18,10 @@ router.route('/users/:userId')
 // Add a new User
 router.route('/user').post(UserController.addUser)
 
+// Get Contacts by UserId
+router.route('/user/:userId/contacts')
+  .get(UserController.getContactsByUserId) 
+
 
 /*  // Delete a users by cuid
 router.route('/users/:cuid')

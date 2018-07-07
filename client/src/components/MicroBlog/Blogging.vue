@@ -1,37 +1,38 @@
 <template>
-    <div>
-        BLOG
-    </div>
+  <!--<v-container>
+    <v-layout>
+        <ul v-for="article in blog" :key="article.id">
+          <li>
+            <v-flex>
+              <v-card>
+                <v-card-title>
+                  <h3 class="mb-0">{{ article.userID }}</h3>
+                  <div class="mt-0">
+                    <p class="timestamp">{{ article.timestamp }}</p>
+                    <p class="mt-2"> {{ article.content }} </p>
+                  </div>
+                </v-card-title>
+              </v-card>
+            </v-flex>
+          </li>
+        </ul>
+    </v-layout>
+  </v-container> -->
+  <v-container>
+    <text></text>
+    <list-all></list-all>
+  </v-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import UserService from "@/services/UserService";
-import $ from "jquery";
-import io from "socket.io-client";
-import AuthService from "@/services/web3";
-import { mapGetters } from "vuex";
-import store from "@/store/store";
-import AuthenticationService from "../../services/AuthenticationService";
+  import ListAll from "@/components/MicroBlog/ListAllBlogs"
+  import Text from "@/components/MicroBlog/TextArea"
 
-let socket = null;
-
-export default {
-  computed: {
-    ...mapState(["user"])
-  },
-  created() {
-    console.log("Contacts: " + this.user.contacts);
-    let userName = this.user.userID;
-    socket = io.connect(this.user.storageAddress);
-    socket.on("connect", function() {
-      socket.emit("username", { username: userName });
-
-      console.log("Connected! ID: " + socket.id);
-    });
-    socket.on("online", function(data) {
-      console.log("received");
-    });
+  export default {
+    components : { ListAll, Text}
   }
-};
 </script>
+
+<style lang="less" scoped>
+
+</style>

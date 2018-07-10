@@ -31,7 +31,7 @@ exports.addContact = (req, res) => {
             } else {
                 console.log('adding contact')
                 console.log(req.body)
-                let contact = new Contact({userID:req.body.userID, storageAddress:req.body.storageAddress})
+                let contact = new Contact({userID:req.body.userID, name:req.body.name, storageAddress:req.body.storageAddress})
                 contact.save((err, contact) => { 
                     console.log(contact)
                 })
@@ -84,5 +84,15 @@ exports.getUsers = (req, res) => {
                     .send(err)
             }
             res.json({ Users: Users })
+        })
+}
+
+exports.getContactsByUserId = (req, res) => { 
+    Contact.find({userID: req.params.userId})
+        .exec((err, Contacts) => { 
+            if (err) { 
+                res.status(500).send(err)
+            }
+            res.json({Contacts : Contacts}); 
         })
 }

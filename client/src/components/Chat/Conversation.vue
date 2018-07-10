@@ -7,7 +7,7 @@
             <v-btn @click="accept(friendRequest)">Accept</v-btn>
             <v-btn>Deny</v-btn>
         </li>
-    </ul> 
+    </ul>
     <div class= "message" id="messages" >
       <ul v-if="session">
         <li v-for="item in messages" :key="item.id">
@@ -18,9 +18,9 @@
             </div>
           </div>
         </li>
-      </ul> 
+      </ul>
     </div>
-    
+
     <div class="textArea">
       <textarea placeholder="Write your Message here" v-model="input" @keydown.enter="submit" ></textarea>
     </div>
@@ -53,7 +53,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "conversation", "friendRequests"]),
+    ...mapState(["isUserLoggedIn", "user", "conversation", "friendRequests", "currentEndpoint"]),
     ...mapGetters({ messages: "currentMessages" })
   },
   created() { 
@@ -139,7 +139,7 @@ export default {
       // TODO: Refactor with /n and API service
       // send to friends Server
 
-      $.post(
+      /* $.post(
         url + "/conversation/" + this.conversation[0].participants[1],
         {
           conversationId: this.conversation[0]._id,
@@ -150,7 +150,26 @@ export default {
         response => {
           console.log(response);
         }
-      );
+      ); */
+      console.log(this.currentEndpoint)
+      let that = this;
+
+      $.ajax({
+        url:url + "/conversation/" + this.conversation[0].participants[1],
+        type: 'POST',
+        beforeSend: function(xhr) { 
+          xhr.setRequestHeader('Authorization', 'Bearer ' + that.currentEndpoint.token)
+        },
+        data:{
+          conversationId: this.conversation[0]._id,
+          author: this.user.userID,
+          body: this.input,
+          timestamp: Date.now()
+        },
+        success : function (data) {
+          console.log(data)
+        }
+      })
 
       // add to FrontEnd
       this.$store.dispatch("sendMessage", {
@@ -170,10 +189,10 @@ export default {
         url: this.user.storageAddress,
         id: this.user.userID,
         recipient: friendRequest.sender,
-        body: {userID: friendRequest.sender, storageAddress:friendRequest.storageAddress}
+        body: {userID: this.user.userID, name:friendRequest.sender, storageAddress:friendRequest.storageAddress}
       });
-    
-    // Create a new Conversation on own Server 
+
+    // Create a new Conversation on own Server
       $.post(
         this.user.storageAddress +`/api/conversation/new/${this.user.userID}/${friendRequest.sender}`,
         friendRequest,
@@ -192,7 +211,8 @@ export default {
         'POST',
         {accept: friendRequest.accept,
         conversationID:friendRequest.conversationID,
-        userID:this.user.userID,
+        userID:friendRequest.sender,
+        name: this.user.userID,
         storageAddress:this.user.storageAddress}
       );
 

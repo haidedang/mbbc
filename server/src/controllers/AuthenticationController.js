@@ -5,6 +5,7 @@ const config = require('../config/config')
 const uuidv4 = require('uuid/v4')
 const server = require('../server');
 const UserController = require('./UserController')
+const Contact = require('../models/Contact')
 
 function jwtSignUser(user) {
     const ONE_WEEK = 60 * 60 * 24 * 7
@@ -115,29 +116,30 @@ module.exports = {
                 console.log("Valid Signature")
                 console.log(req.metaAuth.recovered);
 
-
-                // Find User in BlockChain with ReverseAddress 
-                // Given the EthereumAddress of the owner find the URL of the owner 
-                // If URL exists send back a auth token, if not deny access 
-
-
                 /*   const user = await User.findOne(
                        {
                           address: req.metaAuth.recovered
                       }
                   ) */
                 // if user not in Database throw error else return the User    
-                if (!user) {
+
+                const GuestUser = await Contact.findOne({
+                    userID: req.params.userID
+                })
+
+                console.log(GuestUser)
+
+                if (!GuestUser) {
                     return res.status(403).send({
-                        error: 'The login information was incorrect'
+                        error: 'you are not in The Contact List of your friend.'
                     })
                 }
 
-                const userJson = user.toJSON()
+                const GuestUserJson = req.body; 
 
                 res.send({
-                    user: userJson,
-                    token: jwtSignUser(userJson)
+                    user: GuestUserJson,
+                    token: jwtSignUser(GuestUserJson)
                 })
 
                 // send jwt Token here 
@@ -212,14 +214,11 @@ module.exports = {
                             res.send({ error: err });
                             /* return next(err); */
                         }
-
                         /* res.send(newConversation); */
                     })
                     // add User to Contact List 
                     UserController.addContact(req,res); 
                     // acceptance message to Client 
-        
-                    
                 }
             } else { 
                 console.log('fail')

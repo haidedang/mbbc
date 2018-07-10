@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 const contactSchema = new Schema({
     userID: { type: 'String', required: true, unique: true },
+    name: { type:'String'},  
     storageAddress: {type: 'String'}, 
 });
 

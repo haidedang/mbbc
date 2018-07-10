@@ -13,9 +13,9 @@
       </div>
       <v-divider></v-divider>
       <v-list style="background-color: transparent">
-        <v-list-tile 
-        v-for="contact in this.user.contacts" 
-        :key="contact" 
+        <v-list-tile
+        v-for="contact in this.user.contacts"
+        :key="contact"
         avatar
         @click="setCurrentConversation(contact)">
         <v-list-tile-content>
@@ -44,10 +44,24 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "conversation"])
+    ...mapState([
+      "isUserLoggedIn",
+      "user",
+      "conversation",
+      "contacts",
+      "endpoints"
+    ])
   },
   methods: {
     setCurrentConversation(contact) {
+      let Contact = this.contacts.filter(item => item.name == contact)[0];
+      console.log(Contact);
+      let Endpoint = this.endpoints.filter(
+        endpoint => endpoint.endpoint == Contact.storageAddress
+      )[0];
+      console.log(Endpoint);
+      // CHeck if the token for that Endpoint exists if not, ask for that token first
+
       this.$store
         .dispatch("setCurrentConversation", {
           url: this.user.storageAddress,
@@ -55,12 +69,16 @@ export default {
           recipient: contact
         })
         .then(conversation => {
-            console.log('conversationID from Server',conversation[0]._id)
-            this.$store
-                .dispatch("setCurrentMessages", {
-                    url: this.user.storageAddress, 
-                    id: conversation[0]._id
-                })
+          console.log("conversationID from Server", conversation[0]._id);
+          this.$store.dispatch("setCurrentMessages", {
+            url: this.user.storageAddress,
+            id: conversation[0]._id
+          });
+        })
+        .then(() => {
+          if (!Endpoint.authenticated) {
+        this.$store.dispatch("setChatToken", Contact);
+      }
         });
     }
   }

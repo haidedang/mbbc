@@ -15,19 +15,22 @@ const plugins =  [
 const state =  {
   token: null,
   user: null,
-  profile: null, 
+  profile: null,
   isUserLoggedIn: false,
   url: null,
   conversation: null,
   friendRequests: [],
   messages: [] ,
-  blog: []
+  blog: [],
+  contacts : [],
+  endpoints:[],
+  currentEndpoint: null
 }
 
 export default new Vuex.Store({
     state,
     getters,
-    mutations, 
+    mutations,
     actions,
     plugins
 })

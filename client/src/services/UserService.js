@@ -17,21 +17,25 @@ export default {
     getMessagesByConversationId(url, conversationId){
         return Api().get(url + `/api/messages/${conversationId}` )
     },
-    
+
     getTweetsFromUser(url){
         return Api().get(url + '/api/tweets/')
+    },
+
+    getContactsByUserId(url, userId){
+        return Api().get(url + `/api/user/${userId}/contacts`)
     }
 
 
-    //getUser 
+    //getUser
 
-    // sendMessage 
+    // sendMessage
 
-    // getConversations 
+    // getConversations
 
-    // getConversation 
+    // getConversation
 
-    //getMessages 
+    //getMessages
 
 
 }

@@ -1,9 +1,15 @@
 <template>
-    <v-layout>
-        <div class="tweetBox">
-            <textarea v-model="content" @keyup="keyUp">Blog here ...</textarea>
-        </div>
-        <v-btn color="green darken-1">Submit</v-btn>
+    <v-layout row wrap>
+        <v-flex xs12>
+            <textarea
+            rows="5"
+            cols="75"
+            maxlength="250"
+            placeholder="Blog here" 
+            v-model="input" 
+            @keydown.enter="postBlog">
+            </textarea>
+        </v-flex>
     </v-layout>
 </template>
 
@@ -13,17 +19,18 @@ export default {
         content: ''
     },
     methods: {
-        keyUp(e) {
-            this.sendTweet(this.content)
+        async postBlog() {
+            this.sendTweet(this.input)
             this.content=''
         }
     }
 
 }
 </script>
-
 <style>
-    .tweetBox{
-        border:darkgreen;
-    }
+textarea{
+    border-style: solid;
+    border-width: 2px;
+    border-color: #43A047;
+}
 </style>

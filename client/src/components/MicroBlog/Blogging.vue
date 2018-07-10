@@ -19,17 +19,17 @@
     </v-layout>
   </v-container> -->
   <v-container>
-    <text></text>
+    <text-area></text-area>
     <list-all></list-all>
   </v-container>
 </template>
 
 <script>
   import ListAll from "@/components/MicroBlog/ListAllBlogs"
-  import Text from "@/components/MicroBlog/TextArea"
+  import TextArea from "@/components/MicroBlog/TextArea"
 
   export default {
-    components : { ListAll, Text}
+    components : { ListAll, TextArea}
   }
 </script>
 

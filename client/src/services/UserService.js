@@ -18,8 +18,8 @@ export default {
         return Api().get(url + `/api/messages/${conversationId}` )
     },
 
-    getTweetsFromUser(url){
-        return Api().get(url + '/api/tweets/')
+    getBlogsFromUser(url){
+        return Api().get(url + '/api/blogs/')
     },
 
     getContactsByUserId(url, userId){

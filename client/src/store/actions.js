@@ -10,10 +10,10 @@ export const getProfile = ({ commit }, contact) => {
 }
 
 export const getBlogs = ({ commit }, contact) => {
-  UserService.getTweetsFromUser(contact.url)
+  UserService.getBlogsFromUser(contact.url)
     .then((result) => {
       console.log(result);
-      commit('setBlogs', result.data.tweets)
+      commit('setBlogs', result.data.blogs)
     })
 }
 

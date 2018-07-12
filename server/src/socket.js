@@ -30,5 +30,23 @@ module.exports = (io) => {
                 console.log(result)
             })
         })
+
+        socket.on('microblog', function (data) {
+            // store Data in the DB 
+            
+            console.log(data)
+            const message = new Message({ 
+                conversationId: data.conversationId,
+                body: data.body, 
+                author: data.author
+            })
+            message.save((err, result) => { 
+                if (err) {
+                    console.log({ error: err });
+                    return 
+                }
+                console.log(result)
+            })
+        })
     }) 
 }

@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
  
 var Schema = mongoose.Schema;
 
-const tweetSchema = new Schema({
+const blogSchema = new Schema({
     userID: { type: 'String' },
     content: { type: 'String' }
 }, {timestamps: true});
 
-let Tweet = mongoose.model('Tweet', tweetSchema);
+let Blog = mongoose.model('Blog', blogSchema);
 
-module.exports = Tweet; 
+module.exports = Blog; 
 

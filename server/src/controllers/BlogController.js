@@ -1,4 +1,4 @@
-const Tweet = require('../models/Tweet');
+const Blog = require('../models/Blog');
 
 const server = require('../server');
 
@@ -7,104 +7,104 @@ var counter = 0;
 
 
 /**
- * Get last 10 tweets from user
+ * Get last 10 blogs from user
  *
  * @param req
  * @param res
  */
-exports.getTweets= (req, res) =>{
-    Tweet.find()
+exports.getBlogs= (req, res) =>{
+    Blog.find()
       .sort('timestamps')
       .limit(10)
-      .exec((err, Tweets) => {
+      .exec((err, Blogs) => {
         if (err) {
           res.status(500)
             .send(err)
         }
-        res.json({ Tweets: Tweets })
+        res.json({ Blogs: Blogs })
       })
   }
   
  
   /**
-   * Finds Tweet by userId.
+   * Finds Blog by userId.
    *
    * @param req
    * @param res
    */
-  exports.getTweetByUser= (req, res) =>{
-    Tweet.findOne({ userId: req.params.userId })
-      .exec((err, Tweet) => {
+  exports.getBlogByUser= (req, res) =>{
+    Blog.findOne({ userId: req.params.userId })
+      .exec((err, Blog) => {
         if (err) {
           res.status(500)
             .send(err)
         }
-        res.json({ Tweet: Tweet })
+        res.json({ Blog: Blog })
       })
   }
   
   /**
-   * Add Tweet.
+   * Add Blog.
    *
    * @param req
    * @param res
    */
-  exports.addTweet= (req, res) =>{
-    const newTweet = new Tweet(req.body)
-    newTweet.save((err, saved) => {
+  exports.addBlog= (req, res) =>{
+    const newBlog = new Blog(req.body)
+    newBlog.save((err, saved) => {
       if (err) {
         res.status(500)
           .send(err)
       }
-      res.json({ Tweet: saved })
+      res.json({ Blog: saved })
     })
   }
   
   /**
-   * Delete Tweet.
+   * Delete Blog.
    *
    * @param req
    * @param res
    */
-  exports.deleteTweet= (req, res) =>{
-    Tweet.findOne({ id: req.params.id })
-      .exec((err, Tweet) => {
+  exports.deleteBlog= (req, res) =>{
+    Blog.findOne({ id: req.params.id })
+      .exec((err, Blog) => {
         if (err) {
           res.status(500)
             .send(err)
         }
   
-        Tweet.remove(() => {
+        Blog.remove(() => {
           res.status(200)
             .end()
         })
       })
   }
 
-//Saving tweet in MongoDB
-exports.sendTweet = function (req, res, next) {
-  const tweet = new Tweet({ 
+//Saving blog in MongoDB
+exports.sendBlog = function (req, res, next) {
+  const blog = new Blog({ 
       userID: req.body.userID,
       content: req.body.content
     })
-    tweet.save((err, result) => { 
+    blog.save((err, result) => { 
       if (err) {
           res.send({ error: err });
           return next(err);
       }
-    return res.status(200).json({ tweet: result });
+    return res.status(200).json({ blog: result });
 })
 
 }
 
-// --- New for tweet controller  \\
-//Client sends a new tweet to its server
+// --- New for blog controller  \\
+//Client sends a new blog to its server
 
 //We need username and ETHERID
 //UserID can be stored in req.body.userID
 //OR
-//UserID can be stored in req.body.content: "You have a new tweet"
-//Need also: TweetID
+//UserID can be stored in req.body.content: "You have a new blog"
+//Need also: BlogID
 exports.sendNotification = function (req, res, next) {
 
   //Incrementing server counter
@@ -125,7 +125,7 @@ exports.sendNotification = function (req, res, next) {
 
 }
 
-//Set the counter to 0 when the Client fetches the tweets
+//Set the counter to 0 when the Client fetches the blogs
 exports.resetCounter = function (req, res, next) {
   console.log(counter);
   counter = 0;

@@ -19,7 +19,7 @@
             :to="{
               name: 'profile'
             }">
-            Profile
+            <font-awesome-icon icon="user"></font-awesome-icon>
           </v-btn>
         </v-toolbar-items>
 
@@ -31,7 +31,7 @@
             :to="{
               name: 'search'
             }">
-            Search
+            <font-awesome-icon icon="search"></font-awesome-icon>
           </v-btn>
         </v-toolbar-items>
 
@@ -61,7 +61,7 @@
             flat
             dark
             @click="logout">
-            Log Out
+            <font-awesome-icon icon="sign-out-alt"></font-awesome-icon>
           </v-btn>
         </v-toolbar-items>
       <v-bottom-nav
@@ -85,7 +85,7 @@
           :to="{
             name: 'conversation'
           }">
-          Messaging
+           <font-awesome-icon icon="comments"></font-awesome-icon>
         </v-btn>
       </v-bottom-nav>
     </v-toolbar>
@@ -95,6 +95,10 @@
 import { bus } from "../main"; // import the bus from main.js or new file
 import AuthenticationService from "@/services/AuthenticationService";
 import AuthService from "@/services/web3";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUser, faSearch, faComments, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faUser, faSearch, faComments, faSignOutAlt);
 
 export default {
   beforeCreate: async function() {
@@ -107,23 +111,29 @@ export default {
     logout() {
       this.$store.dispatch("setToken", null);
       this.$store.dispatch("setUser", null);
-      this.$store.dispatch('clearMessages',[]);
-      this.$store.dispatch('clearContacts', []);
+      this.$store.dispatch("clearMessages", []);
+      this.$store.dispatch("clearContacts", []);
       this.$router.push({
         name: "songs"
       });
-        this.$store.dispatch("clearConversation", null)
-
+      this.$store.dispatch("clearConversation", null);
     },
     async login() {
       let userID = await AuthService.getNameForReverseAddress();
       let url = await AuthService.searchUser(userID);
-      let response = await AuthenticationService.login(url, '/auth/', '/login/');
+      let response = await AuthenticationService.login(
+        url,
+        "/auth/",
+        "/login/"
+      );
       console.log(response);
       console.log(response.user.storageAddress);
       this.$store.dispatch("setToken", response.token);
       this.$store.dispatch("setUser", response.user);
-      this.$store.dispatch("setContacts", {url: response.user.storageAddress, userID:response.user.userID})
+      this.$store.dispatch("setContacts", {
+        url: response.user.storageAddress,
+        userID: response.user.userID
+      });
       console.log(response.user.userID);
       this.$router.push({
         path: `/profile/${response.user.userID}`
@@ -133,12 +143,12 @@ export default {
 };
 </script>
 <style scoped>
-.bot-nav{
-  height:4vh;
+.bot-nav {
+  height: 4vh;
   position: absolute;
 }
-.darken-1{
-  height:10vh;
+.darken-1 {
+  height: 10vh;
 }
 
 .home {

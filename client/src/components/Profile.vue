@@ -35,6 +35,7 @@ import Api from "../services/Api";
 import AuthService from "@/services/web3";
 import AuthenticationService from "../services/AuthenticationService"
 
+
 export default {
   name: "Profile",
   data() {
@@ -77,7 +78,7 @@ export default {
              {userID:this.user.userID,
              storageAddress:this.user.storageAddress});
        console.log(response)
-      
+
      /*  this.$store.dispatch("addContact", {
         url: this.user.storageAddress,
         id: this.user.userID,

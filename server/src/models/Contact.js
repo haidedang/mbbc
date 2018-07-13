@@ -4,7 +4,7 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 var Schema = mongoose.Schema;
 
 const contactSchema = new Schema({
-    userID: { type: 'String', required: true, unique: true },
+    userID: { type: 'String', required: true},
     name: { type:'String'},  
     storageAddress: {type: 'String'}, 
 });

@@ -33,6 +33,8 @@ import { mapActions } from "vuex";
 
 export default {
   created() {
+    console.log(this.user.contacts)
+    this.setCurrentConversation(this.user.contacts[0]);
     /*  console.log(JSON.parse(localStorage.getItem("vuex")));
     console.log(this.user);
     console.log(this.conversation) */

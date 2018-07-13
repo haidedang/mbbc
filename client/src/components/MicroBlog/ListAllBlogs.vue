@@ -1,4 +1,5 @@
 <template>
+<div>
     <v-layout>
         <ul>
           <li>
@@ -16,6 +17,7 @@
           </li>
         </ul>
     </v-layout>
+    </div>
 </template>
 
 <script>

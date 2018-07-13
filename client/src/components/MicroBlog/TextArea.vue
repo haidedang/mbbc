@@ -1,4 +1,5 @@
 <template>
+<div class="d-flex">
     <v-layout>
         <v-flex>
           <div class="text">
@@ -6,6 +7,7 @@
          </div>
         </v-flex>
     </v-layout>
+    </div>
 </template>
 
 <script>

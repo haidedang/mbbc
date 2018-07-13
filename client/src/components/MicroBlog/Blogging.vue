@@ -1,8 +1,10 @@
 <template>
-  <v-container>
+  <div class="d-flex">
+  <v-container id="Blog">
     <text-area></text-area>
     <list-all></list-all>
   </v-container>
+  </div>
 </template>
 
 <script>
@@ -15,5 +17,7 @@
 </script>
 
 <style lang="less" scoped>
-
+/* #Blog{
+  z-index:-1;
+} */
 </style>

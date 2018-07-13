@@ -105,6 +105,7 @@
 </template>
 
 <script>
+import $ from "jquery";
 import { mapState } from "vuex";
 import { bus } from "../main"; // import the bus from main.js or new file
 import AuthenticationService from "@/services/AuthenticationService";
@@ -125,9 +126,7 @@ export default {
     await AuthService.init();
   },
   computed: {
-    ...mapState([
-      "friend"
-    ])
+    ...mapState(["user", "friend"])
   },
   methods: {
     openMyDialog() {
@@ -139,16 +138,17 @@ export default {
       this.$store.dispatch("setUser", null);
       this.$store.dispatch("clearMessages", []);
       this.$store.dispatch("clearContacts", []);
-      this.$store.dispatch('resetState');
+      this.$store.dispatch("resetState");
       this.$router.push({
         name: "songs"
       });
       this.$store.dispatch("clearConversation", null);
     },
-    showFriendRequest(){
-      this.$store.dispatch("clicked" , this.friend);
+    showFriendRequest() {
+      this.$store.dispatch("clicked", this.friend);
     },
     async login() {
+      let that = this;
       let userID = await AuthService.getNameForReverseAddress();
       let url = await AuthService.searchUser(userID);
       let response = await AuthenticationService.login(
@@ -158,13 +158,25 @@ export default {
       );
       console.log(response);
       console.log(response.user.storageAddress);
-      this.$store.dispatch("setToken", response.token);
-      this.$store.dispatch("setUser", response.user);
-      this.$store.dispatch("setContacts", {
+
+      await this.$store.dispatch("setToken", response.token);
+      await this.$store.dispatch("setUser", response.user);
+      await this.$store.dispatch("setFriendList", response);
+      await this.$store.dispatch("setContacts", {
         url: response.user.storageAddress,
         userID: response.user.userID
       });
       console.log(response.user.userID);
+      $.ajax({
+        url:
+          this.user.storageAddress +
+          `/api/users/${this.user.userID}/friendRequests`,
+        type: "GET",
+        success: data => {
+          console.log("GOT IT ", data);
+          that.$store.dispatch('setFriends', data);
+        }
+      });
       this.$router.push({
         path: `/profile/${response.user.userID}`
       });
@@ -188,5 +200,4 @@ export default {
 .home:hover {
   color: #e9e;
 }
-
 </style>

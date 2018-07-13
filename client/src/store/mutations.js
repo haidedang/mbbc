@@ -4,6 +4,12 @@ import CircularJSON from 'circular-json';
 
 
 export default {
+  setFriends(state, response) { 
+    response.forEach(friend => { 
+      state.friendRequests.push(friend);
+    })
+    console.log('FRIENDS',state.friendRequests)
+  },
   setUser(state, response) {
     state.user = response
   },
@@ -76,7 +82,7 @@ export default {
     state.endpoints = response;
   },
   clearState(state) { 
-    state = {
+    let initialState =  {
       token: null,
       user: null,
       profile: null,
@@ -91,6 +97,10 @@ export default {
       currentEndpoint: null,
       friend: false
     }
+    Object.keys(initialState).forEach((key) => {
+      state[key] = initialState[key];
+    })
+    console.log(state);
   }
 }
 

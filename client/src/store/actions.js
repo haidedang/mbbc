@@ -42,6 +42,10 @@ export const setCurrentConversation = ({ commit }, conversation) => {
   })
 }
 
+export const setFriends = ({commit}, friends) => { 
+  commit('setFriends', friends);
+}
+
 export const clearConversation = ({ commit }, conversation) => {
   commit('clearConversation', conversation)
 }

@@ -22,6 +22,10 @@ router.route('/user').post(UserController.addUser)
 router.route('/user/:userId/contacts')
   .get(UserController.getContactsByUserId) 
 
+  // Get FriendRequests by UserId 
+
+  router.route('/users/:userId/friendRequests')
+    .get(UserController.getFriendRequestsByUserId)
 
 /*  // Delete a users by cuid
 router.route('/users/:cuid')

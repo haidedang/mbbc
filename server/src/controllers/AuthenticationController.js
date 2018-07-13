@@ -169,14 +169,17 @@ module.exports = {
                     accept: false,
                     conversationID: uuidv4()
                 }
-
+               
+                console.log('available Sockets', server.io.sockets.sockets)
                 /* res.send(friendRequest) */
                 for (var key in server.io.sockets.sockets) {
-                    console.log(key)
-                    console.log(server.io.sockets.sockets[key].username)
+                   /*  console.log(key)
+                    console.log(server.io.sockets.sockets[key].username) */
                     if (server.io.sockets.sockets[key].username == undefined)
                         return
                     if (server.io.sockets.sockets[key].username.username == req.params.recipient) {
+                        console.log('Socket is at position: ', key)
+                        console.log('Found Socket with searched UserID', server.io.sockets.sockets[key].username)
                         server.io.to(key).emit('friendRequest', friendRequest);
                     }
                 }
@@ -199,7 +202,7 @@ module.exports = {
                 console.log(req.metaAuth.recovered);
 
                 // Authenticated 
-                console.log(req.body)
+                console.log('Req body' , req.body)
                 if (req.body.accept == 'true'){ 
 
                  /*  let conversation =  await Conversation.findOne({_id:req.body.conversationID})

@@ -9,7 +9,7 @@ module.exports = (io) => {
         })
     
         socket.on('username', function (username) {
-            console.log(username.username)
+            console.log('UserSocket connected with Server:', username.username)
             socket.username = username;
         })
     

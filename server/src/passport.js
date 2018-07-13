@@ -9,23 +9,23 @@ const GuestJwtStrategy = require('passport-jwt').Strategy
 
 const config = require('./config/config')
 
-passport.use( 'user',
+passport.use('user',
   new JwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.authentication.jwtSecret
-  }, async function (jwtPayload, done) {
-    
+  }, async function(jwtPayload, done) {
+
     try {
-      console.log(jwtPayload); 
+      console.log(jwtPayload);
       const user = await User.findOne(
-       {
+        {
           userID: jwtPayload.userID
         }
       )
       if (!user) {
         return done(new Error(), false)
       }
-      
+
       return done(null, user)
     } catch (err) {
       return done(new Error(), false)
@@ -33,25 +33,25 @@ passport.use( 'user',
   })
 )
 
-passport.use( 'guest',
+passport.use('guest',
   new GuestJwtStrategy({
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: config.authentication.jwtSecret
-  }, async function (jwtPayload, done) {
-    
+  }, async function(jwtPayload, done) {
+
     try {
-      console.log('jwt arrived', jwtPayload); 
+      console.log('jwt arrived', jwtPayload);
       const contact = await Contact.findOne(
-       {
+        {
           userID: jwtPayload.name,
-          name : jwtPayload.userID
+          name: jwtPayload.userID
         }
       )
-      
+
       if (!contact) {
         return done(new Error(), false)
       }
-      
+
       return done(null, contact)
     } catch (err) {
       return done(new Error(), false)

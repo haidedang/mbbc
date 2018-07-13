@@ -157,7 +157,7 @@ exports.sendReply = function (req, res, next) {
  */
 exports.sendMessage = function (req, res, next) {
 
-    console.log(req.body)
+    console.log('Received a Message', req.body)
     const message = new Message({ 
         conversationId: req.body.conversationId,
         body: req.body.body, 
@@ -170,10 +170,9 @@ exports.sendMessage = function (req, res, next) {
         }
         return res.status(200).json({ message: result });
     })
-
+    
     for (var key in server.io.sockets.sockets) {
-        console.log(key)
-        console.log(server.io.sockets.sockets[key].username)
+        console.log('User receiving the message',server.io.sockets.sockets[key].username)
         if (server.io.sockets.sockets[key].username == undefined)
             return
         if (server.io.sockets.sockets[key].username.username == req.params.recipient){

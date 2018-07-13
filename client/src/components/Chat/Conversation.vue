@@ -1,13 +1,6 @@
 <template>
   <div>
    <!--  <div class="message" v-scroll-bottom="session.messages"> -->
-    <ul>
-        <li v-for="friendRequest in friendRequests" :key="friendRequest.id">
-            <div><p>{{friendRequest.sender}}</p></div>
-            <v-btn @click="accept(friendRequest)">Accept</v-btn>
-            <v-btn>Deny</v-btn>
-        </li>
-    </ul>
     <div class= "message" id="messages" >
       <ul v-if="session">
         <li v-for="item in messages" :key="item.id">
@@ -53,17 +46,23 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isUserLoggedIn", "user", "conversation", "friendRequests", "currentEndpoint"]),
+    ...mapState([
+      "isUserLoggedIn",
+      "user",
+      "conversation",
+      "friendRequests",
+      "currentEndpoint"
+    ]),
     ...mapGetters({ messages: "currentMessages" })
   },
-  created() { 
-      $.get(
-        this.user.storageAddress + `/api/users/${this.user.userID}`,
-        response => {
-          console.log('Created Component with ' ,response);
-          this.$store.dispatch( 'setUser',response )
-        }
-      );
+  created() {
+    $.get(
+      this.user.storageAddress + `/api/users/${this.user.userID}`,
+      response => {
+        console.log("Created Component with ", response);
+        this.$store.dispatch("setUser", response);
+      }
+    );
   },
   mounted() {
     /*   console.log("conversation", this.conversation); */
@@ -74,7 +73,7 @@ export default {
     socket.on("connect", function() {
       socket.emit("username", { username: userName });
 
-      console.log("Connected! ID: " + socket.id);
+      console.log("Socket Conversation ID: " + socket.id);
     });
     socket.on("online", function(data) {
       console.log("received");
@@ -90,16 +89,15 @@ export default {
         body: data.body,
         timestamp: data.timestamp
       });
-
     });
     // ---------- FRIEND REQUEST----------
     socket.on("friendRequest", data => {
       console.log(data);
       store.dispatch("receiveFriendRequest", data);
     });
-
   },
   destroyed() {
+    console.log("destroy Conversation socket");
     socket.close();
   },
   watch: {
@@ -151,25 +149,28 @@ export default {
           console.log(response);
         }
       ); */
-      console.log(this.currentEndpoint)
+      console.log(this.currentEndpoint);
       let that = this;
 
       $.ajax({
-        url:url + "/conversation/" + this.conversation[0].participants[1],
-        type: 'POST',
-        beforeSend: function(xhr) { 
-          xhr.setRequestHeader('Authorization', 'Bearer ' + that.currentEndpoint.token)
+        url: url + "/conversation/" + this.conversation[0].participants[1],
+        type: "POST",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader(
+            "Authorization",
+            "Bearer " + that.currentEndpoint.token
+          );
         },
-        data:{
+        data: {
           conversationId: this.conversation[0]._id,
           author: this.user.userID,
           body: this.input,
           timestamp: Date.now()
         },
-        success : function (data) {
-          console.log(data)
+        success: function(data) {
+          console.log(data);
         }
-      })
+      });
 
       // add to FrontEnd
       this.$store.dispatch("sendMessage", {
@@ -189,12 +190,17 @@ export default {
         url: this.user.storageAddress,
         id: this.user.userID,
         recipient: friendRequest.sender,
-        body: {userID: this.user.userID, name:friendRequest.sender, storageAddress:friendRequest.storageAddress}
+        body: {
+          userID: this.user.userID,
+          name: friendRequest.sender,
+          storageAddress: friendRequest.storageAddress
+        }
       });
 
-    // Create a new Conversation on own Server
+      // Create a new Conversation on own Server
       $.post(
-        this.user.storageAddress +`/api/conversation/new/${this.user.userID}/${friendRequest.sender}`,
+        this.user.storageAddress +
+          `/api/conversation/new/${this.user.userID}/${friendRequest.sender}`,
         friendRequest,
         response => {
           console.log(response);
@@ -207,13 +213,15 @@ export default {
         `/receiveFriendRequest/auth/${friendRequest.sender}/${
           this.user.userID
         }/`,
-        '/friendRequest/',
-        'POST',
-        {accept: friendRequest.accept,
-        conversationID:friendRequest.conversationID,
-        userID:friendRequest.sender,
-        name: this.user.userID,
-        storageAddress:this.user.storageAddress}
+        "/friendRequest/",
+        "POST",
+        {
+          accept: friendRequest.accept,
+          conversationID: friendRequest.conversationID,
+          userID: friendRequest.sender,
+          name: this.user.userID,
+          storageAddress: this.user.storageAddress
+        }
       );
 
       console.log(response);

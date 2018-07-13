@@ -1,6 +1,6 @@
  <template>
- <v-container>
-    <v-layout v-if="isUserLoggedIn"> 
+ <v-container id="Search">
+    <v-layout v-if="isUserLoggedIn">
         <v-flex md6>
             <v-text-field v-model="username" v-on:keyup.enter="submit" label=" exampleUser.eth" ></v-text-field>
             <v-list>
@@ -17,9 +17,9 @@
             </v-list-tile>
           </v-list>
         </v-flex>
-  
-            
-        
+
+
+
     <!--<router-view></router-view>-->
     </v-layout>
  </v-container>
@@ -28,7 +28,7 @@
 <script>
 import {mapState} from 'vuex'
 import AuthService from "@/services/web3";
-import Api from '../services/Api'; 
+import Api from '../services/Api';
 
 export default {
   name: 'Search',
@@ -43,7 +43,7 @@ export default {
   beforeCreate: function() {
     AuthService.init();
   },
-  computed: { 
+  computed: {
     ...mapState([
       'isUserLoggedIn',
       'user'
@@ -52,11 +52,11 @@ export default {
   methods: { 
       async submit(){
          console.log(this.username);
-         this.url =  await AuthService.searchUser(this.username); 
+         this.url =  await AuthService.searchUser(this.username);
          console.log(this.url);
          this.url == '' ? this.userExists= false : this.userExists = true
          this.$store.dispatch("setURL", this.url);
-         
+
       },
       async search(){
         console.log(this.username);
@@ -73,10 +73,10 @@ export default {
           //     path: `/profile/${this.username}`
           //   });
           // })
-          //TODO: open up profile 
+          //TODO: open up profile
           console.log('choosed');
       }
-   
+
   }
 }
 </script>
@@ -84,4 +84,3 @@ export default {
 <style>
 
 </style>
- 

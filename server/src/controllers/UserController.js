@@ -33,7 +33,10 @@ exports.addContact = (req, res) => {
                 console.log(req.body)
                 let contact = new Contact({userID:req.body.userID, name:req.body.name, storageAddress:req.body.storageAddress})
                 contact.save((err, contact) => { 
-                    console.log(contact)
+                    if(err){
+                        console.log(err); 
+                    }
+                    console.log('Created Contact',contact)
                 })
                 user.contacts.push(req.params.newContact)
                 user.save(((err, user) => {

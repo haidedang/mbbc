@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar fixed class="green darken-1 d-flex pb-1" dark>
+    <v-toolbar fixed class="green darken-1 d-flex pb-1 header" dark>
         <v-toolbar-title class="mr-4">
             <router-link
             class="home"
@@ -32,6 +32,18 @@
               name: 'search'
             }">
             <font-awesome-icon icon="search"></font-awesome-icon>
+          </v-btn>
+        </v-toolbar-items>
+
+        <v-toolbar-items>
+          <v-btn
+            v-if="$store.state.isUserLoggedIn"
+            flat
+            dark
+            @click="showFriendRequest"
+           >
+            <font-awesome-icon icon="user-friends"></font-awesome-icon>
+
           </v-btn>
         </v-toolbar-items>
 
@@ -89,34 +101,52 @@
         </v-btn>
       </v-bottom-nav>
     </v-toolbar>
+
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { bus } from "../main"; // import the bus from main.js or new file
 import AuthenticationService from "@/services/AuthenticationService";
 import AuthService from "@/services/web3";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUser, faSearch, faComments, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faSearch,
+  faComments,
+  faSignOutAlt,
+  faUserFriends
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faUser, faSearch, faComments, faSignOutAlt);
+library.add(faUser, faSearch, faComments, faSignOutAlt, faUserFriends);
 
 export default {
   beforeCreate: async function() {
     await AuthService.init();
+  },
+  computed: {
+    ...mapState([
+      "friend"
+    ])
   },
   methods: {
     openMyDialog() {
       bus.$emit("dialog", true); // emit the event to the bus
     },
     logout() {
+      // Clear State and set back to initial State
       this.$store.dispatch("setToken", null);
       this.$store.dispatch("setUser", null);
       this.$store.dispatch("clearMessages", []);
       this.$store.dispatch("clearContacts", []);
+      this.$store.dispatch('resetState');
       this.$router.push({
         name: "songs"
       });
       this.$store.dispatch("clearConversation", null);
+    },
+    showFriendRequest(){
+      this.$store.dispatch("clicked" , this.friend);
     },
     async login() {
       let userID = await AuthService.getNameForReverseAddress();
@@ -158,4 +188,5 @@ export default {
 .home:hover {
   color: #e9e;
 }
+
 </style>

@@ -93,6 +93,14 @@ export const clearContacts = ({commit}, contact) => {
   commit('clearContacts', contact)
 }
 
+export const resetState = ({commit}) => {
+  commit('clearState');
+}
+
+export const clicked = ({commit}, friend) => { 
+  commit('showFriends', friend);
+}
+
 /**
  *
  * @param {*} param0

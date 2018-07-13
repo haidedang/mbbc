@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import CircularJSON from 'circular-json';
 /* import { setCurrentConversation, clearContacts } from './actions'; */
 
 
@@ -31,6 +32,9 @@ export default {
       state.messages.push(message)
     })
 
+  },
+  showFriends(state, response) { 
+    state.friend = !response;
   },
   clearConversation(state, response) {
     state.conversation = response
@@ -70,6 +74,23 @@ export default {
   },
   clearContacts(state, response) {
     state.endpoints = response;
+  },
+  clearState(state) { 
+    state = {
+      token: null,
+      user: null,
+      profile: null,
+      isUserLoggedIn: false,
+      url: null,
+      conversation: null,
+      friendRequests: [],
+      messages: [] ,
+      blog: [],
+      contacts : [],
+      endpoints:[],
+      currentEndpoint: null,
+      friend: false
+    }
   }
 }
 

@@ -12,7 +12,7 @@ const plugins =  [
   createPersistedState()
 ]
 
-const state =  {
+const initialState = {
   token: null,
   user: null,
   profile: null,
@@ -24,8 +24,11 @@ const state =  {
   blog: [],
   contacts : [],
   endpoints:[],
-  currentEndpoint: null
+  currentEndpoint: null,
+  friend: false
 }
+
+const state =  initialState;
 
 export default new Vuex.Store({
     state,

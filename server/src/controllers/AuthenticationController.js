@@ -238,8 +238,11 @@ module.exports = {
             /* res.send(newConversation); */
           });
           // add User to Contact List
-          UserController.addContact(req, res);
+          await UserController.addContact(req, res);
           // acceptance message to Client
+
+         
+
         }
       } else {
         console.log("fail");

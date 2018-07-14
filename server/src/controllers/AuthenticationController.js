@@ -217,14 +217,15 @@ module.exports = {
         // Authenticated
         console.log("Req body", req.body);
         if (req.body.accept == "true") {
-            let friendRequest = await FriendRequest.find({conversationID: req.body.conversationID}); 
+            /* let friendRequest = await FriendRequest.find({conversationID: req.body.conversationID}); 
             friendRequest.accept = true; 
             friendRequest.save().then((friend) => { 
               console.log(friend);
-            })
+            }) */
           /*  let conversation =  await Conversation.findOne({_id:req.body.conversationID})
                   if(!conversation) { } */
           // TODO:
+          console.log('request parameter:' , req.params)
           const conversation = new Conversation({
             _id: req.body.conversationID,
             participants: [req.params.currentUser, req.params.newContact]

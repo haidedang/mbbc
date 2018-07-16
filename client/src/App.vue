@@ -55,6 +55,11 @@ export default {
       console.log("FriendRequest sendet!:", data);
       store.dispatch("receiveFriendRequest", data);
     });
+
+    socket.on('blogEntry', data => {
+      console.log('new Blog entry received')
+      console.log('unread BlogEntries:' , data)
+    })
   },
   destroyed() {
     console.log("destroy App socket");

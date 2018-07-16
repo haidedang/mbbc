@@ -30,11 +30,17 @@
 <script>
 import { mapState } from "vuex";
 import { mapActions } from "vuex";
+import $ from "jquery";
 
 export default {
   created() {
-    console.log(this.user.contacts)
-    this.setCurrentConversation(this.user.contacts[0]);
+    console.log(this.user.contacts);
+   this.$store.dispatch('setContacts', { 
+      url: this.user.storageAddress,
+      userID: this.user.userID
+    });
+    /* this.setCurrentConversation(this.user.contacts[0]); */
+
     /*  console.log(JSON.parse(localStorage.getItem("vuex")));
     console.log(this.user);
     console.log(this.conversation) */
@@ -56,34 +62,40 @@ export default {
   },
   methods: {
     setCurrentConversation(contact) {
-      let Contact = this.contacts.filter(item => item.name == contact)[0];
-      console.log(Contact);
+       let Contact = this.contacts.filter(item => item.name == contact)[0];
+      console.log('CURRENT CONTACT', Contact);
       let Endpoint = this.endpoints.filter(
         endpoint => endpoint.endpoint == Contact.storageAddress
       )[0];
-      console.log(Endpoint);
+      console.log('CURRENT ENDPOINT', Endpoint);
+
       // CHeck if the token for that Endpoint exists if not, ask for that token first
 
-      this.$store
-        .dispatch("setCurrentConversation", {
-          url: this.user.storageAddress,
-          id: this.user.userID,
-          recipient: contact
-        })
-        .then(conversation => {
-          console.log("conversationID from Server", conversation[0]._id);
-          this.$store.dispatch("setCurrentMessages", {
-            url: this.user.storageAddress,
-            id: conversation[0]._id
-          });
-        })
-        .then(() => {
-          if (!Endpoint.authenticated) {
-        this.$store.dispatch("setChatToken", Contact);
-      }
-        });
+
+          console.log("CURRENT ENDPOINT", Endpoint);
+
+          this.$store
+            .dispatch("setCurrentConversation", {
+              url: this.user.storageAddress,
+              id: this.user.userID,
+              recipient: contact
+            })
+            .then(conversation => {
+              console.log("conversationID from Server", conversation[0]._id);
+              this.$store.dispatch("setCurrentMessages", {
+                url: this.user.storageAddress,
+                id: conversation[0]._id
+              });
+            })
+            .then(() => {
+              if (!Endpoint.authenticated) {
+                this.$store.dispatch("setChatToken", Contact);
+              }
+            });
+        }
+
     }
-  }
+
 };
 </script>
 

@@ -108,7 +108,7 @@ exports.sendBlog = function (req, res, next) {
 exports.sendNotification = function (req, res, next) {
 
   //Incrementing server counter
-//  counter++;
+  counter++;
   console.log(counter);
 
   //Sending Notification to Client

@@ -35,7 +35,7 @@ let socket = null;
 export default {
   computed: {
     ...mapState(["user"])
-  },
+  }/*,
   created() {
     console.log("Contacts: " + this.user.contacts);
     let userName = this.user.userID;
@@ -48,7 +48,7 @@ export default {
     socket.on("online", function(data) {
       console.log("received");
     });
-  }
+  }*/
 };
 </script>
 

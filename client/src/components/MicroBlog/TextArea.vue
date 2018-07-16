@@ -59,6 +59,10 @@ export default {
         console.log(data);
         });
     },
+    destroyed() {
+        console.log("destroy Conversation socket");
+        socket.close();
+    },
     methods: {
         setCurrentConversation(contact) {
             let Contact = this.contacts.filter(item => item.name == contact)[0];
@@ -95,7 +99,7 @@ export default {
             //this.sendBlog(this.input)
             //this.input=''
             console.log(this.contacts);
-            console.log(this.user);
+            console.log(this.$store.user);
             console.log(this.input);
             
             //Sending new blog entry to server for storing
@@ -108,10 +112,10 @@ export default {
                 let url = await AuthService.searchUser(contact.userID);
 
                 //let url = await AuthService.searchUser(this.recipient);
-                console.log("Sending message to the server: " + url + " of user: " + contact.userID);
+                console.log("Sending message to the server: " + url + " of user: " + contact.name);
                 //Sending request to server of contact
                 $.post(
-                    url + "/blogs/" + contact.userID,
+                    url + "/api/blogs/" + contact.name,
                     {
                         userID: this.user
                     },

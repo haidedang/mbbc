@@ -95,13 +95,13 @@ export default {
         async postBlog(event) {
             //event.preventDefault();
             console.log("You Pressed Enter")
-            
+
             //this.sendBlog(this.input)
             //this.input=''
             console.log(this.contacts);
             console.log(this.$store.user);
             console.log(this.input);
-            
+
             //Sending new blog entry to server for storing
             socket.emit("blog", {
                 userID: this.user,
@@ -109,13 +109,14 @@ export default {
             });
 
             this.contacts.forEach(async (contact) => {
-                let url = await AuthService.searchUser(contact.userID);
+                console.log(contact)
+                /* let url = await AuthService.searchUser(contact.userID); */
 
                 //let url = await AuthService.searchUser(this.recipient);
-                console.log("Sending message to the server: " + url + " of user: " + contact.name);
+                console.log("Sending message to the server: " + contact.storageAddress + " of user: " + contact.name);
                 //Sending request to server of contact
                 $.post(
-                    url + "/api/blogs/" + contact.name,
+                    contact.storageAddress + "/api/blogs/" + contact.name,
                     {
                         userID: this.user
                     },
@@ -123,7 +124,7 @@ export default {
                     console.log(response);
                 })
             });
-            
+
             //Sending post request to servers from contactlist
 
         //Sending blog notification to recipient server

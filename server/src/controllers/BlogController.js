@@ -1,8 +1,8 @@
 const Blog = require('../models/Blog');
 
 const server = require('../server');
-
-var counter = 0;
+const Notification = require('../models/Notification');
+/* var counter = 0; */
 
 
 
@@ -105,20 +105,42 @@ exports.sendBlog = function (req, res, next) {
 //OR
 //UserID can be stored in req.body.content: "You have a new blog"
 //Need also: BlogID
-exports.sendNotification = function (req, res, next) {
+exports.sendNotification = async function (req, res, next) {
 
   //Incrementing server counter
-  counter++;
-  console.log(counter);
+  /* counter++;
+  console.log('Counter', counter); */
+
+  let counter; 
+
+  let notification = await Notification.findOne({userID:req.params.recipient })
+
+  if(!notification){ 
+    const noti = await new Notification({userID:req.params.recipient, counter: 1}); 
+    noti.save().then(result =>console.log(result))
+    counter = noti.counter; 
+  } else { 
+    notification.counter = notification.counter +1;
+    console.log('HERE',notification.counter);
+    await Notification.findOneAndUpdate({userID: req.params.recipient}, {counter:notification.counter }, (err, data)=> { 
+      if (err) { 
+        console.log(err); 
+      }
+      console.log('RESULT',data);
+      counter = notification.counter; 
+      console.log('after', counter)
+    })
+  }
 
   //Sending Notification to Client
   for (var key in server.io.sockets.sockets) {
       console.log(key)
-      console.log(server.io.sockets.sockets[key].username)
+      console.log('USERNAME', server.io.sockets.sockets[key].username)
       if (server.io.sockets.sockets[key].username == undefined)
           return
       if (server.io.sockets.sockets[key].username.username == req.params.recipient){
-          server.io.to(key).emit('reply', req.body.userId);
+          console.log('FUCK THIS',counter);
+         server.io.to(key).emit('blogEntry', counter);
       }
           
   }

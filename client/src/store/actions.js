@@ -124,9 +124,14 @@ export const setChatToken =  ({ commit }, contact) => {
         console.log(response)
       })
   })
+
   // TOKEN RECEIVED, TO DO: Set the Chat TOken and authentication Flag
   //  FOR Users of your OWN server no need for that Shit build that logic !
 
   /* commit('setChatToken', contact) */
 }
 // store.dispatch('addContact')
+
+export const setBlogNotifications = ({commit}, data) => { 
+  commit('setBlogNotifications', data);
+}

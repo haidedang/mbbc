@@ -101,6 +101,9 @@ export default {
       state[key] = initialState[key];
     })
     console.log(state);
+  },
+  setBlogNotifications(state, response){ 
+    state.blogNotification = response;
   }
 }
 

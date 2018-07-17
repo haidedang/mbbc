@@ -25,7 +25,8 @@ const initialState = {
   contacts : [],
   endpoints:[],
   currentEndpoint: null,
-  friend: false
+  friend: false,
+  blogNotification: null
 }
 
 const state =  initialState;

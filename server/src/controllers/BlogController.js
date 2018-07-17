@@ -153,7 +153,6 @@ exports.sendNotification = async function (req, res, next) {
             console.log('counter',counter);
            server.io.to(key).emit('blogEntry', {userID:notification.userID, counter:notification.counter, content:req.body.content, createdAt:new Date() });
         }
-            
     }
     })
      //Sending Notification to Client
@@ -163,6 +162,12 @@ exports.sendNotification = async function (req, res, next) {
 
 //Set the counter to 0 when the Client fetches the blogs
 exports.resetCounter = function (req, res, next) {
-  console.log(counter);
-  counter = 0;
+  console.log(req.params.userID)
+  Notification.findOneAndUpdate({userID: req.params.userID}, {counter:0 }, (err, data)=> { 
+    if (err) { 
+      console.log(err); 
+    } 
+    res.json(data); 
+  })
+ 
 }

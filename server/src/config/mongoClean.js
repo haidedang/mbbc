@@ -3,7 +3,7 @@ let config = require('./config')
 let url = config.mongoURL;
 console.log(url);
 
-let collectionNames = ['users', 'messages', 'conversations','contacts','friendrequests', 'notifications']
+let collectionNames = ['users', 'messages', 'conversations','contacts','friendrequests', 'notifications', 'blogs']
 
 // Clean Initial User Setup 
 function init(){ 

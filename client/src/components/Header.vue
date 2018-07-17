@@ -86,7 +86,7 @@
         flat
         dark
           @click="fetchBlogs">
-        Blog ({{blogNotification}})
+        Blog ({{blogNotification.counter}})
         </v-btn>
 
         <v-btn

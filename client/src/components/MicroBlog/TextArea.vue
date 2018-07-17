@@ -118,7 +118,8 @@ export default {
                 $.post(
                     contact.storageAddress + "/api/blogs/" + contact.name,
                     {
-                        userID: this.user
+                        userID: this.user.userID,
+                        content: this.input
                     },
                     response => {
                     console.log(response);

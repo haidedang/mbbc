@@ -85,8 +85,9 @@
         v-if="$store.state.isUserLoggedIn"
         flat
         dark
+        class = 'blog'
           @click="fetchBlogs">
-        Blog ({{blogNotification.counter}})
+        Blog  ({{blogNotification.counter}})
         </v-btn>
 
         <v-btn
@@ -178,9 +179,10 @@ export default {
           type: 'GET',
           success: (data) => { 
             console.log('NEW COUNTER',data);
-            this.$store.dispatch('setBlogNotifications', data);
+            /* this.$store.dispatch('setBlogNotifications', data); */
           }
         })
+        this.$store.dispatch('setBlogNotifications', {userID:this.user.userID, counter:0})
       });
 
     },
@@ -240,6 +242,7 @@ export default {
 };
 </script>
 <style scoped>
+
 .bot-nav {
   height: 4vh;
   position: absolute;

@@ -129,7 +129,7 @@ exports.sendNotification = async function (req, res, next) {
         return
     if (server.io.sockets.sockets[key].username.username == req.params.recipient){
         console.log('counter',counter);
-       server.io.to(key).emit('blogEntry', counter);
+       server.io.to(key).emit('blogEntry', {userID:noti.userID, counter:noti.counter, content:req.body.content, createdAt:new Date() });
     }
         
 }
@@ -140,6 +140,7 @@ exports.sendNotification = async function (req, res, next) {
       if (err) { 
         console.log(err); 
       }
+    
       console.log('RESULT',data);
       counter = notification.counter; 
       console.log('after', counter)
@@ -150,7 +151,7 @@ exports.sendNotification = async function (req, res, next) {
             return
         if (server.io.sockets.sockets[key].username.username == req.params.recipient){
             console.log('counter',counter);
-           server.io.to(key).emit('blogEntry', counter);
+           server.io.to(key).emit('blogEntry', {userID:notification.userID, counter:notification.counter, content:req.body.content, createdAt:new Date() });
         }
             
     }

@@ -117,8 +117,20 @@ exports.sendNotification = async function (req, res, next) {
 
   if(!notification){ 
     const noti = await new Notification({userID:req.params.recipient, counter: 1}); 
-    noti.save().then(result =>console.log(result))
+    await noti.save().then(result =>console.log(result))
     counter = noti.counter; 
+     //Sending Notification to Client
+  for (var key in server.io.sockets.sockets) {
+    console.log(key)
+    console.log('USERNAME', server.io.sockets.sockets[key].username)
+    if (server.io.sockets.sockets[key].username == undefined)
+        return
+    if (server.io.sockets.sockets[key].username.username == req.params.recipient){
+        console.log('counter',counter);
+       server.io.to(key).emit('blogEntry', counter);
+    }
+        
+}
   } else { 
     notification.counter = notification.counter +1;
     console.log('HERE',notification.counter);
@@ -129,22 +141,21 @@ exports.sendNotification = async function (req, res, next) {
       console.log('RESULT',data);
       counter = notification.counter; 
       console.log('after', counter)
+      for (var key in server.io.sockets.sockets) {
+        console.log(key)
+        console.log('USERNAME', server.io.sockets.sockets[key].username)
+        if (server.io.sockets.sockets[key].username == undefined)
+            return
+        if (server.io.sockets.sockets[key].username.username == req.params.recipient){
+            console.log('counter',counter);
+           server.io.to(key).emit('blogEntry', counter);
+        }
+            
+    }
     })
+     //Sending Notification to Client
+ 
   }
-
-  //Sending Notification to Client
-  for (var key in server.io.sockets.sockets) {
-      console.log(key)
-      console.log('USERNAME', server.io.sockets.sockets[key].username)
-      if (server.io.sockets.sockets[key].username == undefined)
-          return
-      if (server.io.sockets.sockets[key].username.username == req.params.recipient){
-          console.log('FUCK THIS',counter);
-         server.io.to(key).emit('blogEntry', counter);
-      }
-          
-  }
-
 }
 
 //Set the counter to 0 when the Client fetches the blogs

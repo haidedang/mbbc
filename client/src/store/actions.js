@@ -10,10 +10,10 @@ export const getProfile = ({ commit }, contact) => {
 }
 
 export const getBlogs = ({ commit }, contact) => {
-  UserService.getBlogsFromUser(contact.url)
+  UserService.getBlogsFromUser(contact.storageAddress, contact.name)
     .then((result) => {
       console.log(result);
-      commit('setBlogs', result.data.blogs)
+      commit('appendBlogEntries', result.data)
     })
 }
 
@@ -134,4 +134,8 @@ export const setChatToken =  ({ commit }, contact) => {
 
 export const setBlogNotifications = ({commit}, data) => { 
   commit('setBlogNotifications', data);
+}
+
+export const setBlogs = ({commit}, data) => { 
+  commit('appendBlogEntries', data);
 }

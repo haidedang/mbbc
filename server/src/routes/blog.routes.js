@@ -28,6 +28,9 @@ router.route('/blog')
 router.route('/blogs/:id')
   .delete(BlogController.deleteBlog)
 
+router.route('/blogs/:userID/reset')
+  .get(BlogController.resetCounter)
+
 
 module.exports = router; 
 

@@ -33,7 +33,9 @@ exports.getBlogs= (req, res) =>{
    * @param res
    */
   exports.getBlogByUser= (req, res) =>{
-    Blog.findOne({ userId: req.params.userId })
+    Blog.find({ userID: req.params.userId })
+      .sort('timestamps')
+      .limit(10)
       .exec((err, Blog) => {
         if (err) {
           res.status(500)

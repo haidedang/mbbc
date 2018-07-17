@@ -104,7 +104,7 @@ export default {
 
             //Sending new blog entry to server for storing
             socket.emit("blog", {
-                userID: this.user,
+                userID: this.user.userID,
                 content: this.input
             });
 

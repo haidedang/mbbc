@@ -35,9 +35,9 @@ module.exports = (io) => {
         socket.on('blog', function (data) {
             
             // store Blog in the DB
-            console.log(data)
+            console.log('RECEIVING BLOG ENTRY',data)
             const blog = new Blog({
-                userID: data.user, 
+                userID: data.userID, 
                 content: data.content
             })
             blog.save((err, result) => { 

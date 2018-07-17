@@ -132,14 +132,17 @@ export default {
     ...mapState(["user", "friend", "blogNotification", "contacts"])
   },
   methods: {
-    fetchBlogs() {
+    async fetchBlogs() {
+      let temp = [];
+      let requests = this.contacts.length;
       console.log("come on");
 
       this.$router.push({
         name: "blogging"
       });
-      this.contacts.forEach(async contact => {
-        console.log(contact);
+
+       await this.contacts.forEach(async contact => {
+        console.log('SHIT',contact);
         /* let url = await AuthService.searchUser(contact.userID); */
 
         //let url = await AuthService.searchUser(this.recipient);
@@ -149,18 +152,37 @@ export default {
             " of user: " +
             contact.name
         );
-        this.$store.dispatch('getBlogs', contact);
+        /* await this.$store.dispatch('getBlogs', contact); */
 
         //Sending request to server of contact
-        /* $.ajax({
+          $.ajax({
           url: contact.storageAddress + "/api/blogs/" + contact.name,
           type: "GET",
-          success: data => {
-            console.log(data);
-            store.dispatch('setBlogs', data);
+          success: (data) => {
+              requests--;
+              console.log('server data', data)
+              data.Blog.forEach(entry => { 
+                temp.push(entry)
+              })
+
+            console.log('AJAX DATA', data);
+            if (requests == 0)  {
+              this.$store.dispatch('setBlogs',temp)
+              console.log(temp)
+            }
           }
-        }); */
+        });
+
+        $.ajax({
+          url: this.user.storageAddress+`/api/blogs/${this.user.userID}/reset`,
+          type: 'GET',
+          success: (data) => { 
+            console.log('NEW COUNTER',data);
+            this.$store.dispatch('setBlogNotifications', data);
+          }
+        })
       });
+
     },
     openMyDialog() {
       bus.$emit("dialog", true); // emit the event to the bus

@@ -126,6 +126,8 @@ export default {
                 })
             });
 
+            this.input=''
+
             //Sending post request to servers from contactlist
 
         //Sending blog notification to recipient server

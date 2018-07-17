@@ -1,7 +1,7 @@
 <template>
 <div>
-    <v-layout>
-        <ul>
+    <v-layout >
+        <ul >
           <li v-for='item in this.blog' :key="item._id" >
             <v-flex>
               <v-card>
@@ -52,9 +52,10 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang = 'less' scope>
 ul {
   list-style-type: none;
+  width: 100%;
 }
 
 p{
@@ -64,4 +65,5 @@ p{
   font-size: small;
   color: darkgrey;
 }
+
 </style>

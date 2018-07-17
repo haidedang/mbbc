@@ -88,8 +88,9 @@
         :to="{
           name: 'blogging'
           }">
-        Blog
+        Blog ({{blogNotification}})
         </v-btn>
+
         <v-btn
           v-if="$store.state.isUserLoggedIn"
           flat
@@ -122,11 +123,16 @@ import {
 library.add(faUser, faSearch, faComments, faSignOutAlt, faUserFriends);
 
 export default {
+  data() {
+    return {
+
+    }
+  },
   beforeCreate: async function() {
     await AuthService.init();
   },
   computed: {
-    ...mapState(["user", "friend"])
+    ...mapState(["user", "friend", "blogNotification"])
   },
   methods: {
     openMyDialog() {

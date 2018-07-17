@@ -58,7 +58,8 @@ export default {
 
     socket.on('blogEntry', data => {
       console.log('new Blog entry received')
-      console.log('unread BlogEntries:' , data)
+      console.log('unread BlogEntries:' , data);
+      store.dispatch('setBlogNotifications', data);
     })
   },
   destroyed() {

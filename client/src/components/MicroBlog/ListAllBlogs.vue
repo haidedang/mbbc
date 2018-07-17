@@ -2,14 +2,14 @@
 <div>
     <v-layout>
         <ul>
-          <li>
+          <li v-for='item in this.blog' :key="item._id" >
             <v-flex>
               <v-card>
                 <v-card-title>
-                  <h5 class="mb-0">Ferhat.eth</h5>
+                  <h5 class="mb-0">{{item.userID}}</h5>
                   <div class="mt-0">
-                    <p class="timestamp">December 12. 2017</p>
-                    <p class="mt-2"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. </p>
+                    <p class="timestamp">{{item.createdAt}}</p>
+                    <p class="mt-2">{{item.content}} </p>
                   </div>
                 </v-card-title>
               </v-card>
@@ -34,7 +34,7 @@ let socket = null;
 
 export default {
   computed: {
-    ...mapState(["user"])
+    ...mapState(["user", 'blog'])
   }/*,
   created() {
     console.log("Contacts: " + this.user.contacts);

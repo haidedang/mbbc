@@ -21,7 +21,7 @@ exports.getBlogs= (req, res) =>{
           res.status(500)
             .send(err)
         }
-        res.json({ Blogs: Blogs })
+        res.json({ Blog: Blogs })
       })
   }
   

@@ -117,6 +117,7 @@ import {
   faSignOutAlt,
   faUserFriends
 } from "@fortawesome/free-solid-svg-icons";
+import store from "@/store/store";
 
 library.add(faUser, faSearch, faComments, faSignOutAlt, faUserFriends);
 
@@ -133,6 +134,7 @@ export default {
   methods: {
     fetchBlogs() {
       console.log("come on");
+
       this.$router.push({
         name: "blogging"
       });
@@ -147,14 +149,17 @@ export default {
             " of user: " +
             contact.name
         );
+        this.$store.dispatch('getBlogs', contact);
+
         //Sending request to server of contact
-        $.ajax({
+        /* $.ajax({
           url: contact.storageAddress + "/api/blogs/" + contact.name,
           type: "GET",
           success: data => {
             console.log(data);
+            store.dispatch('setBlogs', data);
           }
-        });
+        }); */
       });
     },
     openMyDialog() {

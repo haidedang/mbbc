@@ -110,15 +110,15 @@ export default {
     state.blogNotification = response;
   },
   appendBlogEntries(state, response) {
-    let longArray = [];
+    /* let longArray = [];
     let shortArray = [];
 
-    if (response.Blog >= state.blog) {
-      longArray = JSON.parse(JSON.stringify(response.Blog));
+    if (response.length >= state.blog.length) {
+      longArray = JSON.parse(JSON.stringify(response));
       shortArray = JSON.parse(JSON.stringify(state.blog));
     } else {
       longArray = JSON.parse(JSON.stringify(state.blog));
-      shortArray = JSON.parse(JSON.stringify(response.Blog));
+      shortArray = JSON.parse(JSON.stringify(response));
     }
 
     for (var i = 0; i < longArray.length; i++) {
@@ -129,7 +129,10 @@ export default {
         }
       }
     }
+    console.log('LongArray',longArray);
     Array.prototype.push.apply(state.blog, longArray);
-    console.log(state.blog);
+    console.log(state.blog); */
+
+    state.blog = response;
   }
 };

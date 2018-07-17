@@ -85,9 +85,7 @@
         v-if="$store.state.isUserLoggedIn"
         flat
         dark
-        :to="{
-          name: 'blogging'
-          }">
+          @click="fetchBlogs">
         Blog ({{blogNotification}})
         </v-btn>
 
@@ -124,17 +122,41 @@ library.add(faUser, faSearch, faComments, faSignOutAlt, faUserFriends);
 
 export default {
   data() {
-    return {
-
-    }
+    return {};
   },
   beforeCreate: async function() {
     await AuthService.init();
   },
   computed: {
-    ...mapState(["user", "friend", "blogNotification"])
+    ...mapState(["user", "friend", "blogNotification", "contacts"])
   },
   methods: {
+    fetchBlogs() {
+      console.log("come on");
+      this.$router.push({
+        name: "blogging"
+      });
+      this.contacts.forEach(async contact => {
+        console.log(contact);
+        /* let url = await AuthService.searchUser(contact.userID); */
+
+        //let url = await AuthService.searchUser(this.recipient);
+        console.log(
+          "Fetching Blogs from the server: " +
+            contact.storageAddress +
+            " of user: " +
+            contact.name
+        );
+        //Sending request to server of contact
+        $.ajax({
+          url: contact.storageAddress + "/api/blogs/" + contact.name,
+          type: "GET",
+          success: data => {
+            console.log(data);
+          }
+        });
+      });
+    },
     openMyDialog() {
       bus.$emit("dialog", true); // emit the event to the bus
     },
@@ -180,7 +202,7 @@ export default {
         type: "GET",
         success: data => {
           console.log("GOT IT ", data);
-          that.$store.dispatch('setFriends', data);
+          that.$store.dispatch("setFriends", data);
         }
       });
       this.$router.push({
